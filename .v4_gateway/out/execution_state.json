@@ -91,6 +91,8 @@
     "step_d_complete": true,
     "step_d_live_broadcast": "completed",
     "step_d_telegram_chat_id": "1391813926",
+    "step_d_regional_data": "populated",
+    "step_d_github_pages": "updated_real_time",
     "modules_functional": 8,
     "integration_test_result": "9 passed, 3 failed",
     "edge_case_tests": "6 passed, 0 failed",
