@@ -1,8 +1,49 @@
 /* docs/app.js - Imperia v4 GitHub Pages Dashboard (Step E) */
 /* Step E: Dashboard Widgets & Real Telemetry Render Engine */
 
+const DEFAULT_TELEMETRY = {
+  system_status: "PERFORMANCE",
+  ramUtilization_percent: 42,
+  coherence_factor: 0.94,
+  active_nodes_count: 12,
+  environment_vectors: {
+    spatial_coherence: 0.94,
+    resonance_factor: 0.88
+  },
+  regions: [
+    {region_id: 101, code: "KYIV", name: "Київський регіон", status: "good", social_tension: "low"},
+    {region_id: 102, code: "LVIV", name: "Львівський регіон", status: "good", social_tension: "low"},
+    {region_id: 103, code: "ODESA", name: "Одеський регіон", status: "partial", social_tension: "medium"},
+    {region_id: 104, code: "KHARKIV", name: "Харківський регіон", status: "partial", social_tension: "medium"},
+    {region_id: 105, code: "DNIPRO", name: "Дніпровський регіон", status: "good", social_tension: "low"}
+  ],
+  active_signals_feed: [
+    {
+      signal_id: "SIG_20261026_001",
+      region_id: 101,
+      territory_id: "TERR_UA_KYIV_CENTRAL",
+      raw_text: "Live geopolitical OSINT signal detected for Kyiv Central territory.",
+      timestamp: "2026-10-26T22:18:07Z"
+    },
+    {
+      signal_id: "SIG_20261026_002",
+      region_id: 103,
+      territory_id: "TERR_UA_ODESA_PORT",
+      raw_text: "Maritime activity OSINT signal for Odesa port territory.",
+      timestamp: "2026-10-26T22:15:33Z"
+    },
+    {
+      signal_id: "SIG_20261026_003",
+      region_id: 104,
+      territory_id: "TERR_UA_KHARKIV_EAST",
+      raw_text: "Energy grid monitoring signal for Kharkiv east territory.",
+      timestamp: "2026-10-26T22:12:11Z"
+    }
+  ]
+};
+
 document.addEventListener("DOMContentLoaded", () => {
-  const TELEMETRY_FEED_URL = "/telemetry_feed.json";
+  const TELEMETRY_FEED_URL = "./telemetry_feed.json";
 const bTelemetry = {
   system_status: "PERFORMANCE",
   ramUtilization_percent: 42.8,
@@ -36,7 +77,7 @@ function initElements() {
     vectorGrid: document.querySelector(".vector-grid"),
     h3Canvas: document.getElementById("h3-canvas"),
     peerList: document.querySelector(".peer-list"),
-    signalsSection: document.querySelector(".b-section"),
+    signalsSection: document.querySelector(".signal-section"),
     ramPercent: document.getElementById("ram-percent"),
     ramUsage: document.querySelector(".ram-usage")
   };
@@ -121,7 +162,7 @@ async function updateDashboard() {
     else updateMode("performance");
   } catch (error) {
     console.error("Failed to fetch telemetry feed:", error);
-    const effectiveTelemetry = bTelemetry;
+    const effectiveTelemetry = DEFAULT_TELEMETRY;
     renderRamWidget(effectiveTelemetry, true);
     renderEnvVectorsWidget(effectiveTelemetry, true);
     renderRegionalPassportsWidget(effectiveTelemetry, true);

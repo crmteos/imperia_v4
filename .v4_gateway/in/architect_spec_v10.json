@@ -1,0 +1,23 @@
+{
+  "phase": "Step E Hotfix: Dashboard Widgets Rendering & Relative Fetch Fix",
+  "version": "4.0.0-stepE-hotfix",
+  "components": {
+    "relative_fetch_patch": {
+      "file": "docs/app.js",
+      "fix": "Ensure fetch uses relative path './telemetry_feed.json' or 'telemetry_feed.json' instead of absolute '/telemetry_feed.json'"
+    },
+    "fallback_data_engine": {
+      "file": "docs/app.js",
+      "fix": "Embed hardcoded DEFAULT_TELEMETRY object in app.js so widgets render instantly even if fetch fails or returns null"
+    },
+    "dom_widget_binding": {
+      "files": ["docs/index.html", "docs/app.js"],
+      "fix": "Verify element IDs (#ram-utilization, #p2p-topology, #vector-e, #regions-container, #signals-container) match between HTML and JS rendering functions"
+    }
+  },
+  "acceptance_criteria": [
+    "No empty widgets or '--%' indicators on docs/index.html",
+    "Relative fetch works seamlessly on GitHub Pages (https://crmteos.github.io/imperia_v4/)",
+    "4 widgets render with non-zero values, progress bars, regional passport cards, and signal feeds"
+  ]
+}
