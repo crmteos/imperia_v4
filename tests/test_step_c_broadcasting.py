@@ -17,15 +17,15 @@ def regions_data():
 
 
 @pytest.fixture
-def signal_collector(regions_data):
+def signal_collector(regions_data, tmp_path):
     """Create a SignalCollector instance for testing."""
-    return SignalCollector(regions_data)
+    return SignalCollector(regions_data, territories_dir=str(tmp_path / "territories"))
 
 
 @pytest.fixture
 def broadcaster_dry_run():
     """Create a broadcaster in dry-run mode."""
-    return SMMBroadcaster({"dry_run": True}, dry_run=True)
+    return SMMBroadcaster({"dry_run": True})
 
 
 @pytest.fixture
@@ -110,7 +110,7 @@ class TestSignalCollector:
             "signal_type": "geopolitical",
             "region_id": 1,
             "summary": "Test geopolitical signal",
-            "source": "test_source",
+            "source": "test_signal_success_unique",
             "confidence": 0.85,
         }
         result = await signal_collector.ingest_signal(signal)
@@ -122,9 +122,9 @@ class TestSignalCollector:
         """ingest_signal should detect duplicate signals by source."""
         signal = {
             "signal_type": "geopolitical",
-            "region_id": 1,
+            "region_id": 2,  # Use different region_id to avoid file conflict
             "summary": "Test geopolitical signal",
-            "source": "test_source",
+            "source": "test_source_duplicate",
             "confidence": 0.85,
         }
         result1 = await signal_collector.ingest_signal(signal)

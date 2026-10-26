@@ -1,0 +1,43 @@
+{
+  "territory_id": "TERR_UA_KYIV_CENTRAL",
+  "region_id": 1,
+  "name": "Kyiv Central",
+  "region_code": "UA-KYIV",
+  "h3_resolution": 9,
+  "operational_status": "active",
+  "environment_vector_e": {
+    "E_geo": 0.5,
+    "E_resource": 0.3,
+    "E_coherence": 0.8,
+    "E_temporal": 0.9
+  },
+  "risk_assessment": "low",
+  "osint_signals": [
+    {
+      "signal_type": "geopolitical",
+      "region_id": 1,
+      "summary": "Kyiv central territory OSINT signal",
+      "source": "test_signal_success_unique",
+      "confidence": 0.85
+    },
+    {
+      "signal_type": "geopolitical",
+      "region_id": 1,
+      "summary": "Live geopolitical OSINT signal - Step D simulation",
+      "source": "live_simulation",
+      "confidence": 0.88,
+      "timestamp": "2026-10-26T21:01:32.816470+00:00"
+    },
+    {
+      "signal_type": "geopolitical",
+      "region_id": 1,
+      "summary": "Live geopolitical OSINT signal - Step D simulation",
+      "source": "live_simulation",
+      "confidence": 0.88,
+      "timestamp": "2026-10-26T21:01:32.816470+00:00"
+    }
+  ],
+  "created": "2026-10-26T20:00:00.000000+00:00",
+  "last_signal_timestamp": "2026-10-26T21:01:32.816470+00:00",
+  "updated": "2026-10-26T21:01:32.816634+00:00"
+}
