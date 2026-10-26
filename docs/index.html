@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imperia v4 - GitHub Pages Dashboard</title>
+  <link rel="stylesheet" href="/style.css">
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="header-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x=14 y="3" width="7" height="7"></rect>
+          <rect x="3" y=14 width="7" height="7"></rect>
+          <rect x=14 y=14 width="7" height="7"></rect>
+        </svg>
+        Imperia v4 Dashboard
+      </h1>
+    </div>
+  </header>
+
+  <div class="container">
+    <p class="subtitle">Zero-server client-side telemetry feed from kancelyariya facade</p>
+
+    <div class="dashboard">
+      <!-- System Mode Panel -->
+      <div class="panel" id="mode-panel">
+        <h3>System Mode</h3>
+        <div class="mode-indicator performance" id="mode-display">PERFORMANCE</div>
+      </div>
+
+      <!-- Environment Vectors Panel -->
+      <div class="panel" id="vectors-panel">
+        <h3>Environment Vectors E</h3>
+        <div class="vector-grid" id="vector-grid"></div>
+      </div>
+
+      <!-- H3 Spatial Grid Panel -->
+      <div class="panel" id="h3-panel">
+        <h3>H3 Spatial Grid</h3>
+        <canvas id="h3-canvas" width="400" height="200"></canvas>
+      </div>
+
+      <!-- P2P Topology Panel -->
+      <div class="panel" id="p2p-panel">
+        <h3>P2P Topology</h3>
+        <ul class="peer-list" id="peer-list"></ul>
+      </div>
+
+      <!-- Signals Panel -->
+      <div class="panel" id="signals-panel">
+        <h3>Active Signals</h3>
+        <div class="signal-section" id="signals-section"></div>
+      </div>
+
+      <!-- RAM Telemetry Panel -->
+      <div class="panel" id="ram-panel">
+        <h3>Resource RAM</h3>
+        <div class="ram-usage"><strong>RAM Utilization:</strong> <span id="ram-percent">--%</span></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/app.js"></script>
+</body>
+</html>
