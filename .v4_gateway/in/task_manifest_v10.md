@@ -2,23 +2,19 @@
 
 #### Objective
 
-Fix empty widgets on https\://crmteos.github.io/imperia\_v4/ by fixing path resolution in docs/app.js, aligning DOM IDs in docs/index.html, and embedding instant fallback telemetry data.
+Fix the empty widgets issue on the GitHub Pages dashboard (crmteos.github.io/imperia\_v4/) caused by absolute fetch paths (404 Not Found for /telemetry\_feed.json) and missing DOM fallback rendering in docs/app.js.
 
 #### Action Items
 
-* **Fix Fetch Path in**  **docs/app.js** :  
-* Replace absolute /telemetry\_feed.json with relative ./telemetry\_feed.json or telemetry\_feed.json.  
-* Add .catch() handler that falls back to DEFAULT\_TELEMETRY if fetch fails or returns 404\.  
-* **Embed**  **DEFAULT\_TELEMETRY**  **Fallback in**  **docs/app.js** :  
-* Define full telemetry object with non-zero metrics:  
-* RAM: 42%  
-* P2P Topology: 12 nodes active  
-* Vectors E: Spatial Coherence 0.94, Resonance 0.88  
-* Regions: Kyiv (101), Lviv (102), Odesa (103), Kharkiv (104), Dnipro (105)  
-* Signals: 3 active OSINT signals with timestamps  
-* **Verify DOM Element IDs in**  **docs/index.html** :  
-* Ensure containers for system metrics, vector indicators, region grid, and signal ticker match app.js querySelectors.  
-* **Re-generate & Deploy** :  
-* Run python scripts/run\_live\_simulation.py to refresh docs/telemetry\_feed.json.  
-* Commit and push to main: git add . && git commit \-m "imperia\_v4: Hotfix dashboard widgets rendering and relative fetch path" && git push origin main
+* **Fix Path Resolution in**  **docs/app.js** :  
+* Change fetch('/telemetry\_feed.json') to relative path fetch('./telemetry\_feed.json') or fetch('telemetry\_feed.json').  
+* Ensure the fetch works across root and subdirectory deployments on GitHub Pages.  
+* **Add Hardcoded Fallback & DOM Guards** :  
+* Embed DEFAULT\_TELEMETRY in docs/app.js with non-zero values (RAM: 42%, P2P Topology: 12 nodes, Coherence: 0.94, 5 regional passports, active OSINT signals).  
+* In .catch() block, trigger rendering with DEFAULT\_TELEMETRY so widgets never display as empty (--%).  
+* **Align Element IDs** :  
+* Verify that IDs in docs/index.html (ram-usage, vectors-e-spatial, vectors-e-resonance, regional-passports-grid, osint-signals-stream) exactly match the selectors in docs/app.js.  
+* **Re-run Simulation & Push** :  
+* Run python scripts/run\_live\_simulation.py to regenerate telemetry.  
+* Commit and push to GitHub: git add . git commit \-m "imperia\_v4: Hotfix dashboard widgets rendering and relative fetch path" git push origin main
 

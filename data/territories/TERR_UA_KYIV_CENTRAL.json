@@ -75,9 +75,17 @@
       "source": "live_simulation",
       "confidence": 0.88,
       "timestamp": "2026-10-26T23:29:02.745469+00:00"
+    },
+    {
+      "signal_type": "geopolitical",
+      "region_id": 1,
+      "summary": "Live geopolitical OSINT signal - Step D simulation",
+      "source": "live_simulation",
+      "confidence": 0.88,
+      "timestamp": "2026-10-26T23:47:41.070522+00:00"
     }
   ],
   "created": "2026-10-26T20:00:00.000000+00:00",
-  "last_signal_timestamp": "2026-10-26T23:29:02.745469+00:00",
-  "updated": "2026-10-26T23:29:02.745552+00:00"
+  "last_signal_timestamp": "2026-10-26T23:47:41.070522+00:00",
+  "updated": "2026-10-26T23:47:41.070613+00:00"
 }
