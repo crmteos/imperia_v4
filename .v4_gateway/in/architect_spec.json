@@ -1,0 +1,52 @@
+{
+  "version": "4.0.0",
+  "project": "v4_Core_Node",
+  "meta": {
+    "architecture_paradigm": "Stateful Context Engineering & P2P Edge Swarm",
+    "anthropomorphism_level": 0,
+    "source_of_truth": "v2.0 Master Framework"
+  },
+  "modules": {
+    "h3_geospatial": {
+      "description": "Spatial indexing and environment vector E calculation",
+      "resolutions": {
+        "macro": 4,
+        "meso": 7,
+        "micro": 9
+      },
+      "vector_E_schema": {
+        "E_geo": { "type": "string", "description": "H3 index at Res 9" },
+        "E_resource": { "type": "number", "minimum": 0.0, "maximum": 1.0 },
+        "E_coherence": { "type": "number", "description": "Q-factor phase coherence" },
+        "E_temporal": { "type": "integer", "description": "Unix Epoch timestamp" }
+      }
+    },
+    "resource_governor": {
+      "description": "Autonomous resource governor for Edge SLM and P2P duty cycle",
+      "thresholds": {
+        "battery_critical_pct": 15,
+        "battery_low_pct": 30,
+        "thermal_throttle_celsius": 45.0
+      },
+      "operating_modes": {
+        "CRITICAL": "Pause inference, keep lightweight P2P heartbeat only",
+        "BALANCED": "Local SLM execution, selective P2P swarm duty cycle",
+        "PERFORMANCE": "Full P2P swarm inference host and local agent execution"
+      }
+    },
+    "stateful_context_ram": {
+      "description": "Context window structure as Stateful RAM",
+      "max_token_budget": 8192,
+      "memory_layout": {
+        "invariants_block": "Fixed framework rules & schemas (Read-Only)",
+        "state_block": "Active vector E and local node state (Read-Write)",
+        "ephemeral_queue": "Queue of P2P quanta and sensor signals (FIFO)"
+      }
+    },
+    "p2p_transport": {
+      "description": "Transport layer for P2P Edge network",
+      "protocols": ["libp2p", "webrtc"],
+      "dht_topic_pattern": "/v4/h3/{h3_meso_res7}"
+    }
+  }
+}

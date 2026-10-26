@@ -1,0 +1,22 @@
+{
+  "version": "4.1.0",
+  "phase": "Integration & P2P Swarm Inference Protocol",
+  "target_directory": "C:\\imperia_v4",
+  "modules": {
+    "swarm_inference": {
+      "file": "src/swarm_inference.py",
+      "description": "Protocol for quantum inference chunk exchange between Edge Nodes",
+      "components": ["InferenceQuantum", "SwarmCoordinator"],
+      "metrics": ["ProofOfInference", "ProofOfContribution"]
+    },
+    "edge_handoff": {
+      "file": "src/edge_handoff.py",
+      "description": "Seamless context handoff when ResourceGovernor transitions to CRITICAL",
+      "target_h3_resolution": 7
+    },
+    "integration_suite": {
+      "file": "tests/test_integration.py",
+      "description": "E2E simulation of 3 virtual P2P Edge Nodes exchanging contexts"
+    }
+  }
+}
