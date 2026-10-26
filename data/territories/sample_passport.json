@@ -1,0 +1,66 @@
+{
+  "schema_version": "v4.0.0-step_b",
+  "description": "Imperia v4 OSINT Territory Passport - Sample Schema",
+  "created": "2026-10-26T00:00:00Z",
+  "territory_id": 1,
+  "region_id": 1,
+  "territory_code": "RU-77-OSINT-001",
+  "name": "Moscow Metropolitan Area",
+  "h3_resolution": 9,
+  "classification": "OSINT_ACTIVE",
+  "demographics": {
+    "population_total": 24685600,
+    "population_density_km2": 4685,
+    "urban_population_percent": 87.3,
+    "median_age": 40.2,
+    "male_percent": 48.7,
+    "female_percent": 51.3
+  },
+  "infrastructure": {
+    "road_network_km": 12800,
+    "railway_network_km": 3200,
+    "major_ports": 3,
+    "airports_international": 4,
+    "fiber_optic_km": 8500
+  },
+  "resources": {
+    "energy_capacity_mw": 12500,
+    "energy_source_mix": {
+      "natural_gas": 45,
+      "nuclear": 25,
+      "renewables": 30
+    },
+    "water_capacity_m3_daily": 5800000,
+    "waste_treatment_percent": 92.5
+  },
+  "p2p_node_density": {
+    "active_nodes": 1250,
+    "total_nodes_last_90_days": 2850,
+    "density_km2": 0.18,
+    "gateway_types": ["wireless", "fiber", "satellite"]
+  },
+  "environment_vector_e": {
+    "E_geo": {"magnitude": 0.52, "direction": "N"},
+    "E_resource": {"magnitude": 0.38, "direction": "BALANCED"},
+    "E_coherence": {"magnitude": 0.81, "direction": "HIGH"},
+    "E_temporal": {"magnitude": 0.88, "direction": "CURRENT"}
+  },
+  "risk_assessment": {
+    "overall": "low",
+    "factors": ["stable_governor_mode", "adequate_infrastructure", "moderate_peer_density"],
+    "escalation_trend": "stable",
+    "last_updated": "2026-10-26T00:00:00Z"
+  },
+  "osint_metadata": {
+    "source": "Multi-satellite imaging + P2P swarm inference",
+    "collection_window_days": 90,
+    "confidence_score": 0.94,
+    "data_quality": "high",
+    "collection_agency": "imperia_v4_observatory"
+  },
+  "links": {
+    "regional_registry": "/data/regions.json#/regions/1",
+    "central_manifest": "/data/manifest.json",
+    "neighboring_territories": [2, 3, 5]
+  }
+}

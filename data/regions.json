@@ -1,0 +1,93 @@
+{
+  "schema_version": "v4.0.0-step_b",
+  "description": "Imperia v4 Regional Registry - Integer Primary Key Mapping",
+  "created": "2026-10-26T00:00:00Z",
+  "key_space": {
+    "region_id": {
+      "type": "integer",
+      "description": "Integer primary key for regional administrative units",
+      "range": "1..N",
+      "unique": true,
+      "index": true
+    }
+  },
+  "regions": [
+    {
+      "region_id": 1,
+      "region_code": "RU-77",
+      "region_name": "Moscow Oblast",
+      "h3_resolution": 9,
+      "operational_status": "active",
+      "osint_parameters": {
+        "vector_e": [0.5, 0.3, 0.8, 0.9],
+        "resource_utilization": 45.2,
+        "peer_density": 0.72,
+        "risk_assessment": "low"
+      }
+    },
+    {
+      "region_id": 2,
+      "region_code": "US-CA",
+      "region_name": "California",
+      "h3_resolution": 7,
+      "operational_status": "active",
+      "osint_parameters": {
+        "vector_e": [0.7, 0.6, 0.4, 0.8],
+        "resource_utilization": 62.1,
+        "peer_density": 0.88,
+        "risk_assessment": "medium"
+      }
+    },
+    {
+      "region_id": 3,
+      "region_code": "DE-BW",
+      "region_name": "Baden-Wurttemberg",
+      "h3_resolution": 8,
+      "operational_status": "maintenance",
+      "osint_parameters": {
+        "vector_e": [0.3, 0.5, 0.9, 0.6],
+        "resource_utilization": 38.7,
+        "peer_density": 0.45,
+        "risk_assessment": "low"
+      }
+    },
+    {
+      "region_id": 4,
+      "region_code": "JP-TK",
+      "region_name": "Tokyo Metropolitan",
+      "h3_resolution": 10,
+      "operational_status": "active",
+      "osint_parameters": {
+        "vector_e": [0.9, 0.2, 0.7, 0.5],
+        "resource_utilization": 71.3,
+        "peer_density": 0.91,
+        "risk_assessment": "high"
+      }
+    },
+    {
+      "region_id": 5,
+      "region_code": "BR-SP",
+      "region_name": "Sao Paulo",
+      "h3_resolution": 7,
+      "operational_status": "active",
+      "osint_parameters": {
+        "vector_e": [0.5, 0.8, 0.3, 0.7],
+        "resource_utilization": 55.6,
+        "peer_density": 0.63,
+        "risk_assessment": "medium"
+      }
+    }
+  ],
+  "statistics": {
+    "total_regions": 5,
+    "active_regions": 4,
+    "maintenance_regions": 1,
+    "resolution_range": [7, 10],
+    "risk_distribution": {
+      "low": 2,
+      "medium": 2,
+      "high": 1,
+      "critical": 0
+    }
+  }
+}

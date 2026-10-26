@@ -1,0 +1,94 @@
+{
+  "schema_version": "v4.0.0-step_b",
+  "description": "Imperia v4 Central Schema Manifest - Database & OSINT Passports Framework",
+  "created": "2026-10-26T00:00:00Z",
+  "key_space": {
+    "region_id": {
+      "type": "integer",
+      "description": "Integer primary key for regional administrative units",
+      "range": "1..N",
+      "unique": true,
+      "index": true
+    },
+    "region_code": {
+      "type": "string",
+      "description": "ISO-style region code (e.g., RU-77, US-CA)",
+      "max_length": 10,
+      "unique": true
+    },
+    "region_name": {
+      "type": "string",
+      "description": "Human-readable region name",
+      "max_length": 128
+    },
+    "h3_resolution": {
+      "type": "integer",
+      "description": "H3 geospatial resolution index",
+      "range": "0..15",
+      "default": 9
+    },
+    "operational_status": {
+      "type": "string",
+      "enum": ["active", "inactive", "decommissioned", "maintenance"],
+      "description": "Current operational status of the region"
+    },
+    "osint_parameters": {
+      "type": "object",
+      "description": "Nested OSINT parameter key space",
+      "properties": {
+        "vector_e": {
+          "type": "array",
+          "items": {"type": "number"},
+          "description": "4-component environment vector E",
+          "min_items": 4,
+          "max_items": 4
+        },
+        "resource_utilization": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100,
+          "description": "RAM utilization percentage"
+        },
+        "peer_density": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 1,
+          "description": "P2P node density ratio"
+        },
+        "risk_assessment": {
+          "type": "string",
+          "enum": ["low", "medium", "high", "critical"],
+          "description": "Aggregated risk assessment"
+        }
+      }
+    }
+  },
+  "entities": {
+    "regions": {
+      "count": 0,
+      "description": "Number of registered regions (populated by data/regions.json)",
+      "key": "region_id"
+    },
+    "territories": {
+      "count": 0,
+      "description": "Number of territory passports (populated by data/territories/*.json)",
+      "key": "territory_id"
+    },
+    "passports": {
+      "total_records": 0,
+      "description": "Total cross-entity record count"
+    }
+  },
+  "validation_constraints": {
+    "region_id_min": 1,
+    "region_id_max": 65535,
+    "h3_resolution_min": 0,
+    "h3_resolution_max": 15,
+    "require_h3_index": true,
+    "require_operational_status": true
+  },
+  "cross_references": {
+    "region_to_passport": "region_id -> territories.region_id",
+    "passport_vector_e": "osint_parameters.vector_e (4-element array)"
+  }
+}
