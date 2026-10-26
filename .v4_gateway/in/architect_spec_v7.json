@@ -1,0 +1,28 @@
+{
+  "version": "4.0.0-v7",
+  "step": "C_social_media_broadcasting_and_signal_collection",
+  "title": "Social Media Broadcasting & OSINT Signal Collection Pipeline",
+  "description": "Integration of automated social platform agents (Telegram, RSS, Webhooks) for content broadcasting and OSINT signal ingestion into territory passports.",
+  "components": [
+    {
+      "module": "src/smm_broadcaster.py",
+      "type": "Broadcasting Engine",
+      "description": "Asynchronous multi-platform publisher that formats telemetry, alerts, and generated intelligence reports from Kancelyariya Facade into structured social posts (Telegram, Webhooks, Markdown feeds)."
+    },
+    {
+      "module": "src/signal_collector.py",
+      "type": "Ingestion Pipeline",
+      "description": "OSINT signal collector that parses incoming external feeds, sanitizes input, and links verified signals to integer primary key regions in data/regions.json and territory passports."
+    },
+    {
+      "module": "tests/test_step_c_broadcasting.py",
+      "type": "Verification Suite",
+      "description": "Integration tests ensuring end-to-end signal collection, verification against data/manifest.json schema, and dry-run broadcasting."
+    }
+  ],
+  "invariants": [
+    "All broadcast content must strictly derive from validated portal state or territory passports without external hallucination.",
+    "Ingested OSINT signals must match valid region IDs from data/regions.json.",
+    "Broadcasting errors must trigger graceful resource-aware retry without breaking core P2P transport."
+  ]
+}

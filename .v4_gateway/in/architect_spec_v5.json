@@ -1,0 +1,19 @@
+{
+  "phase": "step_a_github_pages_dashboard",
+  "version": "4.1.0",
+  "target_components": [
+    "docs/index.html",
+    "docs/app.js",
+    "docs/style.css",
+    "src/portal_bridge.py"
+  ],
+  "invariants": [
+    "Zero-server dependency: client-side JSON fetching only",
+    "No anthropomorphic clutter: focus on E-vector, H3 spatial clusters, and resource telemetry",
+    "Pure HTML5/CSS3/Vanilla JS with Leaflet.js or Canvas for H3 spatial rendering"
+  ],
+  "requirements": {
+    "dashboard_ui": "Display active P2P nodes, H3 spatial resolution, Resource Governor state, and Kancelyariya Facade status using client-side JSON fetching.",
+    "portal_bridge": "Ensure portal_bridge.py exports UI-ready telemetry to docs/telemetry_feed.json."
+  }
+}

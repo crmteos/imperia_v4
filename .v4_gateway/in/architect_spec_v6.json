@@ -1,0 +1,29 @@
+{
+  "project": "imperia_v4",
+  "phase": "step_b_database_osint_framework",
+  "version": "4.0.0-step_b",
+  "architecture_principles": [
+    "Isolated Configuration Architecture",
+    "Integer Primary Keys for Regional Entities",
+    "Relational OSINT Data Validation",
+    "Zero-Server Static Data Integrity"
+  ],
+  "components": {
+    "manifest_registry": {
+      "path": "data/manifest.json",
+      "description": "Central schema manifest defining system entities, key spaces, and validation constraints"
+    },
+    "regional_registry": {
+      "path": "data/regions.json",
+      "description": "Regional index mapping integer IDs to geographical/administrative units"
+    },
+    "territorial_passports": {
+      "path": "data/territories/",
+      "description": "Structured OSINT intelligence passports for monitored territories and objects"
+    },
+    "schema_validator": {
+      "path": "scripts/validate_data_schema.py",
+      "description": "Python validator ensuring schema compliance across all JSON data files"
+    }
+  }
+}

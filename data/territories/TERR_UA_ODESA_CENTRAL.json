@@ -1,0 +1,29 @@
+{
+  "region_id": "TERR_UA_ODESA_CENTRAL",
+  "name": "Odesa Central",
+  "country": "Ukraine",
+  "classification": "OSINT_ACTIVE",
+  "environment_vectors": {
+    "h3_index": "8",
+    "gps_coordinates": {
+      "lat": 46.4825,
+      "lon": 30.7233
+    },
+    "infrastructure_status": "FAIR",
+    "social_tension_metric": 0.5
+  },
+  "osint_signals": [
+    {
+      "signal_id": "OSINT_ODESA_001",
+      "type": "geopolitical",
+      "description": "Black Sea region maritime security",
+      "timestamp": "2026-10-26T21:45:00Z",
+      "source": "OpenSourceIntelligence"
+    }
+  ],
+  "risk_assessment": {
+    "overall_risk": "MEDIUM",
+    "risk_factors": ["Port operations", "Border proximity"],
+    "protective_factors": ["Tourism revenue", "Agricultural output"]
+  }
+}

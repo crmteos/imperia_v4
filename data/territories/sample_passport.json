@@ -37,17 +37,37 @@
     "active_nodes": 1250,
     "total_nodes_last_90_days": 2850,
     "density_km2": 0.18,
-    "gateway_types": ["wireless", "fiber", "satellite"]
+    "gateway_types": [
+      "wireless",
+      "fiber",
+      "satellite"
+    ]
   },
   "environment_vector_e": {
-    "E_geo": {"magnitude": 0.52, "direction": "N"},
-    "E_resource": {"magnitude": 0.38, "direction": "BALANCED"},
-    "E_coherence": {"magnitude": 0.81, "direction": "HIGH"},
-    "E_temporal": {"magnitude": 0.88, "direction": "CURRENT"}
+    "E_geo": {
+      "magnitude": 0.52,
+      "direction": "N"
+    },
+    "E_resource": {
+      "magnitude": 0.38,
+      "direction": "BALANCED"
+    },
+    "E_coherence": {
+      "magnitude": 0.81,
+      "direction": "HIGH"
+    },
+    "E_temporal": {
+      "magnitude": 0.88,
+      "direction": "CURRENT"
+    }
   },
   "risk_assessment": {
     "overall": "low",
-    "factors": ["stable_governor_mode", "adequate_infrastructure", "moderate_peer_density"],
+    "factors": [
+      "stable_governor_mode",
+      "adequate_infrastructure",
+      "moderate_peer_density"
+    ],
     "escalation_trend": "stable",
     "last_updated": "2026-10-26T00:00:00Z"
   },
@@ -61,6 +81,33 @@
   "links": {
     "regional_registry": "/data/regions.json#/regions/1",
     "central_manifest": "/data/manifest.json",
-    "neighboring_territories": [2, 3, 5]
-  }
+    "neighboring_territories": [
+      2,
+      3,
+      5
+    ]
+  },
+  "osint_signals": [
+    {
+      "signal_type": "geopolitical",
+      "region_id": 1,
+      "summary": "Test geopolitical signal",
+      "source": "test_source",
+      "confidence": 0.85
+    },
+    {
+      "signal_type": "geopolitical",
+      "region_id": 1,
+      "summary": "Test geopolitical signal",
+      "source": "test_source_duplicate",
+      "confidence": 0.85
+    },
+    {
+      "signal_type": "geopolitical",
+      "region_id": 1,
+      "summary": "Test geopolitical signal",
+      "source": "test_signal_success_unique",
+      "confidence": 0.85
+    }
+  ]
 }

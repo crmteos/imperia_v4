@@ -1,0 +1,40 @@
+{
+  "phase": "7.0",
+  "title": "Kancelyariya Presentation Facade & UI Integration",
+  "target_directory": "C:/imperia_v4",
+  "architecture_invariants": {
+    "zero_human_bias": true,
+    "deterministic_rendering": true,
+    "client_side_json_architecture": true,
+    "vector_translation": "E_vector to UI_signal mapping"
+  },
+  "modules": [
+    {
+      "module_name": "kancelyariya_facade",
+      "file_path": "src/kancelyariya_facade.py",
+      "description": "Translates environment vectors E=[E_geo, E_resource, E_coherence, E_temporal], Context RAM state, and P2P topology into deterministic UI-ready JSON/Markdown telemetry feeds.",
+      "interfaces": {
+        "export_telemetry": "Returns unified system status and regional intelligence passport JSON.",
+        "render_dashboard_data": "Translates E_vector components into visual dashboard metrics.",
+        "format_signal_manifest": "Formats active signals from Context RAM into clean user notifications."
+      }
+    },
+    {
+      "module_name": "portal_bridge",
+      "file_path": "src/portal_bridge.py",
+      "description": "Client-side HTTP/JSON portal adapter for static web rendering (GitHub Pages / local web gateway).",
+      "interfaces": {
+        "serve_static_schema": "Exposes schema registry and territorial passports.",
+        "push_ui_state": "Writes current node & swarm telemetry to static JSON end-points."
+      }
+    }
+  ],
+  "testing": {
+    "test_suite": "tests/test_phase_7_facade.py",
+    "required_tests": [
+      "test_vector_to_ui_translation",
+      "test_kancelyariya_telemetry_export",
+      "test_portal_bridge_json_sync"
+    ]
+  }
+}

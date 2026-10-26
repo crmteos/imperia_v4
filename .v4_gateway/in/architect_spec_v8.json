@@ -1,0 +1,42 @@
+{
+  "phase": "Step D: Live Simulation, Territory Passport Verification & Telegram Integration",
+  "version": "4.0.0-stepD",
+  "components": {
+    "live_simulation_runner": {
+      "file": "scripts/run_live_simulation.py",
+      "description": "End-to-end simulation runner connecting SignalCollector -> Territory Passports -> P2P Core -> Portal Bridge (docs/telemetry_feed.json) -> SMMBroadcaster",
+      "inputs": {
+        "sample_signal": {
+          "signal_id": "SIG_20261026_001",
+          "region_id": 101,
+          "territory_id": "TERR_UA_KYIV_CENTRAL",
+          "h3_index": "8828308281fffff",
+          "source_type": "OSINT_TELEGRAM_FEED",
+          "raw_text": "Live OSINT Signal: Infrastructure status updated. Coherence factor 0.92.",
+          "quality_factor": 0.92,
+          "timestamp": "2026-10-26T13:28:00Z"
+        }
+      }
+    },
+    "telegram_broadcaster_config": {
+      "file": "config/telegram_config.json",
+      "description": "Configuration file or environment variable loader for Telegram Bot credentials and chat targets",
+      "env_variables": [
+        "TELEGRAM_BOT_TOKEN",
+        "TELEGRAM_CHAT_ID"
+      ],
+      "fallback_mode": "dry_run"
+    },
+    "territory_passport_verifier": {
+      "script": "scripts/verify_territory_passports.py",
+      "description": "Verification script to check consistency, schema integrity, and signal history inside data/territories/"
+    }
+  },
+  "acceptance_criteria": [
+    "OSINT signal successfully ingested and saved into data/territories/TERR_UA_KYIV_CENTRAL.json",
+    "Schema validation passes for updated territory passport",
+    "P2P Core execution state and H3 vector updated",
+    "docs/telemetry_feed.json generated and updated for GitHub Pages Dashboard",
+    "SMMBroadcaster formats telemetry into Markdown and executes dispatch (Telegram API or dry-run log)"
+  ]
+}

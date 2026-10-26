@@ -1,0 +1,29 @@
+{
+  "region_id": "TERR_UA_KHARKIV_CENTRAL",
+  "name": "Kharkiv Central",
+  "country": "Ukraine",
+  "classification": "OSINT_ACTIVE",
+  "environment_vectors": {
+    "h3_index": "9",
+    "gps_coordinates": {
+      "lat": 50.0038,
+      "lon": 36.2300
+    },
+    "infrastructure_status": "GOOD",
+    "social_tension_metric": 0.2
+  },
+  "osint_signals": [
+    {
+      "signal_id": "OSINT_KHARKIV_001",
+      "type": "geopolitical",
+      "description": "Eastern Ukraine industrial region assessment",
+      "timestamp": "2026-10-26T21:45:00Z",
+      "source": "OpenSourceIntelligence"
+    }
+  ],
+  "risk_assessment": {
+    "overall_risk": "LOW",
+    "risk_factors": ["Industrial zones"],
+    "protective_factors": ["Educational institutions", "Research facilities"]
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "territory_id": "TERR-2",
+  "region_id": 2,
+  "name": "California",
+  "region_code": "US-CA",
+  "h3_resolution": 9,
+  "operational_status": "active",
+  "environment_vector_e": {
+    "E_geo": 0.5,
+    "E_resource": 0.5,
+    "E_coherence": 0.5,
+    "E_temporal": 0.5
+  },
+  "risk_assessment": "low",
+  "osint_signals": [
+    {
+      "signal_type": "geopolitical",
+      "region_id": 2,
+      "summary": "Test geopolitical signal",
+      "source": "test_source_duplicate",
+      "confidence": 0.85
+    }
+  ],
+  "created": "2026-10-26T19:35:20.287547+00:00"
+}

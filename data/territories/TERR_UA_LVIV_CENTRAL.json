@@ -1,0 +1,29 @@
+{
+  "region_id": "TERR_UA_LVIV_CENTRAL",
+  "name": "Lviv Central",
+  "country": "Ukraine",
+  "classification": "OSINT_ACTIVE",
+  "environment_vectors": {
+    "h3_index": "9",
+    "gps_coordinates": {
+      "lat": 49.8397,
+      "lon": 24.0297
+    },
+    "infrastructure_status": "GOOD",
+    "social_tension_metric": 0.3
+  },
+  "osint_signals": [
+    {
+      "signal_id": "OSINT_LVIV_001",
+      "type": "geopolitical",
+      "description": "Western Ukraine stability assessment",
+      "timestamp": "2026-10-26T21:45:00Z",
+      "source": "OpenSourceIntelligence"
+    }
+  ],
+  "risk_assessment": {
+    "overall_risk": "LOW",
+    "risk_factors": ["None critical"],
+    "protective_factors": ["Stable governance", "Strong civil society"]
+  }
+}

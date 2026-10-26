@@ -1,0 +1,56 @@
+{
+  "version": "4.1.0",
+  "phase": "phase_6_real_p2p_transport",
+  "target_directory": "C:\\imperia_v4",
+  "system_invariants": {
+    "framework": "Master Framework v2.0",
+    "zero_anthropomorphism": true,
+    "stateful_context_ram_size": 8192,
+    "transport_architecture": "P2P Edge Mesh (WebSocket / WebRTC / libp2p fallback)"
+  },
+  "modules": {
+    "real_p2p_transport": {
+      "file_path": "src/real_p2p_transport.py",
+      "description": "Production-grade asynchronous P2P transport adapter with WebSocket/WebRTC fallback and H3 topic routing.",
+      "interfaces": [
+        {
+          "name": "AsyncP2PNode",
+          "methods": {
+            "start": "async def start(self, listen_host: str = '0.0.0.0', listen_port: int = 8000) -> None",
+            "connect_peer": "async def connect_peer(self, peer_address: str) -> bool",
+            "publish_to_h3_topic": "async def publish_to_h3_topic(self, h3_index: str, payload: dict) -> int",
+            "subscribe_h3_topic": "async def subscribe_h3_topic(self, h3_index: str, handler_func) -> None",
+            "get_network_telemetry": "def get_network_telemetry(self) -> dict"
+          }
+        }
+      ],
+      "governor_integration": {
+        "CRITICAL": "Throttle active peer connections to max 2, disable heavy payloads",
+        "BALANCED": "Maintain up to 10 peer connections, standard payload limit 64KB",
+        "PERFORMANCE": "Maintain up to 32 peer connections, full bandwidth"
+      }
+    },
+    "p2p_protocol_bridge": {
+      "file_path": "src/p2p_protocol_bridge.py",
+      "description": "Bridge unifying simulated p2p_transport.py and real_p2p_transport.py seamlessly for edge_handoff and swarm_inference.",
+      "interfaces": [
+        {
+          "name": "UnifiedTransportAdapter",
+          "methods": {
+            "broadcast_quantum": "async def broadcast_quantum(self, quantum_data: dict) -> bool",
+            "handshake_handoff": "async def handshake_handoff(self, target_peer_id: str, context_snapshot: dict) -> bool"
+          }
+        }
+      ]
+    }
+  },
+  "testing_requirements": {
+    "file_path": "tests/test_phase_6_transport.py",
+    "required_tests": [
+      "test_async_peer_connection_handshake",
+      "test_h3_topic_pubsub_delivery",
+      "test_governor_connection_throttling",
+      "test_real_edge_handoff_over_network"
+    ]
+  }
+}

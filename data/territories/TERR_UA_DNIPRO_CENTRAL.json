@@ -1,0 +1,29 @@
+{
+  "region_id": "TERR_UA_DNIPRO_CENTRAL",
+  "name": "Dnipro Central",
+  "country": "Ukraine",
+  "classification": "OSINT_ACTIVE",
+  "environment_vectors": {
+    "h3_index": "7",
+    "gps_coordinates": {
+      "lat": 48.4647,
+      "lon": 35.0448
+    },
+    "infrastructure_status": "FAIR",
+    "social_tension_metric": 0.4
+  },
+  "osint_signals": [
+    {
+      "signal_id": "OSINT_DNIPRO_001",
+      "type": "geopolitical",
+      "description": "Central Ukraine river basin assessment",
+      "timestamp": "2026-10-26T21:45:00Z",
+      "source": "OpenSourceIntelligence"
+    }
+  ],
+  "risk_assessment": {
+    "overall_risk": "LOW",
+    "risk_factors": ["Agricultural land"],
+    "protective_factors": ["Hydroelectric power", "Transport corridor"]
+  }
+}
