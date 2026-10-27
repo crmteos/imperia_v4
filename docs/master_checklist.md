@@ -1,0 +1,41 @@
+# 🏛️ Imperia v4: Master Checklist & Architecture Roadmap
+
+**Repository**: `crmteos/imperia_v4`  
+**Status**: Active Framework Integration  
+**Version**: 4.1.0-master-checklist  
+
+---
+
+## 📋 Master Execution Phases
+
+### Phase 0: Base Dashboard & Telemetry Engine (COMPLETED)
+- [x] **0.1** Zero-server client-side telemetry feed (`docs/telemetry_feed.json`)
+- [x] **0.2** Core dashboard widgets binding in `docs/index.html` & `docs/app.js`
+
+### Phase 0.5: Interactive H3 Spatial Grid Map (COMPLETED)
+- [x] **0.5.1** Integrate Leaflet v1.9.4 with Esri Dark Gray tiles & `crossOrigin: true`
+- [x] **0.5.2** Render H3 hexagonal spatial grid cells for 5 Ukrainian regional hubs
+- [x] **0.5.3** Geotagged OSINT signal markers with interactive popups
+
+### Phase 1: Cognitive-Theoretical Math & DAG Tokenomics
+- [ ] **1.1** Implement Quality Factor ($Q = f_0 / \Delta f$) differential adaptation equation in `docs/telemetry_engine.js`
+- [ ] **1.2** Implement Proof-of-Inference (PoI) & Proof-of-Contribution (PoC) DAG tokenomics reward formula
+- [ ] **1.3** Map P2P node consciousness hierarchy based on Synarchy Law & Varna roles ($M-f$ scale-frequency axis)
+
+### Phase 2: Territory Passports & H3 Geo-Database
+- [ ] **2.1** Expand `docs/territory_passports.json` with H3 Res 4 / Res 7 indexes for all regions of Ukraine
+- [ ] **2.2** Include 4D Environmental Vector $\vec{E} = [E_{lang}, E_{geo}, E_{hist}, E_{soc}]^T$, tension metrics, and $Q$-factors
+
+### Phase 3: Interactive P2P Topology Simulator
+- [ ] **3.1** Build P2P Topology Simulator widget in `docs/index.html`
+- [ ] **3.2** Dynamic node connect/disconnect controls, Swarm Inference load balancing, and real-time coherence calculation
+
+### Phase 4: Autonomous Telegram Gateway & Bot
+- [ ] **4.1** Develop Node.js/Python Telegram bridge bot to broadcast OSINT signals and territorial tension alerts to the Imperial Chancery Channel
+
+### Phase 5: Admin UI Control Center Upgrade
+- [ ] **5.1** Consolidate H3 Map, P2P Simulator, $Q$-Factor Analytics, DAG Tokenomics, and Telegram Gateway into unified Admin Control Center
+
+### Phase 6: Cross-Session & Multi-Notebook Gateway
+- [ ] **6.1** Expose `docs/state_gateway.json` export containing full $Q$-factors, H3 passports, topology state, and vector $\vec{E}$
+- [ ] **6.2** Standardize Context Bridge Prompt & API Schema for seamless state import into parallel LLM sessions and secondary notebooks
