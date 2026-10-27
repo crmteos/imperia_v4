@@ -18,9 +18,9 @@
 - [x] **0.5.3** Geotagged OSINT signal markers with interactive popups
 
 ### Phase 1: Cognitive-Theoretical Math & DAG Tokenomics
-- [ ] **1.1** Implement Quality Factor ($Q = f_0 / \Delta f$) differential adaptation equation in `docs/telemetry_engine.js`
-- [ ] **1.2** Implement Proof-of-Inference (PoI) & Proof-of-Contribution (PoC) DAG tokenomics reward formula
-- [ ] **1.3** Map P2P node consciousness hierarchy based on Synarchy Law & Varna roles ($M-f$ scale-frequency axis)
+- [x] **1.1** Implement Quality Factor ($Q = f_0 / \Delta f$) differential adaptation equation in `docs/telemetry_engine.js`
+- [x] **1.2** Implement Proof-of-Inference (PoI) & Proof-of-Contribution (PoC) DAG tokenomics reward formula
+- [x] **1.3** Map P2P node consciousness hierarchy based on Synarchy Law & Varna roles ($M-f$ scale-frequency axis)
 
 ### Phase 2: Territory Passports & H3 Geo-Database
 - [ ] **2.1** Expand `docs/territory_passports.json` with H3 Res 4 / Res 7 indexes for all regions of Ukraine
