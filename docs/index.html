@@ -1,278 +1,281 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang=""en"" data-theme=""dark"">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Imperia v4 - GitHub Pages Dashboard</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
-  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+<meta charset=""UTF-8"">
+<meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
+<title>Imperia v4 - GitHub Pages Dashboard</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --bg-secondary: #12121a;
+    --fg: #e8e8f0;
+    --muted: #6b6b80;
+    --tanunah: #ffd700;
+    --achtung: #ff4466;
+    --card: #1a1a24;
+    --border: #2a2a3a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--fg); }
+  .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
+  h1 { font-size: 1.5rem; margin-bottom: 20px; }
+  details { margin-bottom: 12px; }
+  summary { cursor: pointer; user-select: none; touch-action: manipulation; font-size: 1rem; font-weight: 600; padding: 12px 16px; border-radius: 8px; border: 1px solid var(--border); background: var(--card); color: var(--fg); }
+  summary::-webkit-details-marker { display: none; }
+  summary::before { content: ""?""; margin-right: 8px; color: var(--tanunah); }
+  details[open] summary::before { content: ""�""; }
+  summary:hover { background: var(--bg-secondary); border-color: var(--tanunah); }
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; }
+  .kpi-card { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 16px; text-align: center; }
+  .kpi-value { font-size: 1.8rem; font-weight: bold; margin-bottom: 4px; }
+  .kpi-label { font-size: 0.75rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.5px; }
+  .kpi-tanunah { color: var(--tanunah); }
+  .kpi-achtung { color: var(--achtung); }
+  .tension-badge { padding: 4px 8px; border-radius: 10px; font-size: 0.7rem; font-weight: 600; text-transform: uppercase; letter-spacing: 0.5px; }
+  .tension-good { background: rgba(34, 197, 94, 0.2); color: #22c55e; border: 1px rgba(34, 197, 94, 0.4); }
+  .tension-medium { background: rgba(234, 179, 8, 0.2); color: #f59e0b; border: 1px rgba(234, 179, 8, 0.4); }
+  .tension-high { background: rgba(239, 68, 68, 0.2); color: #ef4444; border: 1px rgba(239, 68, 68, 0.4); }
+  .card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; margin: 12px 0; }
+  .card-title { font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; color: var(--muted); margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .progress { width: 100%; height: 8px; background: var(--border); border-radius: 4px; overflow: hidden; margin: 8px 0; }
+  .progress-fill { height: 100%; background: var(--tanunah); width: 70%; transition: width 0.3s ease; }
+  .dev-section { background: var(--bg-secondary); border: 1px solid var(--border); border-radius: 8px; padding: 16px; margin-top: 12px; }
+  .dev-section pre { font-size: 0.75rem; color: #9ca3af; overflow-x: auto; margin: 0; }
+</style>
+<link rel=""stylesheet"" href=""https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"" />
+<link rel=""icon"" href=""/favicon.ico"" type=""image/x-icon"">
 </head>
 <body>
-  <header>
-    <div class="container">
-      <h1 class="header-title">
-        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="7" height="7"></rect>
-          <rect x=14 y="3" width="7" height="7"></rect>
-          <rect x="3" y=14 width="7" height="7"></rect>
-          <rect x=14 y=14 width="7" height="7"></rect>
-        </svg>
-        Imperia v4 Admin Control Center
-      </h1>
-      <div class="header-right">
-        <span class="mode-indicator performance" id="mode-display">PERFORMANCE</span>
-        <span class="text-xs text-gray-400 ms-3" id="coherence-index">Coherence: --</span>
-        <span class="text-xs text-gray-400 ms-3" id="p2p-nodes-header">Nodes: --</span>
-        <span class="text-xs text-gray-400 ms-3" id="telemetry-status">Telemetry: --</span>
-        <span class="text-xs text-gray-400 ms-3"><button onclick="window.open('docs/state_gateway.json', '_blank')" class="px-2 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-xs font-mono">🌐 Export</button></span>
+  <div class=""container"">
+    <h1>Imperia v4 Admin Control Center</h1>
+  
+  <!-- Accordion Panel 1: Kernel Telemetry & H3 Geo Grid -->
+  <details open>
+    <summary>🛰️ Kernel Telemetry & H3 Geo Grid (Геопросторова карта та хаби)</summary>
+<div class="kpi-card"><div class="kpi-value kpi-tanunah" id="kpi-coherence">0.94</div><div class="kpi-label">Global Q-Coherence</div></div>
+<div class="kpi-card"><div class="kpi-value kpi-tanunah" id="kpi-nodes">5</div><div class="kpi-label">Active Nodes</div></div>
+<div class="kpi-card"><div class="kpi-value" id="kpi-load">0.42</div><div class="kpi-label">Swarm Load</div></div>
+<div class="kpi-card"><div class="kpi-value kpi-achtung" id="kpi-tension">28%</div><div class="kpi-label">Social Tension</div></div>
+    <div class=""card"">
+      <div class=""kpi-grid"">
+        <div class=""kpi-value kpi-tanunah"" id=""kpi-coherence"">0.94</div><div class=""kpi-label"">Global Q-Coherence</div></div
+        <div class=""kpi-value"" id=""kpi-nodes"">5</div><div class=""kpi-label"">Active Nodes</div></div
+        <div class=""kpi-value"" id=""kpi-load"">0.42</div><div class=""kpi-label"">Swarm Load</div></div
+        <div class=""kpi-value kpi-achtung"" id=""kpi-tension"">Medium</div><div class=""kpi-label"">Social Tension Level</div></div
+      </div>
+      <div style=""display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;"">
+        <!-- Leaflet Map -->
+        <div>
+          <div id=""h3-map"" style=""height: 400px; width: 100%; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px; min-height: 300px;""></div>
+          <script src=""https://unpkg.com/leaflet@1.9.4/dist/leaflet.js""></script>
+          <script>
+            const regionCoords = { ""101"": [50.4501, 30.5234], ""102"": [49.8397, 24.0297], ""103"": [46.4825, 30.7233], ""104"": [49.9935, 36.2304], ""105"": [48.4647, 35.0462] };
+<div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
+          <!-- Leaflet Map -->
+          <div>
+            <div id="h3-map" style="height: 420px; width: 100%; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px; min-height: 350px;"></div>
+            <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+            <script>
+              var imperiaMap = L.map("h3-map").setView([48.3794, 31.1656], 6);
+              L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", { maxZoom: 16, attribution: "Tiles © Esri" }).addTo(imperiaMap);
+              const regionCoords = { "101": [50.4501, 30.5234], "102": [49.8397, 24.0297], "103": [46.4825, 30.7233], "104": [49.9935, 36.2304], "105": [48.4647, 35.0462] };
+              const regionLabels = { "101": "Kyiv Central", "102": "Lviv West", "103": "Odesa South", "104": "Kharkiv East", "105": "Dnipro Center" };
+              Object.entries(regionCoords).forEach(([code, [lat, lng]]) => {
+                L.circleMarker([lat, lng], { radius: 8, color: "#3b82f6", fillColor: "#60a5fa", fillOpacity: 0.9 }).addTo(imperiaMap).bindPopup("<strong>" + regionLabels[code] + "</strong><br>H3 Cell: 872b" + code + "ffffff");
+              });
+              // Fix map size when accordion toggles open
+              var accordion1 = document.querySelector("details[open]");
+              if (accordion1) {
+                accordion1.addEventListener("toggle", function() {
+                  if (this.open) {
+                    setTimeout(() => { if (imperiaMap) imperiaMap.invalidateSize(); }, 200);
+                  }
+                });
+              }
+            </script>
+          </div>
+          <!-- Regional Status Cards -->
+          <div>
+            <h3 style="margin-top: 0; color: var(--tanunah);">Regional Status</h3>
+            <div id="regions-panel">
+              <div class="card" style="margin-bottom: 12px;">
+                <h4 style="margin: 0 0 8px 0; color: var(--fg);">Kyiv Central (101)</h4>
+                <div class="tension-badge tension-good">🟢 Спокійний</div>
+                <div class="progress"><div class="progress-fill" style="width: 92%"></div></div>
+                <div class="text-xs text-gray-400">Q: 0.92 | E_soc: 0.21</div>
+              </div>
+              <div class="card" style="margin-bottom: 12px;">
+                <h4 style="margin: 0 0 8px 0; color: var(--fg);">Lviv West (102)</h4>
+                <div class="tension-badge tension-good">🟢 Спокійний</div>
+                <div class="progress"><div class="progress-fill" style="width: 88%"></div></div>
+                <div class="text-xs text-gray-400">Q: 0.88 | E_soc: 0.18</div>
+              </div>
+              <div class="card" style="margin-bottom: 12px;">
+                <h4 style="margin: 0 0 8px 0; color: var(--fg);">Odesa South (103)</h4>
+                <div class="tension-badge tension-medium">🟡 Помірний</div>
+                <div class="progress"><div class="progress-fill" style="width: 74%"></div></div>
+                <div class="text-xs text-gray-400">Q: 0.74 | E_soc: 0.31</div>
+              </div>
+              <div class="card" style="margin-bottom: 12px;">
+                <h4 style="margin: 0 0 8px 0; color: var(--fg);">Kharkiv East (104)</h4>
+                <div class="tension-badge tension-high">🔴 Підвищена</div>
+                <div class="progress"><div class="progress-fill" style="width: 68%"></div></div>
+                <div class="text-xs text-gray-400">Q: 0.68 | E_soc: 0.45</div>
+              </div>
+              <div class="card">
+                <h4 style="margin: 0 0 8px 0; color: var(--fg);">Dnipro Center (105)</h4>
+                <div class="tension-badge tension-good">🟢 Спокійний</div>
+                <div class="progress"><div class="progress-fill" style="width: 81%"></div></div>
+                <div class="text-xs text-gray-400">Q: 0.81 | E_soc: 0.28</div>
+              </div>
+            </div>
+          </div>
+        </div>
+            const regionLabels = { ""101"": ""Kyiv Central"", ""102"": ""Lviv West"", ""103"": ""Odesa South"", ""104"": ""Kharkiv East"", ""105"": ""Dnipro Center"" };
+            Object.entries(regionCoords).forEach(function(([code, [lat, lng]])) {
+var accordion1 = document.querySelector("details[open]");
+              if (accordion1) {
+                accordion1.addEventListener("toggle", function() {
+                  if (this.open) {
+                    setTimeout(() => { if (imperiaMap) imperiaMap.invalidateSize(); }, 200);
+                  }
+                });
+              }
+            </script>
+      <div class=""progress"" style=""margin: 16px 0;""><div class=""progress-fill"" style=""width: 10%; background: #f472b6;""></div><div style=""position: absolute; right: 12px; font-size: 0.7rem; color: var(--bg;"">10%</div></div>
+      <br>
+      <div class=""card"">
+        <div class=""card-title"">E_soc Social Tension Sensor Live State</div>
+        <div class=""tension-badge tension-good"" id=""live-esoc-badge"">?? 21%</div>
+        <p class=""text-xs text-gray-400 mt-2"">Based on: Sentiment Noise 0.30 | Anomalous Volume 0.20 | Regional Disparity 0.10</p>
+      </div>
+      <div class=""card"">
+        <div class=""card-title"">Japan ($E_{soc}^{Japan}$) Regional Status</div>
+        <div style=""display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;"">
+          <div>
+            <strong>Tokyo Central</strong><br>
+            <span class=""tension-badge tension-good"">?? Low Tension / High Coherence</span><br>
+            E_soc: 0.32 | Q: 0.89
+          </div>
+          <div>
+            <strong>Osaka South</strong><br>
+            <span class=""tension-badge tension-medium"">?? Stable</span><br>
+            E_soc: 0.41 | Q: 0.85
+          </div>
+        </div>
       </div>
     </div>
-  </header>
-
-  <div class="container">
-    <p class="subtitle">Zero-server client-side telemetry feed from kancelyariya facade</p>
-
-    <div class="dashboard">
-      <!-- Grid Row 1 -->
-      <div class="panel" id="mode-panel">
-        <h3>System Mode</h3>
-        <div class="mode-indicator performance" id="mode-display">PERFORMANCE</div>
-      </div>
-
-      <!-- Environment Vectors Panel -->
-      <div class="panel" id="vectors-panel">
-        <h3>Environment Vectors E</h3>
-        <div id="vectors-container"><div class="vector-grid" id="vector-grid"></div></div>
-      </div>
-
-      <!-- H3 Spatial Grid Panel -->
-      <div class="panel" id="h3-panel">
-        <h3>H3 Spatial Grid</h3>
-        <canvas id="h3-canvas" width="400" height="200"></canvas>
-        <div id="h3-map" style="height: 350px; width: 100%; min-height: 350px; background-color: #0f172a;" class="rounded-lg border border-gray-700 overflow-hidden mt-2 shadow-inner"></div>
-      </div>
-
-      <!-- P2P Topology Panel -->
-      <div class="panel" id="p2p-panel">
-        <h3>P2P Topology</h3>
-        <div class="p2p-controls mb-3">
-          <button onclick="window.p2pSim.addNode('Brahman')" class="btn btn-sm btn-primary mr-1">+ Add High-Q Brahman</button>
-          <button onclick="window.p2pSim.addNode('Shudra')" class="btn btn-sm btn-secondary mr-1">+ Add Edge Sensor</button>
-          <button onclick="window.p2pSim.removeNode()" class="btn btn-sm btn-danger mr-1">- Disconnect Node</button>
-          <button onclick="window.p2pSim.triggerInferenceSpike()" class="btn btn-sm btn-warning mr-1">⚡ Inference Spike</button>
-        </div>
-        <span id="p2p-nodes">Nodes: <span id="p2p-node-count">5</span></span>
-        <div id="p2p-nodes-list" class="mt-3"></div>
-      </div>
-
-      <!-- Signals Panel -->
-      <div class="panel" id="signals-panel">
-        <h3>Active Signals</h3>
-        <div class="signal-section" id="signals-section"></div><ul id="signals-list"></ul>
-      </div>
-
-      <!-- Telegram Channel Gateway -->
-      <div class="panel" id="telegram-panel">
-        <h3>Telegram Channel Gateway</h3>
-        <div class="mb-2">
-          <span class="text-sm text-gray-300">Channel:</span>
-          <span class="text-lg text-cyan-400 font-medium">@imperial_chancery <span class="text-green-400">[Active Sync]</span></span>
-        </div>
-        <button onclick="window.telegramGateway.broadcastSignal({region:'Kyiv Central', timestamp: new Date().toUTCString(), text:'Manual OSINT Broadcast Test from Admin UI'})" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs mb-2">Broadcast Test Signal to Telegram</button>
-        <div id="telegram-status" class="mt-2 text-xs text-gray-400">Status: Gateway Ready</div>
-      </div>
-
-      <!-- RAM Telemetry Panel -->
-      <div class="panel" id="ram-panel">
-        <h3>Resource RAM</h3>
-        <div id="ram-usage" class="ram-usage"><strong>RAM Utilization:</strong> <span id="ram-percent">--%</span></div>
-      </div>
-      <div class="panel" id="coherence-panel"><h3>Coherence Factor</h3><div class="coherence-val" id="coherence-val">0.94</div></div><div id="passports-grid" class="passports-grid"></div>
+  </details>
+  
+  <!-- Accordion Panel 3: Negotiator Agent & Telegram Channel Gateway -->
+  <details>
+    <summary>?? Negotiator Agent & Telegram Channel Gateway (���� ��������)</summary>
+    <div class=""card"">
+      <h3 class=""card-title"">Executive Daily Summary</h3>
+      <p id=""negotiator-summary"" class=""text-gray-300 mb-3"">Initializing Negotiator Agent synthesis...</p>
+      <button onclick=""window.negotiatorAgent.generateDailySynthesis()"" class=""btn btn-sm btn-primary mt-2"">Generate Daily Synthesis</button>
     </div>
-  </div>
-
-  <script src="docs/telegram_bot.js"></script>
-<script src="docs/p2p_simulator.js"></script>
-<script src="app.js" defer></script>
-<script>
-(function() {
-  const DEFAULT_TELEMETRY = {
-    system: { ram: "42%", nodes: 12, coherence: 0.94 },
-    vectors: { spatial: 0.94, resonance: 0.88 },
-    regions: [
-      { name: "Київ Central", code: "101", status: "Active", tension: "Low", gps: "50.4501, 30.5234" },
-      { name: "Львів West", code: "102", status: "Active", tension: "Low", gps: "49.8397, 24.0297" },
-      { name: "Одеса South", code: "103", status: "Active", tension: "Medium", gps: "46.4825, 30.7233" },
-      { name: "Харків East", code: "104", status: "Active", tension: "Medium", gps: "49.9935, 36.2304" },
-      { name: "Дніпро Center", code: "105", status: "Active", tension: "Low", gps: "48.4647, 35.0462" }
-    ],
-    signals: [
-      { timestamp: "2026-10-26 22:18:07 UTC", region: "Kyiv Central", text: "Geopolitical OSINT signal ingested for TERR_UA_KYIV_CENTRAL" },
-      { timestamp: "2026-10-26 22:25:09 UTC", region: "Kyiv Central", text: "Broadcast delivered to Imperial Chancery Telegram Channel" },
-      { timestamp: "2026-10-26 22:25:39 UTC", region: "Lviv West", text: "Resonance vector E adjusted for Lviv Hub" }
-    ]
-  };
-
-  function renderDashboard(data) {
-    const ramEl = document.getElementById('ram-usage');
-    if (ramEl) ramEl.innerHTML = `<div class="w-full bg-gray-700 h-2 rounded"><div class="bg-blue-500 h-2 rounded" style="width: ${data.system.ram}"></div></div><span class="text-xs text-blue-400 mt-1 block">${data.system.ram} Utilization</span>`;
-
-    const nodesEl = document.getElementById('p2p-nodes');
-    if (nodesEl) nodesEl.innerText = `${data.system.nodes} Active Nodes`;
-
-    const cohEl = document.getElementById('coherence-val');
-    if (cohEl) cohEl.innerText = data.system.coherence;
-
-    const vecEl = document.getElementById('vectors-container');
-    if (vecEl) {
-      vecEl.innerHTML = `
-        <div class="mb-2"><div class="flex justify-between text-xs"><span>Spatial Coherence</span><span>${data.vectors.spatial}</span></div><div class="w-full bg-gray-700 h-1.5 rounded"><div class="bg-green-500 h-1.5 rounded" style="width: ${data.vectors.spatial * 100}%"></div></div></div>
-        <div><div class="flex justify-between text-xs"><span>Resonance</span><span>${data.vectors.resonance}</span></div><div class="w-full bg-gray-700 h-1.5 rounded"><div class="bg-purple-500 h-1.5 rounded" style="width: ${data.vectors.resonance * 100}%"></div></div></div>
-      `;
-    }
-
-    const regEl = document.getElementById('passports-grid');
-    if (regEl) {
-      regEl.innerHTML = data.regions.map(r => `
-        <div class="p-3 bg-gray-800 rounded border border-gray-700">
-          <div class="flex justify-between items-center mb-1"><span class="font-bold text-sm text-white">${r.name}</span><span class="text-xs px-2 py-0.5 bg-green-900 text-green-300 rounded">${r.status}</span></div>
-          <div class="text-xs text-gray-400">Code: ${r.code} | GPS: ${r.gps}</div>
-          <div class="text-xs text-yellow-400 mt-1">Tension: ${r.tension}</div>
-        </div>
-      `).join('');
-    }
-
-    const sigEl = document.getElementById('signals-list');
-    if (sigEl) {
-      sigEl.innerHTML = data.signals.map(s => `
-        <div class="p-2 mb-2 bg-gray-900 rounded border-l-2 border-blue-500 text-xs">
-          <div class="text-gray-500">${s.timestamp} [${s.region}]</div>
-          <div class="text-gray-200 mt-0.5">${s.text}</div>
-        </div>
-      `).join('');
-    }
-  }
-  renderDashboard(DEFAULT_TELEMETRY);
+    <div class=""card"">
+      <div class=""card-title"">Telegram @imperial_chancery Sync</div>
+      <p class=""text-xs text-gray-400 mb-2"">Channel: @imperial_chancery | Nodes: 5 active</p>
+      <button onclick=""window.p2pSim.triggerInferenceSpike()"" class=""btn btn-sm btn-warning mt-1"">Test Signal Broadcast</button>
+    </div>
+  </details>
   
-  function getH3HexPolygon(lat, lng, radius = 0.22) {
-    const points = [];
-    for (let i = 0; i < 6; i++) {
-      const angle = (i * 60) * Math.PI / 180;
-      const pLat = lat + radius * Math.sin(angle) * 0.7;
-      const pLng = lng + radius * Math.cos(angle);
-      points.push([pLat, pLng]);
-    }
-    return points;
+  <!-- Collapsible Footer Accordion (Closed by default) -->
+  <details>
+    <summary>?? Developer Console & Raw Data</summary>
+    <div class=""dev-section"">
+      <h4 style=""margin-top: 0; color: var(--tanunah;"">Raw JSON Logs</h4>
+      <pre>{
+  ""version"": ""4.6.0-state-gateway"",
+  ""exported_at"": ""2026-10-27T02:50:00Z"",
+  ""system_state"": {
+    ""global_coherence"": 0.94,
+    ""active_p2p_nodes"": 5,
+    ""swarm_load"": 0.42,
+    ""telegram_channel"": ""@imperial_chancery""
+  },
+  ""h3_passports_summary"": [
+    { ""code"": ""101"", ""name"": ""Kyiv Central"", ""q_factor"": 0.92, ""vector_E"": [0.95, 0.91, 0.98, 0.89] },
+    { ""code"": ""102"", ""name"": ""Lviv West"", ""q_factor"": 0.88, ""vector_E"": [0.98, 0.89, 0.95, 0.92] },
+    { ""code"": ""103"", ""name"": ""Odesa South"", ""q_factor"": 0.74, ""vector_E"": [0.82, 0.95, 0.88, 0.78] },
+    { ""code"": ""104"", ""name"": ""Kharkiv East"", ""q_factor"": 0.68, ""vector_E"": [0.85, 0.72, 0.91, 0.71] },
+    { ""code"": ""105"", ""name"": ""Dnipro Center"", ""q_factor"": 0.81, ""vector_E"": [0.87, 0.88, 0.86, 0.83] }
+  ],
+  ""context_bridge_prompt"": ""CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery."",
+  ""memory_vault"": {
+    ""core_law"": ""Law of Synarchy & Scale-Frequency M-f Axis (Shudra -> Vaishya -> Kshatriya -> Brahman)"",
+    ""math_engine"": ""dQ/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback"",
+    ""tokenomics"": ""Reward = Tokens_processed * Q_node * K_H3_density (PoI / PoC)"",
+    ""active_h3_hubs"": [""Kyiv Central (101)"", ""Lviv West (102)"", ""Odesa South (103)"", ""Kharkiv East (104)"", ""Dnipro Center (105)""]}
   }
+</pre>
+    </div>
+  </details>
   
-  function initH3Map(data) {
-  const container = document.getElementById('h3-map');
-  if (!container || typeof L === 'undefined') return;
-
-  if (container._leaflet_id) {
-    container._leaflet_id = null;
-    container.innerHTML = '';
-  }
-
-  const map = L.map('h3-map', {
-    center: [48.3794, 31.1656],
-    zoom: 6,
-    zoomControl: true,
-    attributionControl: false
-  });
-
-  const tileHost = 'server.arcgisonline.com';
-  const tilePath = '/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
-  const tileUrl = 'https://' + tileHost + tilePath;
-  L.tileLayer(tileUrl, { maxZoom: 16, attribution: 'Tiles © Esri', crossOrigin: true }).addTo(map);
-
-  const regionCoords = {
-    "101": [50.4501, 30.5234], // Kyiv
-    "102": [49.8397, 24.0297], // Lviv
-    "103": [46.4825, 30.7233], // Odesa
-    "104": [49.9935, 36.2304], // Kharkiv
-    "105": [48.4647, 35.0462]  // Dnipro
-  };
-
-  if (data && data.regions) {
-    data.regions.forEach(r => {
-      const coords = regionCoords[r.code];
-      if (!coords) return;
-
-      const lat = coords[0];
-      const lng = coords[1];
-      const isMedium = r.tension === "Medium" || r.tension === "High";
-      const color = isMedium ? "#f59e0b" : "#10b981";
-
-      const hexVertices = [];
-      const radius = 0.22;
-      for (let i = 0; i < 6; i++) {
-        const angle = (i * 60) * Math.PI / 180;
-        const pLat = lat + radius * Math.sin(angle) * 0.7;
-        const pLng = lng + radius * Math.cos(angle);
-        hexVertices.push([pLat, pLng]);
-      }
-
-      const polygon = L.polygon(hexVertices, {
-        color: color,
-        fillColor: color,
-        fillOpacity: 0.35,
-        weight: 2
-      }).addTo(map);
-
-      polygon.bindPopup(`
-        <div style="color: #111827; font-family: sans-serif; font-size: 12px; line-height: 1.4;">
-          <strong style="font-size: 14px;">${r.name}</strong><br/>
-          <b>H3 Cell:</b> 872b${r.code}ffffff<br/>
-          <b>Status:</b> ${r.status}<br/>
-          <b>Tension:</b> <span style="color: ${color}; font-weight: bold;">${r.tension}</span><br/>
-          <b>GPS:</b> ${r.gps}
-        </div>
-      `);
-    });
-  }
-
-  if (data && data.signals) {
-    data.signals.forEach(s => {
-      let coords = [50.4501, 30.5234];
-      if (s.region.includes("Lviv")) coords = [49.8397, 24.0297];
-      else if (s.region.includes("Odesa")) coords = [46.4825, 30.7233];
-      else if (s.region.includes("Kharkiv")) coords = [49.9935, 36.2304];
-      else if (s.region.includes("Dnipro")) coords = [48.4647, 35.0462];
-
-      const marker = L.circleMarker(coords, {
-        radius: 7,
-        color: '#3b82f6',
-        fillColor: '#60a5fa',
-        fillOpacity: 0.9,
-        weight: 2
-      }).addTo(map);
-
-      marker.bindPopup(`
-        <div style="color: #111827; font-family: sans-serif; font-size: 11px;">
-          <strong style="color: #1d4ed8;">OSINT Signal</strong><br/>
-          <b>Time:</b> ${s.timestamp}<br/>
-          <b>Region:</b> ${s.region}<br/>
-          <p style="margin-top: 4px; font-style: italic;">"${s.text}"</p>
-        </div>
-      `);
-    });
-  }
-
-  setTimeout(() => { map.invalidateSize(); }, 300);
-}
-
-// Initialize immediately
-window.addEventListener('load', () => {
-  if (typeof initH3Map === 'function') {
-    initH3Map(DEFAULT_TELEMETRY);
-  }
-});
-})(); </script>
-<script src="docs/sl8_gateway.js"></script>
-<script src="docs/human_ui.js"></script>
-<script src="docs/poc_reward_engine.js"></script>
+  <script src=""https://unpkg.com/leaflet@1.9.4/dist/leaflet.js""></script>
+  <script src=""docs/sl8_gateway.js""></script>
+  <script src=""docs/human_ui.js""></script>
+  <script src=""docs/poc_reward_engine.js""></script>
+  <script src=""docs/app.js""></script>
 </body>
 </html>
+
+
+<!-- Accordion Panel 2: Sl8 Network & Stellar SSLX Tokenomics -->
+    <details>
+      <summary>🪙 Sl8 Network & Stellar SSLX Tokenomics (Контур Sl8 та Токеноміка)</summary>
+      <div class="card">
+        <h3 class="card-title">SSLX Reward Distribution (70% Author / 20% Fact-Checkers / 10% Treasury)</h3>
+        <div class="progress" style="margin: 16px 0;"><div class="progress-fill" style="width: 70%; background: var(--tanunah);"></div><div style="position: absolute; right: 12px; font-size: 0.7rem; color: var(--bg);">70%</div></div>
+        <div class="progress" style="margin: 16px 0;"><div class="progress-fill" style="width: 20%; background: #a855f6;"></div><div style="position: absolute; right: 12px; font-size: 0.7rem; color: var(--bg);">20%</div></div>
+        <div class="progress" style="margin: 16px 0;"><div class="progress-fill" style="width: 10%; background: #f472b6;"></div><div style="position: absolute; right: 12px; font-size: 0.7rem; color: var(--bg);">10%</div></div>
+        <br>
+        <div class="card">
+          <div class="card-title">E_soc Social Tension Sensor</div>
+          <div class="tension-badge tension-good" id="live-esoc-badge">🟢 28%</div>
+          <p class="text-xs text-gray-400 mt-2">Based on: Sentiment Noise 0.30 | Anomalous Volume 0.20 | Regional Disparity 0.10</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Japan (E_soc^Japan) Regional Status</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+            <div>
+              <strong>Tokyo Central</strong><br>
+              <span class="tension-badge tension-good">🟢 Low Tension / High Coherence</span><br>
+              E_soc: 0.32 | Q: 0.89
+            </div>
+            <div>
+              <strong>Osaka South</strong><br>
+              <span class="tension-badge tension-medium">🟡 Stable</span><br>
+              E_soc: 0.41 | Q: 0.85
+            </div>
+          </div>
+        </div>
+      </div>
+    </details>
+
+    <!-- Accordion Panel 3: Negotiator Agent & Telegram Channel Gateway -->
+    <details>
+      <summary>🤖 Negotiator Agent & Telegram Channel Gateway (Шлюз Канцелярії)</summary>
+      <div class="card">
+        <h3 class="card-title">Executive Daily Summary</h3>
+        <p class="text-gray-300 mb-3">Imperia v4 Executive Dashboard active. System coherence 0.94 across 5 P2P nodes. No critical anomalies detected.</p>
+        <button onclick="window.negotiatorAgent.generateDailySynthesis()" class="btn btn-sm btn-primary mt-2">Generate Daily Synthesis</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Telegram @imperial_chancery Sync</div>
+        <p class="text-xs text-gray-400 mb-2">Channel: @imperial_chancery | Nodes: 5 active</p>
+        <button onclick="window.p2pSim.triggerInferenceSpike()" class="btn btn-sm btn-warning mt-1">Test Signal Broadcast</button>
+        <button onclick="window.p2pSim.addNode('Brahman')" class="btn btn-sm btn-primary mt-1">Add High-Q Node</button>
+      </div>
+    </details>
+
+    <!-- Collapsible Footer Accordion (Closed by default) -->
+    <details>
+      <summary>⚙️ Developer Console & Raw Data</summary>
+      <div class="dev-section">
+        <h4 style="margin-top: 0; color: var(--tanunah);">Raw JSON Logs</h4>
+        <pre>{ "version": "4.6.0-state-gateway", "exported_at": "2026-10-27T02:50:00Z", "system_state": { "global_coherence": 0.94, "active_p2p_nodes": 5, "swarm_load": 0.42, "telegram_channel": "@imperial_chancery" }, "h3_passports_summary": [ { "code": "101", "name": "Kyiv Central", "q_factor": 0.92, "vector_E": [0.95, 0.91, 0.98, 0.89] }, { "code": "102", "name": "Lviv West", "q_factor": 0.88, "vector_E": [0.98, 0.89, 0.95, 0.92] }, { "code": "103", "name": "Odesa South", "q_factor": 0.74, "vector_E": [0.82, 0.95, 0.88, 0.78] }, { "code": "104", "name": "Kharkiv East", "q_factor": 0.68, "vector_E": [0.85, 0.72, 0.91, 0.71] }, { "code": "105", "name": "Dnipro Center", "q_factor": 0.81, "vector_E": [0.87, 0.88, 0.86, 0.83] } ], "context_bridge_prompt": "CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery.", "memory_vault": { "core_law": "Law of Synarchy & Scale-Frequency M-f Axis (Shudra -> Vaishya -> Kshatriya -> Brahman)", "math_engine": "dQ/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback", "tokenomics": "Reward = Tokens_processed * Q_node * K_H3_density (PoI / PoC)", "active_h3_hubs": ["Kyiv Central (101)", "Lviv West (102)", "Odesa South (103)", "Kharkiv East (104)", "Dnipro Center (105)"] }</pre>
+      </div>
+    </details>
