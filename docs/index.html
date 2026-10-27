@@ -35,7 +35,7 @@
       <!-- Environment Vectors Panel -->
       <div class="panel" id="vectors-panel">
         <h3>Environment Vectors E</h3>
-        <div class="vector-grid" id="vector-grid"></div>
+        <div id="vectors-container"><div class="vector-grid" id="vector-grid"></div></div>
       </div>
 
       <!-- H3 Spatial Grid Panel -->
@@ -48,22 +48,24 @@
       <div class="panel" id="p2p-panel">
         <h3>P2P Topology</h3>
         <ul class="peer-list" id="peer-list"></ul>
+<span id="p2p-nodes">Nodes: <span id="p2p-node-count">0</span></span>
       </div>
 
       <!-- Signals Panel -->
       <div class="panel" id="signals-panel">
         <h3>Active Signals</h3>
-        <div class="signal-section" id="signals-section"></div>
+        <div class="signal-section" id="signals-section"></div><ul id="signals-list"></ul>
       </div>
 
       <!-- RAM Telemetry Panel -->
       <div class="panel" id="ram-panel">
         <h3>Resource RAM</h3>
-        <div class="ram-usage"><strong>RAM Utilization:</strong> <span id="ram-percent">--%</span></div>
+        <div id="ram-usage" class="ram-usage"><strong>RAM Utilization:</strong> <span id="ram-percent">--%</span></div>
       </div>
+      <div class="panel" id="coherence-panel"><h3>Coherence Factor</h3><div class="coherence-val" id="coherence-val">0.94</div></div><div id="passports-grid" class="passports-grid"></div>
     </div>
   </div>
 
-  <script src="/app.js"></script>
+  <script src="app.js" defer></script>
 </body>
 </html>
