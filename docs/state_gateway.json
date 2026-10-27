@@ -22,7 +22,7 @@
     "active_h3_hubs": ["Kyiv Central (101)", "Lviv West (102)", "Odesa South (103)", "Kharkiv East (104)", "Dnipro Center (105)"],
     "external_gateways": {
       "telegram": "@imperial_chancery",
-      "slate_network_bridge": "Pending Parallel Sandbox Integration"
+      "slate_network_bridge": "Phase 7 Scheduled (crmteos/imperia-slate-adapter)"
     }
   }
 }
