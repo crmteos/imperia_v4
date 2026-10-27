@@ -5,16 +5,7 @@
 <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
 <title>Imperia v4 - GitHub Pages Dashboard</title>
 <style>
-  :root {
-    --bg: #0a0a0f;
-    --bg-secondary: #12121a;
-    --fg: #e8e8f0;
-    --muted: #6b6b80;
-    --tanunah: #ffd700;
-    --achtung: #ff4466;
-    --card: #1a1a24;
-    --border: #2a2a3a;
-  }
+  :root { --bg: #0a0a0f; --card: #1a1a24; --border: #2a2a3a; --tanunah: #ffd700; --achtung: #ff4466; --fg: #e8e8f0; --muted: #6b6b80; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--fg); }
   .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
@@ -47,13 +38,21 @@
 </head>
 <body>
   <div class=""container"">
-    <h1>Imperia v4 Admin Control Center</h1>
+    <h1>Imperia v4: Executive Workbench</h1>
   
   <!-- Accordion Panel 1: Kernel Telemetry & H3 Geo Grid -->
   <details open>
     <summary>🛰️ Kernel Telemetry & H3 Geo Grid (Геопросторова карта та хаби)</summary>
 <div class="kpi-card"><div class="kpi-value kpi-tanunah" id="kpi-coherence">0.94</div><div class="kpi-label">Global Q-Coherence</div></div>
 <div class="kpi-card"><div class="kpi-value kpi-tanunah" id="kpi-nodes">5</div><div class="kpi-label">Active Nodes</div></div>
+<div class="top-bar">
+      <div class="logo">IMPERIA v4: Executive Workbench</div>
+      <span class="status-badge">Q = 0.94 Brahman-orchestrated</span>
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <select id="nav-contour" class="nav-select"><option value="ukraine">Ukraine 5 Hubs</option><option value="japan">Japan Tokyo/Osaka</option><option value="eu">EU Cluster</option></select>
+        <select id="nav-module" class="nav-select"><option value="h3">H3 Spatial Grid</option><option value="esoc">$E_{soc}$ Sensor</option><option value="poc">SSLX Tokenomics</option><option value="telegram">Telegram Gateway</option></select>
+      </div>
+    </div>
 <div class="kpi-card"><div class="kpi-value" id="kpi-load">0.42</div><div class="kpi-label">Swarm Load</div></div>
 <div class="kpi-card"><div class="kpi-value kpi-achtung" id="kpi-tension">28%</div><div class="kpi-label">Social Tension</div></div>
     <div class=""card"">
@@ -73,7 +72,7 @@
 <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; align-items: start;">
           <!-- Leaflet Map -->
           <div>
-            <div id="h3-map" style="height: 420px; width: 100%; background: var(--bg-secondary); border-radius: 8px; border: 1px solid var(--border); margin-bottom: 12px; min-height: 350px;"></div>
+            <div id="map" style="width: 100%; height: 520px; border-radius: 12px;"></div>
             <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
             <script>
               var imperiaMap = L.map("h3-map").setView([48.3794, 31.1656], 6);
@@ -279,3 +278,11 @@ var accordion1 = document.querySelector("details[open]");
         <pre>{ "version": "4.6.0-state-gateway", "exported_at": "2026-10-27T02:50:00Z", "system_state": { "global_coherence": 0.94, "active_p2p_nodes": 5, "swarm_load": 0.42, "telegram_channel": "@imperial_chancery" }, "h3_passports_summary": [ { "code": "101", "name": "Kyiv Central", "q_factor": 0.92, "vector_E": [0.95, 0.91, 0.98, 0.89] }, { "code": "102", "name": "Lviv West", "q_factor": 0.88, "vector_E": [0.98, 0.89, 0.95, 0.92] }, { "code": "103", "name": "Odesa South", "q_factor": 0.74, "vector_E": [0.82, 0.95, 0.88, 0.78] }, { "code": "104", "name": "Kharkiv East", "q_factor": 0.68, "vector_E": [0.85, 0.72, 0.91, 0.71] }, { "code": "105", "name": "Dnipro Center", "q_factor": 0.81, "vector_E": [0.87, 0.88, 0.86, 0.83] } ], "context_bridge_prompt": "CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery.", "memory_vault": { "core_law": "Law of Synarchy & Scale-Frequency M-f Axis (Shudra -> Vaishya -> Kshatriya -> Brahman)", "math_engine": "dQ/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback", "tokenomics": "Reward = Tokens_processed * Q_node * K_H3_density (PoI / PoC)", "active_h3_hubs": ["Kyiv Central (101)", "Lviv West (102)", "Odesa South (103)", "Kharkiv East (104)", "Dnipro Center (105)"] }</pre>
       </div>
     </details>
+<!-- 4D Environment Vector Cards -->
+<div style="margin-top: 20px;">
+  <div class="vector-card"><div><strong>Kyiv</strong><br>Q: 0.92<br>$\vec{E} = [0.95, 0.91, 0.98, 0.89]^T$</div></div>
+  <div class="vector-card"><div><strong>Lviv</strong><br>Q: 0.88<br>$\vec{E} = [0.98, 0.89, 0.95, 0.92]^T$</div></div>
+  <div class="vector-card"><div><strong>Odesa</strong><br>Q: 0.74<br>$\vec{E} = [0.82, 0.95, 0.88, 0.78]^T$</div></div>
+  <div class="vector-card"><div><strong>Kharkiv</strong><br>Q: 0.68<br>$\vec{E} = [0.85, 0.72, 0.91, 0.71]^T$</div></div>
+  <div class="vector-card"><div><strong>Dnipro</strong><br>Q: 0.81<br>$\vec{E} = [0.87, 0.88, 0.86, 0.83]^T$</div></div>
+</div>

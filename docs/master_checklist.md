@@ -46,4 +46,4 @@
 - [ ] **7.3** Deploy Executive Workbench interface for Kassator (Dmytro) in co-development mode without artificial deadlines
 - [x] **7.4** Build DAG Proof-of-Contribution (PoC) SSLX Tokenomics Simulator (`docs/poc_reward_engine.js`)
 - [ ] **7.5** Transition to Network-Wide Scaling & Stellar SSLX IaaS Protocol upon Kassator's request
-- [x] **7.6** Refactor Executive Dashboard (`docs/index.html`) matching `admin.html` accordion style with human-centric KPI badges
+- [x] **7.6** Reconstruct docs/index.html with full-width Leaflet H3 map, header dropdown navigation, 4D environment vectors $\vec{E}$, and --tanunah accordion panels.
