@@ -66,6 +66,17 @@
         <div class="signal-section" id="signals-section"></div><ul id="signals-list"></ul>
       </div>
 
+      <!-- Telegram Channel Gateway -->
+      <div class="panel" id="telegram-panel">
+        <h3>Telegram Channel Gateway</h3>
+        <div class="mb-2">
+          <span class="text-sm text-gray-300">Channel:</span>
+          <span class="text-lg text-cyan-400 font-medium">@imperial_chancery <span class="text-green-400">[Active Sync]</span></span>
+        </div>
+        <button onclick="window.telegramGateway.broadcastSignal({region:'Kyiv Central', timestamp: new Date().toUTCString(), text:'Manual OSINT Broadcast Test from Admin UI'})" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs mb-2">Broadcast Test Signal to Telegram</button>
+        <div id="telegram-status" class="mt-2 text-xs text-gray-400">Status: Gateway Ready</div>
+      </div>
+
       <!-- RAM Telemetry Panel -->
       <div class="panel" id="ram-panel">
         <h3>Resource RAM</h3>
@@ -75,7 +86,8 @@
     </div>
   </div>
 
-  <script src="docs/p2p_simulator.js"></script>
+  <script src="docs/telegram_bot.js"></script>
+<script src="docs/p2p_simulator.js"></script>
 <script src="app.js" defer></script>
 <script>
 (function() {
