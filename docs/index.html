@@ -19,8 +19,15 @@
           <rect x="3" y=14 width="7" height="7"></rect>
           <rect x=14 y=14 width="7" height="7"></rect>
         </svg>
-        Imperia v4 Dashboard
+        Imperia v4 Admin Control Center
       </h1>
+      <div class="header-right">
+        <span class="mode-indicator performance" id="mode-display">PERFORMANCE</span>
+        <span class="text-xs text-gray-400 ms-3" id="coherence-index">Coherence: --</span>
+        <span class="text-xs text-gray-400 ms-3" id="p2p-nodes-header">Nodes: --</span>
+        <span class="text-xs text-gray-400 ms-3" id="telemetry-status">Telemetry: --</span>
+        <span class="text-xs text-gray-400 ms-3"><button onclick="window.open('docs/state_gateway.json', '_blank')" class="px-2 py-1 bg-purple-700 hover:bg-purple-600 text-white rounded text-xs font-mono">🌐 Export</button></span>
+      </div>
     </div>
   </header>
 
@@ -28,7 +35,7 @@
     <p class="subtitle">Zero-server client-side telemetry feed from kancelyariya facade</p>
 
     <div class="dashboard">
-      <!-- System Mode Panel -->
+      <!-- Grid Row 1 -->
       <div class="panel" id="mode-panel">
         <h3>System Mode</h3>
         <div class="mode-indicator performance" id="mode-display">PERFORMANCE</div>
