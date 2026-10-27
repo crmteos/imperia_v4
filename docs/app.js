@@ -44,3 +44,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   renderDashboard(DEFAULT_TELEMETRY);
 fetch('./telemetry_feed.json') .then(r => r.json()) .then(data => renderDashboard(data)) .catch(e => console.log('Using default telemetry:', e));
+}
