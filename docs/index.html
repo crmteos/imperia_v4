@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Imperia v4 - GitHub Pages Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <link rel="icon" href="/favicon.ico" type="image/x-icon">
 </head>
 <body>
@@ -42,6 +44,7 @@
       <div class="panel" id="h3-panel">
         <h3>H3 Spatial Grid</h3>
         <canvas id="h3-canvas" width="400" height="200"></canvas>
+        <div id="h3-map" style="height: 320px; width: 100%;" class="rounded-lg border border-gray-700 overflow-hidden mt-2 shadow-inner"></div>
       </div>
 
       <!-- P2P Topology Panel -->
@@ -126,6 +129,70 @@
     }
   }
   renderDashboard(DEFAULT_TELEMETRY);
+  
+  function getH3HexPolygon(lat, lng, radius = 0.22) {
+    const points = [];
+    for (let i = 0; i < 6; i++) {
+      const angle = (i * 60) * Math.PI / 180;
+      const pLat = lat + radius * Math.sin(angle) * 0.7;
+      const pLng = lng + radius * Math.cos(angle);
+      points.push([pLat, pLng]);
+    }
+    return points;
+  }
+  
+  function initH3Map(data) { 
+    const container = document.getElementById('h3-map'); 
+    if (!container || typeof L === 'undefined' || container._leaflet_id) return;
+    const map = L.map('h3-map', { center: [48.3794, 31.1656], zoom: 6, zoomControl: true, attributionControl: false });
+    L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', { maxZoom: 18, subdomains: 'abcd' }).addTo(map);
+    const regionCoords = { "101": [50.4501, 30.5234], "102": [49.8397, 24.0297], "103": [46.4825, 30.7233], "104": [49.9935, 36.2304], "105": [48.4647, 35.0462] };
+    data.regions.forEach(r => { 
+      const coords = regionCoords[r.code]; 
+      if (!coords) return;
+      const hexVertices = getH3HexPolygon(coords[0], coords[1], 0.22);
+      const isMedium = r.tension === "Medium" || r.tension === "High";
+      const color = isMedium ? "#f59e0b" : "#10b981";
+      const polygon = L.polygon(hexVertices, {
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.35,
+        weight: 2
+      }).addTo(map);
+      polygon.bindPopup(`
+        <div style="color: #111827; font-family: sans-serif; font-size: 12px;">
+          <strong style="font-size: 14px;">${r.name}</strong><br/>
+          <b>H3 Cell:</b> 872b${r.code}ffffff<br/>
+          <b>Status:</b> ${r.status}<br/>
+          <b>Tension:</b> <span style="color: ${color}; font-weight: bold;">${r.tension}</span><br/>
+          <b>GPS:</b> ${r.gps}
+        </div>
+      `);
+    });
+    data.signals.forEach(s => { 
+      let coords = [50.4501, 30.5234]; 
+      if (s.region.includes("Lviv")) coords = [49.8397, 24.0297]; 
+      else if (s.region.includes("Odesa")) coords = [46.4825, 30.7233]; 
+      else if (s.region.includes("Kharkiv")) coords = [49.9935, 36.2304]; 
+      else if (s.region.includes("Dnipro")) coords = [48.4647, 35.0462];
+      const marker = L.circleMarker(coords, {
+        radius: 7,
+        color: '#3b82f6',
+        fillColor: '#60a5fa',
+        fillOpacity: 0.9,
+        weight: 2
+      }).addTo(map);
+      marker.bindPopup(`
+        <div style="color: #111827; font-family: sans-serif; font-size: 11px;">
+          <strong style="color: #1d4ed8;">OSINT Signal</strong><br/>
+          <b>Time:</b> ${s.timestamp}<br/>
+          <b>Region:</b> ${s.region}<br/>
+          <p style="margin-top: 4px; font-style: italic;">"${s.text}"</p>
+        </div>
+      );
+    });
+  }
+  initH3Map(DEFAULT_TELEMETRY);
 })(); </script>
 </body>
 </html>
