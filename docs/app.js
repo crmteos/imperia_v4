@@ -33,7 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const regEl = document.getElementById('passports-grid');
     if (regEl) {
-      regEl.innerHTML = data.regions.map(r => '<div class="p-3 bg-gray-800 rounded border border-gray-700"><div class="flex justify-between items-center mb-1"><span class="font-bold text-sm text-white">' + r.name + '</span><span class="text-xs px-2 py-0.5 bg-green-900 text-green-300 rounded">' + r.status + '</span></div><div class="text-xs text-gray-400">Code: ' + r.code + ' | GPS: ' + r.gps + '</div><div class="text-xs text-yellow-400 mt-1">Tension: ' + r.tension + '</div></div>').join('');
+      // Use territory passports data with Q-factors and Vector E metrics
+      const passports = data.territory_passports || data.regions.map(r => ({
+        ...r,
+        q_factor: r.q_factor || 0.5,
+        vector_E: r.vector_E || { E_lang: 0.5, E_geo: 0.5, E_hist: 0.5, E_soc: 0.5 }
+      }));
+      regEl.innerHTML = passports.map(r => '<div class="p-3 bg-gray-800 rounded border border-gray-700"><div class="flex justify-between items-center mb-1"><span class="font-bold text-sm text-white">' + r.name + '</span><span class="text-xs px-2 py-0.5 bg-green-900 text-green-300 rounded">' + r.status + '</span></div><div class="text-xs text-gray-400">Code: ' + r.code + ' | GPS: ' + r.gps + '</div><div class="text-xs text-yellow-400 mt-1">Tension: ' + r.tension + '</div><div class="text-xs text-cyan-400 mt-1">Q: ' + r.q_factor.toFixed(2) + '</div><div class="text-xs text-orange-300 mt-1">VecE: [' + r.vector_E.E_lang + ', ' + r.vector_E.E_geo + ', ' + r.vector_E.E_hist + ', ' + r.vector_E.E_soc + ']^T</div></div>').join('');
     }
 
     const sigEl = document.getElementById('signals-list');
@@ -42,6 +48,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  renderDashboard(DEFAULT_TELEMETRY);
-fetch('./telemetry_feed.json') .then(r => r.json()) .then(data => renderDashboard(data)) .catch(e => console.log('Using default telemetry:', e));
+  // Fetch both telemetry and territory passports
+  Promise.all([
+    fetch('./telemetry_feed.json').then(r => r.json()),
+    fetch('./territory_passports.json').then(r => r.json())
+  ])
+  .then(([telemetryData, passportsData]) => {
+    // Merge passports data into telemetry for unified rendering
+    const mergedData = {
+      ...telemetryData,
+      territory_passports: passportsData.regions
+    };
+    renderDashboard(mergedData);
+  })
+  .catch(e => console.log('Using default telemetry:', e));
+
+  // Fallback: if only telemetry feed is available
+  fetch('./telemetry_feed.json') .then(r => r.json()) .then(data => renderDashboard(data)) .catch(e => console.log('Using default telemetry:', e));
 }

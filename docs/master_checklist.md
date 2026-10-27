@@ -23,8 +23,8 @@
 - [x] **1.3** Map P2P node consciousness hierarchy based on Synarchy Law & Varna roles ($M-f$ scale-frequency axis)
 
 ### Phase 2: Territory Passports & H3 Geo-Database
-- [ ] **2.1** Expand `docs/territory_passports.json` with H3 Res 4 / Res 7 indexes for all regions of Ukraine
-- [ ] **2.2** Include 4D Environmental Vector $\vec{E} = [E_{lang}, E_{geo}, E_{hist}, E_{soc}]^T$, tension metrics, and $Q$-factors
+- [x] **2.1** Expand `docs/territory_passports.json` with H3 Res 4 / Res 7 indexes for all regions of Ukraine
+- [x] **2.2** Include 4D Environmental Vector $\vec{E} = [E_{lang}, E_{geo}, E_{hist}, E_{soc}]^T$, tension metrics, and $Q$-factors
 
 ### Phase 3: Interactive P2P Topology Simulator
 - [ ] **3.1** Build P2P Topology Simulator widget in `docs/index.html`
