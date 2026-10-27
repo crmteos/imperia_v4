@@ -14,5 +14,15 @@
     { "code": "104", "name": "Kharkiv East", "q_factor": 0.68, "vector_E": [0.85, 0.72, 0.91, 0.71] },
     { "code": "105", "name": "Dnipro Center", "q_factor": 0.81, "vector_E": [0.87, 0.88, 0.86, 0.83] }
   ],
-  "context_bridge_prompt": "CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery."
+  "context_bridge_prompt": "CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery.",
+  "memory_vault": {
+    "core_law": "Law of Synarchy & Scale-Frequency M-f Axis (Shudra -> Vaishya -> Kshatriya -> Brahman)",
+    "math_engine": "dQ/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback",
+    "tokenomics": "Reward = Tokens_processed * Q_node * K_H3_density (PoI / PoC)",
+    "active_h3_hubs": ["Kyiv Central (101)", "Lviv West (102)", "Odesa South (103)", "Kharkiv East (104)", "Dnipro Center (105)"],
+    "external_gateways": {
+      "telegram": "@imperial_chancery",
+      "slate_network_bridge": "Pending Parallel Sandbox Integration"
+    }
+  }
 }
