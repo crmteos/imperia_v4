@@ -1,0 +1,27 @@
+{
+  "version": "1.0.0-japan-esoc",
+  "target_region": "Japan (Tokyo & Osaka H3 Clusters)",
+  "updated_at": "2026-10-27T08:50:00Z",
+  "h3_sectors": [
+    {
+      "hub_name": "Tokyo Central Sl8 Cluster",
+      "h3_index": "872b10111ffffff",
+      "h3_res": 7,
+      "gps": [35.6762, 139.6503],
+      "E_soc_japan": 0.32,
+      "sentiment_noise": 0.28,
+      "anomalous_volume": 0.15,
+      "status": "Low Tension / High Coherence"
+    },
+    {
+      "hub_name": "Osaka South Sl8 Cluster",
+      "h3_index": "872b10222ffffff",
+      "h3_res": 7,
+      "gps": [34.6937, 135.5023],
+      "E_soc_japan": 0.41,
+      "sentiment_noise": 0.35,
+      "anomalous_volume": 0.22,
+      "status": "Stable"
+    }
+  ]
+}
