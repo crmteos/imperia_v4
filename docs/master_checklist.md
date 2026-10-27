@@ -27,8 +27,8 @@
 - [x] **2.2** Include 4D Environmental Vector $\vec{E} = [E_{lang}, E_{geo}, E_{hist}, E_{soc}]^T$, tension metrics, and $Q$-factors
 
 ### Phase 3: Interactive P2P Topology Simulator
-- [ ] **3.1** Build P2P Topology Simulator widget in `docs/index.html`
-- [ ] **3.2** Dynamic node connect/disconnect controls, Swarm Inference load balancing, and real-time coherence calculation
+- [x] **3.1** Build P2P Topology Simulator widget in `docs/index.html`
+- [x] **3.2** Dynamic node connect/disconnect controls, Swarm Inference load balancing, and real-time coherence calculation
 
 ### Phase 4: Autonomous Telegram Gateway & Bot
 - [ ] **4.1** Develop Node.js/Python Telegram bridge bot to broadcast OSINT signals and territorial tension alerts to the Imperial Chancery Channel
