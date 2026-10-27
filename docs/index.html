@@ -3,9 +3,9 @@
 <head>
 <meta charset=""UTF-8"">
 <meta name=""viewport"" content=""width=device-width, initial-scale=1.0"">
-<title>Imperia v4 - GitHub Pages Dashboard</title>
+<title>Imperia v4 - Executive Workbench</title>
 <style>
-  :root { --bg: #0a0a0f; --card: #1a1a24; --border: #2a2a3a; --tanunah: #ffd700; --achtung: #ff4466; --fg: #e8e8f0; --muted: #6b6b80; }
+  :root { --bg: #0a0a0f; --card: #1a1a24; --border: #2a2a3a; --tanunah: #ffd700; --achtung: #ff4466; }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: system-ui, -apple-system, sans-serif; background: var(--bg); color: var(--fg); }
   .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
@@ -37,15 +37,106 @@
 <link rel=""icon"" href=""/favicon.ico"" type=""image/x-icon"">
 </head>
 <body>
+  <div class="filter-bar">
+    <select id="filter-country">
+      <option value="ukraine">Україна</option>
+      <option value="japan">Японія</option>
+      <option value="eu">Європейський Союз</option>
+    </select>
+    <select id="filter-region">
+      <option value="all">Усі Хаби</option>
+      <option value="kyiv">Київ Central</option>
+      <option value="lviv">Львів West</option>
+      <option value="odesa">Одеса South</option>
+      <option value="kharkiv">Харків East</option>
+      <option value="dnipro">Дніпро Center</option>
+      <option value="tokyo">Токіо Central</option>
+      <option value="osaka">Осака South</option>
+    </select>
+    <select id="filter-module">
+      <option value="map">🗺️ H3 Гео-Карта</option>
+      <option value="telemetry">📊 Телеметрія Ядра</option>
+      <option value="poc">🪙 SSLX Токénomіка</option>
+      <option value="telegram">🤖 Шлюз Канцелярії</option>
+    </select>
+  </div>
+<div class="top-bar">
+      <div class="logo">IMPERIA v4: Executive Workbench</div>
+      <span class="status-badge">Q = 0.94 Brahman-orchestrated</span>
+      <div style="display: flex; gap: 16px; align-items: center;">
+        <select id="nav-contour" class="nav-select"><option value="ukraine">Ukraine 5 Hubs</option><option value="japan">Japan Tokyo/Osaka</option></select>
+        <select id="nav-module" class="nav-select"><option value="h3">H3 Spatial Grid</option><option value="esoc">$E_{soc}$ Sensor</option><option value="poc">SSLX Tokenomics</option><option value="telegram">Telegram Gateway</option></select>
+      </div>
+    </div>
+<div class="kpi-grid">
+      <div class="kpi-card"><div class="kpi-value tanunah" id="kpi-coherence">0.94</div><div class="kpi-label">Global Q-Coherence</div></div>
+<details open>
+      <summary style="color: var(--tanunah); font-weight: bold; font-size: 1.1rem; cursor: pointer;">🛰️ Геопросторова сітка H3 & Карта</summary>
+      <div id="map" style="width: 100%; height: 550px; border-radius: 12px; border: 1px solid var(--border); margin-top: 15px; margin-bottom: 20px;"></div>
+      <div style="margin-bottom: 20px;">
+        <div class="vector-card"><div><strong>Kyiv</strong><br>Q: 0.92<br>$\vec{E} = [0.95, 0.91, 0.98, 0.89]^T$</div></div>
+        <div class="vector-card"><div><strong>Lviv</strong><br>Q: 0.88<br>$\vec{E} = [0.98, 0.89, 0.95, 0.92]^T$</div></div>
+        <div class="vector-card"><div><strong>Odesa</strong><br>Q: 0.74<br>$\vec{E} = [0.82, 0.95, 0.88, 0.78]^T$</div></div>
+        <div class="vector-card"><div><strong>Kharkiv</strong><br>Q: 0.68<br>$\vec{E} = [0.85, 0.72, 0.91, 0.71]^T$</div></div>
+        <div class="vector-card"><div><strong>Dnipro</strong><br>Q: 0.81<br>$\vec{E} = [0.87, 0.88, 0.86, 0.83]^T$</div></div>
+      </div>
+    </details>
+      <div class="kpi-card"><div class="kpi-value" id="kpi-hubs">5</div><div class="kpi-label">Active P2P Hubs</div></div>
+      <div class="kpi-card"><div class="kpi-value" id="kpi-load">0.42</div><div class="kpi-label">Swarm Load</div></div>
+      <div class="kpi-card"><div class="kpi-value achtung" id="kpi-tension">28%</div><div class="kpi-label">Social Tension</div></div>
+    </div>
   <div class=""container"">
     <h1>Imperia v4: Executive Workbench</h1>
   
   <!-- Accordion Panel 1: Kernel Telemetry & H3 Geo Grid -->
   <details open>
+<details>
+      <summary>🪙 Sl8 Network & Stellar SSLX Tokenomics</summary>
+      <div class="card">
+        <h3 class="card-title">SSLX Proof-of-Contribution (PoC) Reward Engine</h3>
+        <div class="progress" style="margin: 16px 0;"><div class="progress-fill" style="width: 70%; background: var(--tanunah);"></div><div style="position: absolute; right: 12px; font-size: 0.7rem; color: var(--bg);">70% Author</div></div>
+        <div class="progress" style="margin: 16px 0;"><div class="progress-fill" style="width: 20%; background: #a855f6;"></div><div style="position: absolute; right: 12px; font-size: 0.7rem; color: var(--bg);">20% Fact-Checkers</div></div>
+        <div class="progress" style="margin: 16px 0;"><div class="progress-fill" style="width: 10%; background: #f472b6;"></div><div style="position: absolute; right: 12px; font-size: 0.7rem; color: var(--bg);">10% Treasury</div></div>
+        <br>
+        <div class="card">
+          <div class="card-title">E_soc Social Tension Sensor</div>
+          <div class="tension-badge tension-good" id="live-esoc-badge">🟢 28%</div>
+          <p class="text-xs text-gray-400 mt-2">Based on: Sentiment Noise 0.30 | Anomalous Volume 0.20 | Regional Disparity 0.10</p>
+        </div>
+        <div class="card">
+          <div class="card-title">Japan ($E_{soc}^{Japan}$) Regional Status</div>
+          <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-top: 12px;">
+            <div><strong>Tokyo Central</strong><br><span class="tension-badge tension-good">🟢 Low Tension / High Coherence</span><br>E_soc: 0.32 | Q: 0.89</div>
+            <div><strong>Osaka South</strong><br><span class="tension-badge tension-medium">🟡 Stable</span><br>E_soc: 0.41 | Q: 0.85</div>
+          </div>
+        </div>
+      </div>
+    </details>
     <summary>🛰️ Kernel Telemetry & H3 Geo Grid (Геопросторова карта та хаби)</summary>
 <div class="kpi-card"><div class="kpi-value kpi-tanunah" id="kpi-coherence">0.94</div><div class="kpi-label">Global Q-Coherence</div></div>
 <div class="kpi-card"><div class="kpi-value kpi-tanunah" id="kpi-nodes">5</div><div class="kpi-label">Active Nodes</div></div>
+<details>
+      <summary>🤖 Negotiator Agent & Telegram Chancery Gateway</summary>
+      <div class="card">
+        <h3 class="card-title">Executive Daily Summary</h3>
+        <p class="text-gray-300 mb-3">Imperia v4 Executive Dashboard active. System coherence 0.94 across 5 P2P nodes. No critical anomalies detected.</p>
+        <button onclick="window.negotiatorAgent.generateDailySynthesis()" class="btn btn-sm btn-primary mt-2">Generate Daily Synthesis</button>
+      </div>
+      <div class="card">
+        <div class="card-title">Telegram @imperial_chancery Sync</div>
+        <p class="text-xs text-gray-400 mb-2">Channel: @imperial_chancery | Nodes: 5 active</p>
+        <button onclick="window.p2pSim.triggerInferenceSpike()" class="btn btn-sm btn-warning mt-1">Test Signal Broadcast</button>
+        <button onclick="window.p2pSim.addNode('Brahman')" class="btn btn-sm btn-primary mt-1">Add High-Q Node</button>
+      </div>
+    </details>
 <div class="top-bar">
+<details>
+      <summary class="cursor-pointer text-xs text-gray-400">⚙️ Developer Console & Raw Data</summary>
+      <div class="footer-console">
+        <h4 style="margin-top: 0; color: var(--tanunah);">Raw JSON Logs</h4>
+        <pre>{ "version": "4.6.0-state-gateway", "exported_at": "2026-10-27T02:50:00Z", "system_state": { "global_coherence": 0.94, "active_p2p_nodes": 5, "swarm_load": 0.42, "telegram_channel": "@imperial_chancery" }, "h3_passports_summary": [ { "code": "101", "name": "Kyiv Central", "q_factor": 0.92, "vector_E": [0.95, 0.91, 0.98, 0.89] }, { "code": "102", "name": "Lviv West", "q_factor": 0.88, "vector_E": [0.98, 0.89, 0.95, 0.92] }, { "code": "103", "name": "Odesa South", "q_factor": 0.74, "vector_E": [0.82, 0.95, 0.88, 0.78] }, { "code": "104", "name": "Kharkiv East", "q_factor": 0.68, "vector_E": [0.85, 0.72, 0.91, 0.71] }, { "code": "105", "name": "Dnipro Center", "q_factor": 0.81, "vector_E": [0.87, 0.88, 0.86, 0.83] } ], "context_bridge_prompt": "CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery.", "memory_vault": { "core_law": "Law of Synarchy & Scale-Frequency M-f Axis (Shudra -> Vaishya -> Kshatriya -> Brahman)", "math_engine": "dQ/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback", "tokenomics": "Reward = Tokens_processed * Q_node * K_H3_density (PoI / PoC)", "active_h3_hubs": ["Kyiv Central (101)", "Lviv West (102)", "Odesa South (103)", "Kharkiv East (104)", "Dnipro Center (105)"] }</pre>
+      </div>
+    </details>
       <div class="logo">IMPERIA v4: Executive Workbench</div>
       <span class="status-badge">Q = 0.94 Brahman-orchestrated</span>
       <div style="display: flex; gap: 16px; align-items: center;">
@@ -129,6 +220,28 @@
               </div>
             </div>
           </div>
+document.addEventListener("DOMContentLoaded", function() {
+  // Initialize Leaflet Map on #map container with Esri Dark Gray tiles
+  if (document.getElementById("map") && typeof L !== "undefined") {
+    var map = L.map("map").setView([48.3794, 31.1656], 6);
+    L.tileLayer('[suspicious link removed]{z}/{y}/{x}', {
+      attribution: 'Esri, HERE, Garmin, USGS, NGA',
+      maxZoom: 16
+    }).addTo(map);
+    window.imperiaMap = map;
+  }
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  // Resize map on accordion open
+  var acc1 = document.getElementById("accordion-map");
+  if (acc1) {
+    acc1.addEventListener("toggle", function() {
+      if (this.open && window.imperiaMap) {
+        setTimeout(function() { window.imperiaMap.invalidateSize(); }, 250);
+      }
+    });
+  }
+});
         </div>
             const regionLabels = { ""101"": ""Kyiv Central"", ""102"": ""Lviv West"", ""103"": ""Odesa South"", ""104"": ""Kharkiv East"", ""105"": ""Dnipro Center"" };
             Object.entries(regionCoords).forEach(function(([code, [lat, lng]])) {
@@ -286,3 +399,79 @@ var accordion1 = document.querySelector("details[open]");
   <div class="vector-card"><div><strong>Kharkiv</strong><br>Q: 0.68<br>$\vec{E} = [0.85, 0.72, 0.91, 0.71]^T$</div></div>
   <div class="vector-card"><div><strong>Dnipro</strong><br>Q: 0.81<br>$\vec{E} = [0.87, 0.88, 0.86, 0.83]^T$</div></div>
 </div>
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+      // Initialize Leaflet Map on #map container with Esri Dark Gray tiles
+      if (document.getElementById("map") && typeof L !== "undefined") {
+        var map = L.map("map").setView([48.3794, 31.1656], 6);
+        L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}", {
+          maxZoom: 16,
+          attribution: "Tiles © Esri"
+        }).addTo(map);
+        window.imperiaMap = map;
+      }
+      // Resize map on accordion open
+      var acc1 = document.getElementById("accordion-map");
+      if (acc1) {
+        acc1.addEventListener("toggle", function() {
+          if (this.open && window.imperiaMap) {
+            setTimeout(function() { window.imperiaMap.invalidateSize(); }, 200);
+          }
+        });
+      }
+    });
+  </script>
+<details>
+    <summary>⚙️ Developer Console & Raw Data</summary>
+    <div class="footer-console">
+      <h4 style="color: var(--tanunah); margin: 4px 0 8px 0;">Raw JSON Logs</h4>
+      <pre>{ "version": "4.6.0-state-gateway", "exported_at": "2026-10-27T02:50:00Z", "system_state": { "global_coherence": 0.94, "active_p2p_nodes": 5, "swarm_load": 0.42, "telegram_channel": "@imperial_chancery" }, "h3_passports_summary": [ { "code": "101", "name": "Kyiv Central", "q_factor": 0.92, "vector_E": [0.95, 0.91, 0.98, 0.89] }, { "code": "102", "name": "Lviv West", "q_factor": 0.88, "vector_E": [0.98, 0.89, 0.95, 0.92] }, { "code": "103", "name": "Odesa South", "q_factor": 0.74, "vector_E": [0.82, 0.95, 0.88, 0.78] }, { "code": "104", "name": "Kharkiv East", "q_factor": 0.68, "vector_E": [0.85, 0.72, 0.91, 0.71] }, { "code": "105", "name": "Dnipro Center", "q_factor": 0.81, "vector_E": [0.87, 0.88, 0.86, 0.83] } ], "context_bridge_prompt": "CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery.", "memory_vault": { "core_law": "Law of Synarchy & Scale-Frequency M-f Axis (Shudra -> Vaishya -> Kshatriya -> Brahman)", "math_engine": "dQ/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback", "tokenomics": "Reward = Tokens_processed * Q_node * K_H3_density (PoI / PoC)", "active_h3_hubs": ["Kyiv Central (101)", "Lviv West (102)", "Odesa South (103)", "Kharkiv East (104)", "Dnipro Center (105)"] }</pre>
+    </div>
+  </details>
+<details>
+    <summary>🤖 Агент-Переговорник & Telegram Шлюз</summary>
+    <div class="card">
+      <p>Imperia v4 Executive Dashboard active. System coherence 0.94 across 5 P2P nodes. No critical anomalies detected.</p>
+      <button style="margin: 8px 0; padding: 6px 12px; background: var(--tanunah); color: var(--bg); border: none; border-radius: 4px; cursor: pointer;">Generate Daily Synthesis</button>
+      <div style="margin-top: 12px;">
+        <p>Telegram @imperial_chancery | Nodes: 5 active</p>
+        <button style="margin: 4px; padding: 6px 12px; background: var(--achtung); color: var(--bg); border: none; border-radius: 4px; cursor: pointer;">Test Alert Broadcast</button>
+      </div>
+    </div>
+  </details>
+<details>
+    <summary>🪙 Sl8 Network & SSLX Tokenomics</summary>
+    <div class="card">
+      <div class="card-title">SSLX Proof-of-Contribution (PoC) Reward Engine</div>
+      <div class="progress-small"><div class="progress-small secondary"></div><div class="progress-small tertiary"></div></div>
+      <p>70% Author | 20% Fact-Checkers | 10% Treasury</p>
+      <div class="card">
+        <div class="card-title">Japan ($E_{soc}^{Japan}$) Regional Anomaly</div>
+        <div style="display: flex; gap: 20px; margin-top: 8px;">
+          <div><strong>Токіо Central</strong><br><span class="tension-badge tension-good">🟢 Low</span><br>E_soc: 0.32 | Q: 0.89</div>
+          <div><strong>Осака South</strong><br><span class="tension-badge tension-medium">🟡 Stable</span><br>E_soc: 0.41 | Q: 0.85</div>
+        </div>
+      </div>
+    </div>
+  </details>
+<details>
+    <summary>📊 Метрики та Телеметрія Ядра</summary>
+    <div class="card">
+      <div class="kpi-line"><span class="kpi-label">Q-Coherence</span><span class="kpi-value tanunah">0.94</span></div>
+      <div class="kpi-line"><span class="kpi-label">Active Nodes</span><span class="kpi-value">5</span></div>
+      <div class="kpi-line"><span class="kpi-label">Swarm Load</span><span class="kpi-value">0.42</span></div>
+      <div class="kpi-line"><span class="kpi-label">Social Tension</span><span class="kpi-value Achtung">28%</span></div>
+    </div>
+  </details>
+<details open id="accordion-map">
+    <summary style="color: #ffd700; font-weight: bold; font-size: 1.1rem; cursor: pointer;">🗺️ H3 Геопросторова Карта</summary>
+    <div id="map"></div>
+    <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px;">
+      <div class="horizontal-card"><strong>Київ</strong> Q:0.92</div>
+      <div class="horizontal-card"><strong>Львів</strong> Q:0.88</div>
+      <div class="horizontal-card"><strong>Одеса</strong> Q:0.74</div>
+      <div class="horizontal-card"><strong>Харків</strong> Q:0.68</div>
+      <div class="horizontal-card"><strong>Дніпро</strong> Q:0.81</div>
+    </div>
+  </details>
