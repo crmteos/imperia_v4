@@ -1,0 +1,32 @@
+# CLINE RULES - Imperia v4 Project
+# Last updated: 2026-10-28
+
+## INVARIANT 1: File Separation
+Never merge or conflate docs/index.html and docs/kassator.html.
+These are distinct UI modules:
+- docs/index.html → Master Sovereign UI (leaflet map, regional filters, territory passports)
+- docs/kassator.html → Kassator Telemetry UI (separate functionality, do not combine)
+
+Violating this invariant breaks the 3-tier filter architecture and master override controls.
+
+## INVARIANT 2: Session State Persistence
+All inter-session state changes MUST be persisted to:
+- docs/state_gateway.json → Tenant session state, Q-bounds, region selections
+- docs/master_checklist.md → Master override status, completion flags, audit logs
+
+Never rely on in-memory state across sessions. The sl8_gateway.js depends on these persisted files for cross-session continuity.
+
+## INVARIANT 3: Specification v3.0 Compliance
+All UI implementations must strictly adhere to tz-slate-integration-v3.md specification.
+Critical requirements:
+- Tailwind CSS CDN with intentional class names
+- Leaflet 1.9.4 from Cloudflare CDN
+- Ukrainian language (lang="uk") throughout
+- 3-tier filter dropdowns (country → region → module)
+- Full-width Leaflet map as dominant visual center
+- Regional passport rows with 4D ecology vectors E = [E_lang, E_geo, E_hist, E_soc]^T
+- Master override control buttons with proper alert messages
+- H3 geo-matrix module options
+- Kassator UI linking
+
+Any UI file in docs/ must pass specification v3.0 review before commit.
