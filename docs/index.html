@@ -4,14 +4,27 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMPERIA v4: Master Sovereign UI</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.0/tailwind.min.css" />
-    <style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    
+    <!-- Local State Gateway JS (No CORS on file://) -->
+    <script src="./state_gateway.js"></script>
+        
+<style>
         body { margin: 0; padding: 20px; background: #0d0f12; color: #e0e6ed; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
         .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2f3a; padding-bottom: 15px; margin-bottom: 20px; }
         .title { font-size: 20px; font-weight: bold; color: #00ffcc; }
         .badge { background: #1a2332; border: 1px solid #00ffcc; color: #00ffcc; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        
+        /* Leaflet Fix 1: Prevent tile distortion */
+        .leaflet-container img {
+            max-width: none !important;
+            max-height: none !important;
+        }
+        
         .map-container { margin-bottom: 20px; }
-        #map { height: 480px; border-radius: 8px; border: 1px solid #2a2f3a; background: #000; width: 100%; }
+        #map { width: 100% !important; height: 480px !important; display: block; border-radius: 8px; border: 1px solid #2a2f3a; background: #000; position: relative; z-index: 1; }
+        
         .bottom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .card { background: #141820; border: 1px solid #2a2f3a; border-radius: 8px; padding: 15px; }
         .card h3 { margin-top: 0; color: #8899a6; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #2a2f3a; padding-bottom: 8px; }
@@ -22,7 +35,7 @@
         .btn-danger:hover { background: #cc0033; }
         .p2p-card { background: #1c212c; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; font-size: 13px; display: flex; justify-content: space-between; }
         @media (max-width: 900px) { .bottom-grid { grid-template-columns: 1fr; } }
-    </style>
+</style>
 </head>
 <body>
 <div class="header">
@@ -137,6 +150,11 @@
         };
 
         document.addEventListener("DOMContentLoaded", loadData);
+
+        // Leaflet Fix 2: Force recalculate size after DOM rendering
+        setTimeout(function() {
+            if (map) map.invalidateSize();
+        }, 300);
     </script>
 </body>
 </html>
