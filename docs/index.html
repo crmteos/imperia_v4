@@ -255,8 +255,24 @@ function applyState(data) {
       if (cached) { currentState = cached; applyState(currentState); return; }
       fetch('./state_gateway.json').then(function(r){return r.json();}).then(function(data){currentState=data;try{localStorage.setItem('imperia_state_cache',JSON.stringify(data));}catch(e){}applyState(data);}).catch(function(err){console.warn('Fetch failed, using fallback:',err.message);currentState=FALLBACK_STATE;applyState(FALLBACK_STATE);});
     }
-    function applyState(data){updateTelemetry(data.system_telemetry);applyP2PNodes(data.p2p_nodes);initMapWithH3(data.p2p_nodes);activateModule('map');}
-    var map=null;var h3Layers=[];
+    function applyState(state) {
+    if (!state) return;
+    const sys = state.system_telemetry || {};
+    const kas = state.kassator_monitor || {};
+    
+    if (document.getElementById('q-cohort')) document.getElementById('q-cohort').textContent = sys.q_cohort || '0.94';
+    if (document.getElementById('system-load')) document.getElementById('system-load').textContent = sys.load || '24%';
+    if (document.getElementById('nodes-online')) document.getElementById('nodes-online').textContent = sys.nodes_online || '5/6';
+    if (document.getElementById('avg-latency')) document.getElementById('avg-latency').textContent = sys.avg_latency || '42ms';
+    
+    if (document.getElementById('kassator-status')) document.getElementById('kassator-status').textContent = kas.status || '🟢 Активний';
+    if (document.getElementById('kassator-temp')) document.getElementById('kassator-temp').textContent = (kas.temperature || '42') + '°C';
+    if (document.getElementById('kassator-power')) document.getElementById('kassator-power').textContent = (kas.power || '1.2') + ' MW';
+    if (document.getElementById('kassator-conn')) document.getElementById('kassator-conn').textContent = kas.connection || 'P2P Mesh';
+    if (document.getElementById('kassator-latency')) document.getElementById('kassator-latency').textContent = (kas.latency || '18') + 'ms';
+    
+    applyP2PNodes(state.p2p_nodes);
+}
     function initMapWithH3(nodes){if(map){map.remove();}map=L.map('map').setView([48.3794,31.1656],6);L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);h3Layers=[];if(!list||!Array.isArray(list))return;for(var i=0;i<list.length;i++){var n=list[i]||{}var latlng=node.coordinates;var cell=h3.geoToCell(latlng[0],latlng[1],7);var hex=h3.cellToBoundary(cell);var latlngs=hex.map(function(c){return[c[0],c[1]];});var color=qColor(node.qFactor);var poly=L.polygon(latlngs,{color:color,weight:2,fillColor:color,fillOpacity:0.3}).addTo(map);poly.bindPopup('<strong>'+node.hub+'</strong><br>Q: '+node.qFactor+' ('+qLabel(node.qFactor)+')<br>E = ['+node.eVectors.E_lang+', '+node.eVectors.E_geo+', '+node.eVectors.E_hist+', '+node.eVectors.E_soc+']<br>Статус: '+node.status);poly.on('mouseover',function(){poly.setStyle({fillOpacity:0.6,weight:3});});poly.on('mouseout',function(){poly.setStyle({fillOpacity:0.3,weight:2});});h3Layers.push(poly);});map.invalidateSize();}
     function updateTelemetry(t){document.getElementById('cohort-q').textContent=safeFixed(t.cohortQ, 2);document.getElementById('system-load').textContent=t.currentLoad;document.getElementById('nodes-online').textContent=t.nodesOnline;document.getElementById('total-nodes').textContent=t.totalNodes;document.getElementById('avg-response').textContent=t.avgResponseTime;}
 function applyP2PNodes(nodes) {
@@ -273,7 +289,6 @@ function applyP2PNodes(nodes) {
         html += '<div class="p2p-node-card"><strong>' + (n.name || n.id || 'Node') + '</strong> — Q: ' + (n.q || '0.90') + '</div>';
     }
     container.innerHTML = html;
-}tml='';var list=Array.isArray(nodes)?nodes:[];if(list.length===0&&typeof FALLBACK_STATE!==undefined&&Array.isArray(FALLBACK_STATE.p2p_nodes)){list=FALLBACK_STATE.p2p_nodes;}for(var i=0;i<list.length;i++){var n=list[i]||{};html+='<div class="p2p-node-card"><strong>'+(n.name||n.id||'Node')+'</strong> — Q: '+(n.q||'0.90')+'</div>';}container.innerHTML=html;}
     function qColor(q){if(q>=0.8)return'#10B981';if(q>=0.7)return'#F59E0B';return'#EF4444';}
     function qLabel(q){if(q>=0.8)return'Спокій';if(q>=0.7)return'Помірний';return'Напруга';}
     function activateModule(m) {
