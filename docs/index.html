@@ -274,7 +274,6 @@
       if (m === 'kassator-monitor') showKassatorMonitor();
     }
     function showKassatorMonitor(){document.getElementById('kassator-monitor').classList.remove('hidden');var cached=null;try{cached=JSON.parse(localStorage.getItem('imperia_state_cache'));}catch(e){}var n=(cached||FALLBACK_STATE).p2p_nodes.find(function(nn){return nn.hub==='Kyiv (101)';});if(n){document.getElementById('kassator-status-text').textContent=n.status;document.getElementById('kassator-temp').textContent=Math.round(65+Math.random()*15);document.getElementById('kassator-power').textContent=Math.round(100+Math.random()*500);document.getElementById('kassator-uptime').textContent=Math.round(99.9*100)/100+'%';document.getElementById('kassator-latency').textContent=Math.round(10+Math.random()*50)+'ms';}}
-    }
     document.querySelectorAll('.accordion-btn').forEach(btn => {
       btn.addEventListener('click', function() {
         this.classList.toggle('active');
