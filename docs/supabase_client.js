@@ -11,7 +11,7 @@ window.SupabaseClient.log_telemetry = async function(hubId, status, temperature,
       method: 'POST',
       headers: {
         'apikey': SUPABASE_ANON_KEY,
-        'Authorization': \Bearer \,
+        'Authorization': \Bearer SUPABASE_ANON_KEY\,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
@@ -44,7 +44,7 @@ window.SupabaseClient.get_territory_passports = async function() {
       method: 'GET',
       headers: {
         'apikey': SUPABASE_ANON_KEY,
-        'Authorization': \Bearer \,
+        'Authorization': \Bearer SUPABASE_ANON_KEY\,
         'Accept': 'application/json',
       }
     });
@@ -67,7 +67,7 @@ window.SupabaseClient.save_territory_passport = async function(passportData) {
       method: 'POST',
       headers: {
         'apikey': SUPABASE_ANON_KEY,
-        'Authorization': \Bearer \,
+        'Authorization': \Bearer SUPABASE_ANON_KEY\,
         'Content-Type': 'application/json',
         'Accept': 'application/json',
       },
