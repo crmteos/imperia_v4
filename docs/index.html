@@ -52,7 +52,7 @@
     <!-- Top Section: Full Width Map Block -->
     <div class="map-container">
         <div class="card">
-            <h3>H3 Grid Geospatial Overlay (Ukraine)</h3>
+            <h3>H3 Grid Global Geospatial Overlay (World View)</h3>
             <div id="map"></div>
         </div>
     </div>
@@ -127,7 +127,7 @@
         function renderMap(nodes) {
             if (typeof L === "undefined" || !document.getElementById("map")) return;
             if (map) map.remove();
-            map = L.map("map").setView([48.3794, 31.1656], 6);
+            map = L.map("map").setView([0, 0], 2);
             
             // Esri Dark Gray Canvas — стабільно працює через file:// без 403 та без API-ключів
             L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Canvas/MapServer/tile/{z}/{y}/{x}", { 

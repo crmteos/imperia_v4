@@ -1,10 +1,10 @@
 window.STATE_GATEWAY_DATA = {
     "system_telemetry": { "q_cohort": "0.94", "load": "24%", "nodes_online": "5 / 6", "avg_latency": "42ms" },
     "p2p_nodes": [
-        { "id": "101", "hub": "Kyiv (101)", "qFactor": 0.92, "coordinates": [50.4501, 30.5234] },
-        { "id": "102", "hub": "Lviv (102)", "qFactor": 0.88, "coordinates": [49.8383, 24.0232] },
-        { "id": "103", "hub": "Odesa (103)", "qFactor": 0.74, "coordinates": [46.4825, 30.7233] },
-        { "id": "104", "hub": "Kharkiv (104)", "qFactor": 0.68, "coordinates": [49.9935, 36.2304] },
-        { "id": "105", "hub": "Dnipro (105)", "qFactor": 0.81, "coordinates": [48.4647, 35.0462] }
+        { "id": "101", "hub": "Kyiv (101)", "qFactor": 0.92, "coordinates": [50.4501, 30.5234], "region": "Europe" },
+        { "id": "201", "hub": "Tokyo (201)", "qFactor": 0.89, "coordinates": [35.6762, 139.6503], "region": "Asia" },
+        { "id": "301", "hub": "London (301)", "qFactor": 0.85, "coordinates": [51.5074, -0.1278], "region": "Europe" },
+        { "id": "401", "hub": "New York (401)", "qFactor": 0.81, "coordinates": [40.7128, -74.0060], "region": "North America" },
+        { "id": "501", "hub": "Berlin (501)", "qFactor": 0.88, "coordinates": [52.5200, 13.4050], "region": "Europe" }
     ]
 };
