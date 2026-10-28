@@ -3,38 +3,29 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IMPERIA v4: Sovereign Core Admin</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-  <style>
-    :root { --bg: #0a0a0f; --border: #2a2a3a; --tanunah: #ffd700; }
-    body { background-color: var(--bg); color: #e8e8f0; font-family: ui-sans-serif, system-ui, sans-serif; }
-    .leaflet-container img { max-width: none !important; max-height: none !important; }
-    #map { width: 100% !important; height: 550px !important; border-radius: 12px; border: 1px solid var(--border); display: block; position: relative; z-index: 1; }
-  </style>
+  <title>IMPERIA v4: Master Sovereign UI</title>
 </head>
 <body class="p-4 md:p-6 max-w-7xl mx-auto space-y-6">
   <header class="bg-gray-900/90 border border-gray-800 rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4">
     <div class="flex items-center gap-3">
       <div class="w-4 h-4 rounded-full bg-yellow-400 animate-pulse"></div>
       <div>
-        <h1 class="text-xl font-extrabold text-white">IMPERIA v4: Sovereign Core Admin</h1>
+        <h1 class="text-xl font-extrabold text-white">IMPERIA v4: Master Sovereign UI</h1>
         <p class="text-xs text-yellow-400 font-medium">Brahman-orchestrated Node | Q = 0.94</p>
       </div>
     </div>
     <div class="flex flex-wrap items-center gap-3">
       <div class="flex flex-col text-xs">
-        <label class="text-gray-400">Країна:</label>
-        <select id="filter-country" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2 py-1 text-xs">
+        <label class="text-gray-400 mb-0.5">Країна:</label>
+        <select id="filter-country" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2.5 py-1.5 focus:border-yellow-400 outline-none text-xs font-semibold">
           <option value="ua">🇺🇦 Україна</option>
           <option value="jp">🇯🇵 Японія</option>
           <option value="eu">🇪🇺 Європейський Союз</option>
         </select>
       </div>
       <div class="flex flex-col text-xs">
-        <label class="text-gray-400">Регіон / Хаб:</label>
-        <select id="filter-region" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2 py-1 text-xs">
+        <label class="text-gray-400 mb-0.5">Регіон / Хаб:</label>
+        <select id="filter-region" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2.5 py-1.5 focus:border-yellow-400 outline-none text-xs font-semibold">
           <option value="all">Усі 5 Хабів</option>
           <option value="101">Kyiv Central (101)</option>
           <option value="102">Lviv West (102)</option>
@@ -44,13 +35,63 @@
         </select>
       </div>
       <div class="flex flex-col text-xs">
-        <label class="text-gray-400">Модуль:</label>
-        <select id="filter-module" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2 py-1 text-xs">
+        <label class="text-gray-400 mb-0.5">Модуль:</label>
+        <select id="filter-module" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2.5 py-1.5 focus:border-yellow-400 outline-none text-xs font-semibold">
           <option value="map">🗺️ H3 Гео-Карта</option>
           <option value="telemetry">📊 Метрики Ядра</option>
+          <option value="kassator-monitor">📡 Kassator Telemetry</option>
         </select>
       </div>
     </div>
   </header>
+  <div class="p-4 space-y-4">
+    <!-- FULL-WIDTH LEAFLET MAP (DOMINANT VISUAL CENTER) -->
+    <div id="map"></div>
+    <!-- HORIZONTAL REGIONAL PASSPORT ROWS -->
+    <div class="space-y-2">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">📍 Паспорти Територій (4D Вектори Екології Н3: E = [E_lang, E_geo, E_hist, E_soc]^T)</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
+        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
+          <div class="flex justify-between font-bold text-white"><span>Kyiv Central (101)</span><span class="text-green-400">🟢 Спокій</span></div>
+          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.92</span> | E_soc: 0.21</div>
+          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.95, 0.91, 0.98, 0.89]</div>
+        </div>
+        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
+          <div class="flex justify-between font-bold text-white"><span>Lviv West (102)</span><span class="text-green-400">🟢 Спокій</span></div>
+          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.88</span> | E_soc: 0.18</div>
+          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.98, 0.89, 0.95, 0.92]</div>
+        </div>
+        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
+          <div class="flex justify-between font-bold text-white"><span>Odesa South (103)</span><span class="text-yellow-400">🟡 Помірний</span></div>
+          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.74</span> | E_soc: 0.31</div>
+          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.82, 0.95, 0.88, 0.78]</div>
+        </div>
+        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
+          <div class="flex justify-between font-bold text-white"><span>Kharkiv East (104)</span><span class="text-red-400">🔴 Напруга</span></div>
+          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.68</span> | E_soc: 0.45</div>
+          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.85, 0.72, 0.91, 0.71]</div>
+        </div>
+        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
+          <div class="flex justify-between font-bold text-white"><span>Dnipro Center (105)</span><span class="text-green-400">🟢 Спокій</span></div>
+          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.81</span> | E_soc: 0.28</div>
+          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.87, 0.88, 0.86, 0.83]</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Master Override Control Buttons -->
+  <div class="flex flex-wrap gap-2 text-xs">
+    <button onclick="alert('Master Override: Tenant session paused.')" class="px-3 py-1.5 bg-red-500/20 text-red-300 border border-red-500/40 rounded-lg hover:bg-red-500/30">
+      ⏸️ Pause Tenant
+    </button>
+    <button onclick="alert('Master Override: Q-Bounds recalibrated.')" class="px-3 py-1.5 bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 rounded-lg hover:bg-yellow-500/30">
+      ⚙️ Recalibrate Q
+    </button>
+    <a href="kassator.html" target="_blank" class="px-3 py-1.5 bg-blue-500/20 text-blue-300 border border-blue-500/40 rounded-lg hover:bg-blue-500/30 font-bold flex items-center gap-1">
+      🔗 Відкрити Kassator UI ↗
+    </a>
+  </div>
+</div>
 </body>
 </html>
