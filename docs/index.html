@@ -1,367 +1,138 @@
 <!DOCTYPE html>
-<html lang="uk">
+<html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>IMPERIA v4: Master Sovereign UI</title>
-  <script src="https://unpkg.com/h3-js@3.15.0/dist/h3.js"></script>
-  
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-  
-  <style>
-    :root { --bg: #0a0a0f; --border: #2a2a3a; --tanunah: #ffd700; }
-    body { background-color: var(--bg); color: #e8e8f0; font-family: ui-sans-serif, system-ui, sans-serif; }
-    .leaflet-container img { max-width: none !important; max-height: none !important; }
-    #map { width: 100% !important; height: 450px !important; border-radius: 12px; border: 1px solid var(--border); display: block; position: relative; z-index: 1; margin-bottom: 20px; }
-    .accordion-btn { width: 100%; text-align: left; padding: 12px 16px; background: #151520; border: 1px solid #2a2a3a; color: #e8e8f0; font-size: 0.875rem; font-weight: 500; border-radius: 8px; margin: 4px 0; cursor: pointer; transition: all 0.2s ease; }
-    .accordion-btn:hover { background: #1a1a25; border-color: #4a4a5a; }
-    .accordion-btn.active { border-color: #ffd700; color: #ffd700; }
-    .accordion-content { padding: 0 16px 16px; background: #0f0f1a; border-radius: 0 0 8px 8px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
-    .accordion-content.open { max-height: 200px; }
-    .telemetry-widget { background: #151520; border: 1px solid #2a2a3a; border-radius: 8px; padding: 16px; margin-top: 12px; }
-    .widget-title { font-size: 0.875rem; font-weight: 600; color: #888; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #2a2a3a; }
-    .widget-row { display: flex; justify-content: space-between; align-items: center; margin: 4px 0; font-size: 0.8125rem; }
-    .status-dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
-    .status-healthy { background: #4ade80; box-shadow: 0 0 6px #4ade80; }
-    .status-degraded { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
-    .status-strained { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPERIA v4: Master Sovereign UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/3.4.0/tailwind.min.css" />
+    <style>
+        body { margin: 0; padding: 20px; background: #0d0f12; color: #e0e6ed; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
+        .header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #2a2f3a; padding-bottom: 15px; margin-bottom: 20px; }
+        .title { font-size: 20px; font-weight: bold; color: #00ffcc; }
+        .badge { background: #1a2332; border: 1px solid #00ffcc; color: #00ffcc; padding: 4px 8px; border-radius: 4px; font-size: 12px; }
+        .grid { display: grid; grid-template-columns: 1fr 2fr; gap: 20px; }
+        .card { background: #141820; border: 1px solid #2a2f3a; border-radius: 8px; padding: 15px; }
+        .card h3 { margin-top: 0; color: #8899a6; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #2a2f3a; padding-bottom: 8px; }
+        .stat-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1c212c; }
+        #map { height: 400px; border-radius: 6px; background: #000; }
+        .btn { display: inline-block; background: #00ffcc; color: #000; font-weight: bold; padding: 10px 16px; border-radius: 6px; text-decoration: none; border: none; cursor: pointer; transition: 0.2s; }
+        .btn:hover { background: #00cca3; }
+        .btn-danger { background: #ff3366; color: #fff; }
+        .btn-danger:hover { background: #cc0033; }
+        .p2p-card { background: #1c212c; padding: 10px; border-radius: 4px; margin-bottom: 8px; font-size: 13px; }
+    </style>
 </head>
-<body class="p-4 md:p-6 max-w-7xl mx-auto space-y-6">
-  <header class="bg-gray-900/90 border border-gray-800 rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4">
-    <div class="flex items-center gap-3">
-      <div class="w-4 h-4 rounded-full bg-yellow-400 animate-pulse"></div>
-      <div>
-        <h1 class="text-xl font-extrabold text-white">IMPERIA v4: Master Sovereign UI</h1>
-        <p class="text-xs text-yellow-400 font-medium">Brahman-orchestrated Node | Q = 0.94</p>
-      </div>
-    </div>
-    <div class="flex flex-wrap items-center gap-3">
-      <div class="flex flex-col text-xs">
-        <label class="text-gray-400 mb-0.5">РљСЂР°С—РЅР°:</label>
-        <select id="filter-country" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2.5 py-1.5 focus:border-yellow-400 outline-none text-xs font-semibold">
-          <option value="ua">рџ‡єрџ‡¦ РЈРєСЂР°С—РЅР°</option>
-          <option value="jp">рџ‡Їрџ‡µ РЇРїРѕРЅС–СЏ</option>
-          <option value="eu">рџ‡Єрџ‡є Р„РІСЂРѕРїРµР№СЃСЊРєРёР№ РЎРѕСЋР·</option>
-        </select>
-      </div>
-      <div class="flex flex-col text-xs">
-        <label class="text-gray-400 mb-0.5">Р РµРіС–РѕРЅ / РҐР°Р±:</label>
-        <select id="filter-region" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2.5 py-1.5 focus:border-yellow-400 outline-none text-xs font-semibold">
-          <option value="all">РЈСЃС– 5 РҐР°Р±С–РІ</option>
-          <option value="101">Kyiv Central (101)</option>
-          <option value="102">Lviv West (102)</option>
-          <option value="103">Odesa South (103)</option>
-          <option value="104">Kharkiv East (104)</option>
-          <option value="105">Dnipro Center (105)</option>
-        </select>
-      </div>
-      <div class="flex flex-col text-xs">
-        <label class="text-gray-400 mb-0.5">РњРѕРґСѓР»СЊ:</label>
-        <select id="filter-module" class="bg-gray-800 text-white border border-gray-700 rounded-lg px-2.5 py-1.5 focus:border-yellow-400 outline-none text-xs font-semibold">
-          <option value="map">рџ—єпёЏ H3 Р“РµРѕ-РљР°СЂС‚Р°</option>
-          <option value="telemetry">рџ“Љ РњРµС‚СЂРёРєРё РЇРґСЂР°</option>
-          <option value="kassator-monitor">рџ“Ў Kassator Telemetry</option>
-        </select>
-      </div>
-    </div>
-  </header>
-
-  <div class="p-4 space-y-4">
-    <!-- STATE GATEWAY DATA LOADER -->
-    <div id="state-loader" class="hidden">
-      <p class="text-sm text-gray-400">Р—Р°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ СЃС‚Р°РЅСѓ РїСЂРѕС”РєС‚Сѓ...</p>
-    </div>
-    
-    <!-- P2P NODES ACCORDION -->
-    <div>
-      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">рџ›°пёЏ P2P Р’СѓР·Р»Рё Kassator</h3>
-      <div id="p2p-accordion"></div>
-        <div id="p2p-nodes-list"></div>
-    </div>
-    
-    <!-- SYSTEM TELEMETRY Widget -->
-    <div>
-      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">рџ“Љ РЎРёСЃС‚РµРјРЅР° С‚РµР»РµРјРµС‚СЂС–СЏ</h3>
-      <div class="telemetry-widget">
-        <div class="widget-title">РЎРёСЃС‚РµРјРЅРёР№ СЃС‚Р°РЅ</div>
-        <div class="widget-row">
-          <span>Q-Cohort: <span id="cohort-q" class="font-mono text-yellow-400">0.94 (Р’РёСЃРѕРєР° РєРѕРіРµСЂРµРЅС‚РЅС–СЃС‚СЊ)</span></span>
-          <span>РќР°РІР°РЅС‚Р°Р¶РµРЅРЅСЏ: <span id="system-load" class="font-mono text-yellow-400">24%</span></span>
-        </div>
-        <div class="widget-row">
-          <span>РћРЅР»Р°Р№РЅ РІСѓР·Р»С–РІ: <span id="nodes-online" class="font-mono text-yellow-400">5 / 6</span> / <span id="total-nodes" class="font-mono text-yellow-400">5 / 6</span></span>
-          <span>РЎРµСЂРµРґРЅС–Р№ РѕС‚РєР»РёРє: <span id="avg-response" class="font-mono text-yellow-400">42ms</span></span>
-        </div>
-      </div>
-    </div>
-    
-    <!-- KASSATOR NODE MONITOR -->
-    <div id="kassator-monitor" class="hidden telemetry-widget">
-      <h4 class="widget-title">Kassator Node Monitor</h4>
-      <div class="widget-row">
-        <span>РЎС‚Р°РЅ: <span id="kassator-status-text">рџџў РђРєС‚РёРІРЅРёР№ (Tenant ID: kassator)</span></span>
-      </div>
-      <div class="widget-row">
-        <span>РўРµРјРїРµСЂР°С‚СѓСЂР°: <span id="kassator-temp" class="font-mono text-yellow-400">--</span>В°C</span>
-        <span>РџРѕС‚СѓР¶РЅС–СЃС‚СЊ: <span id="kassator-power" class="font-mono text-yellow-400">--</span> MW</span>
-      </div>
-      <div class="widget-row">
-        <span>Р—РІ'СЏР·РѕРє: <span id="kassator-uptime" class="font-mono text-yellow-400">--</span></span>
-        <span>Latency: <span id="kassator-latency" class="font-mono text-yellow-400">--</span>ms</span>
-      </div>
-    </div>
-    
-    <!-- FULL-WIDTH LEAFLET MAP (DOMINANT VISUAL CENTER) -->
-    <div id="map" style="height: 400px; width: 100%; border-radius: 12px; margin-bottom: 20px;"></div>
-    
-    <!-- H3 GRID OVERLAY SELECTOR -->
-    <div id="h3-overlay" class="hidden">
-      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">рџ—єпёЏ H3 Grid Overlay</h3>
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs mb-3">
+<body>
+<div class="header">
         <div>
-          <label class="block text-xs text-gray-300 mb-1">Resolution</label>
-          <select id="h3-resolution" class="w-full bg-gray-800 text-white border border-gray-700 rounded px-2 py-1">
-            <option value="9">Level 9 (в‰€ 2km cells)</option>
-            <option value="10">Level 10 (в‰€ 1km cells)</option>
-            <option value="11">Level 11 (в‰€ 500m cells)</option>
-            <option value="12">Level 12 (в‰€ 250m cells)</option>
-          </select>
+            <div class="title">IMPERIA v4: Master Sovereign UI</div>
+            <div style="font-size: 12px; color: #8899a6;">Brahman Orchestration Node</div>
         </div>
         <div>
-          <label class="block text-xs text-gray-300 mb-1">Mode</label>
-          <select id="h3-mode" class="w-full bg-gray-800 text-white border border-gray-700 rounded px-2 py-1">
-            <option value="fill">Р¤С–Р»СЊРј-СЂРµР¶РёРј</option>
-            <option value="edge">РљРѕРЅС‚СѓСЂРЅРёР№ СЂРµР¶РёРј</option>
-            <option value="fill-edge">Р¤С–Р»СЊРј+РљРѕРЅС‚СѓСЂ</option>
-          </select>
+            <span class="badge">Cohort Q: <span id="cohort-q">0.94</span></span>
+            <a href="kassator.html" class="btn" style="margin-left: 10px;">Launch Kassator Terminal &rarr;</a>
         </div>
-      </div>
-      <div id="h3-canvas"></div>
     </div>
 
-    <!-- HORIZONTAL REGIONAL PASSPORT ROWS -->
-    <div class="space-y-2">
-      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">рџ“Ќ РџР°СЃРїРѕСЂС‚Рё РўРµСЂРёС‚РѕСЂС–Р№ (4D Р’РµРєС‚РѕСЂРё Р•РєРѕР»РѕРіС–С— Рќ3: E = [E_lang, E_geo, E_hist, E_soc]^T)</h3>
-      
-      <div class="grid grid-cols-1 md:grid-cols-5 gap-3 text-xs">
-        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
-          <div class="flex justify-between font-bold text-white"><span>Kyiv Central (101)</span><span class="text-green-400">рџџў РЎРїРѕРєС–Р№</span></div>
-          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.92</span> | E_soc: 0.21</div>
-          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.95, 0.91, 0.98, 0.89]</div>
+    <div class="grid">
+        <!-- Left Panel: System Telemetry & Controls -->
+        <div>
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>System Telemetry</h3>
+                <div class="stat-row"><span>System Load:</span><strong id="system-load">24%</strong></div>
+                <div class="stat-row"><span>Online Nodes:</span><strong id="nodes-online">5 / 6</strong></div>
+                <div class="stat-row"><span>Avg Response:</span><strong id="avg-response">42ms</strong></div>
+            </div>
+
+            <div class="card" style="margin-bottom: 20px;">
+                <h3>Master Override</h3>
+                <button class="btn btn-danger" onclick="masterOverride.pauseTenant()" style="width: 100%; margin-bottom: 10px;">Pause Tenant Session</button>
+                <button class="btn" onclick="masterOverride.recalibrateQ()" style="width: 100%;">Recalibrate Q-Bounds</button>
+            </div>
+
+            <div class="card">
+                <h3>P2P Mesh Nodes</h3>
+                <div id="p2p-nodes-list">Loading nodes...</div>
+            </div>
         </div>
-        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
-          <div class="flex justify-between font-bold text-white"><span>Lviv West (102)</span><span class="text-green-400">рџџў РЎРїРѕРєС–Р№</span></div>
-          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.88</span> | E_soc: 0.18</div>
-          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.98, 0.89, 0.95, 0.92]</div>
+
+        <!-- Right Panel: H3 Geospatial Map -->
+        <div>
+            <div class="card">
+                <h3>H3 Grid Geospatial Overlay (Ukraine)</h3>
+                <div id="map"></div>
+            </div>
         </div>
-        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
-          <div class="flex justify-between font-bold text-white"><span>Odesa South (103)</span><span class="text-yellow-400">рџџЎ РџРѕРјС–СЂРЅРёР№</span></div>
-          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.74</span> | E_soc: 0.31</div>
-          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.82, 0.95, 0.88, 0.78]</div>
-        </div>
-        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
-          <div class="flex justify-between font-bold text-white"><span>Kharkiv East (104)</span><span class="text-red-400">рџ”ґ РќР°РїСЂСѓРіР°</span></div>
-          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.68</span> | E_soc: 0.45</div>
-          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.85, 0.72, 0.91, 0.71]</div>
-        </div>
-        <div class="p-3 bg-gray-800/80 rounded-xl border border-gray-700">
-          <div class="flex justify-between font-bold text-white"><span>Dnipro Center (105)</span><span class="text-green-400">рџџў РЎРїРѕРєС–Р№</span></div>
-          <div class="mt-2 text-gray-400">Q: <span class="text-yellow-400 font-mono font-bold">0.81</span> | E_soc: 0.28</div>
-          <div class="mt-1 font-mono text-[10px] text-gray-400">E = [0.87, 0.88, 0.86, 0.83]</div>
-        </div>
-      </div>
     </div>
-  </div>
-  <!-- Master Override Control Buttons -->
-  <div class="flex flex-wrap gap-2 text-xs">
-    <button onclick="alert('Master Override: Tenant session paused.')" class="px-3 py-1.5 bg-red-500/20 text-red-300 border border-red-500/40 rounded-lg hover:bg-red-500/30">
-      вЏёпёЏ Pause Tenant
-    </button>
-    <button onclick="alert('Master Override: Q-Bounds recalibrated.')" class="px-3 py-1.5 bg-yellow-500/20 text-yellow-300 border border-yellow-500/40 rounded-lg hover:bg-yellow-500/30">
-      вљ™пёЏ Recalibrate Q
-    </button>
-    <a href="kassator.html" target="_blank" class="px-3 py-1.5 bg-blue-500/20 text-blue-300 border border-blue-500/40 rounded-lg hover:bg-blue-500/30 font-bold flex items-center gap-1">
-      рџ”— Р’С–РґРєСЂРёС‚Рё Kassator UI в†—
-    </a>
-  </div>
-</div>
-  <script src="sl8_gateway.js"></script>
-  
-  <script>
-    const FALLBACK_STATE = {
-      "system_telemetry": {
-        "q_cohort": "0.94 (Р’РёСЃРѕРєР° РєРѕРіРµСЂРµРЅС‚РЅС–СЃС‚СЊ)",
-        "load": "24%",
-        "nodes_online": "5 / 6",
-        "avg_latency": "42ms"
-      },
-      "kassator_monitor": {
-        "status": "рџџў РђРєС‚РёРІРЅРёР№ (Tenant ID: kassator)",
-        "temperature": "42",
-        "power": "1.2",
-        "connection": "P2P Mesh",
-        "latency": "18"
-      }
-    };
 
-    var currentState = null;
-    var map = null;
-    function loadStateData() {
-      var cached = null;
-      try { cached = JSON.parse(localStorage.getItem('imperia_state_cache')); } catch(e) {}
-      if (cached) { currentState = cached; applyState(currentState); return; }
-      try {
-        fetch('./state_gateway.json').then(function(r){return r.json();}).then(function(data){
-          currentState = data;
-          try { localStorage.setItem('imperia_state_cache', JSON.stringify(data)); } catch(e) {}
-          applyState(data);
-        }).catch(function(err){ console.warn('Fetch failed, keeping fallback:', err.message); applyState(FALLBACK_STATE); });
-      } catch(e) {
-        console.warn('Fetch blocked, using fallback:', e.message);
-        applyState(FALLBACK_STATE);
-      }
-    }
-    
-const safeFixed = (val, digits = 2) => (typeof val === 'number' ? val.toFixed(digits) : (val || '0'));
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <script>
+        const FALLBACK_STATE = {
+            system_telemetry: { q_cohort: "0.94", load: "24%", nodes_online: "5 / 6", avg_latency: "42ms" },
+            p2p_nodes: [
+                { id: "101", hub: "Kyiv (101)", qFactor: 0.92, coordinates: [50.4501, 30.5234] },
+                { id: "102", hub: "Lviv (102)", qFactor: 0.88, coordinates: [49.8383, 24.0232] },
+                { id: "103", hub: "Odesa (103)", qFactor: 0.74, coordinates: [46.4825, 30.7233] },
+                { id: "104", hub: "Kharkiv (104)", qFactor: 0.68, coordinates: [49.9935, 36.2304] },
+                { id: "105", hub: "Dnipro (105)", qFactor: 0.81, coordinates: [48.4647, 35.0462] }
+            ]
+        };
 
-function applyState(data) {
-      document.getElementById('cohort-q').textContent = data.system_telemetry.q_cohort || '0.94 (Р’РёСЃРѕРєР° РєРѕРіРµСЂРµРЅС‚РЅС–СЃС‚СЊ)';
-      document.getElementById('system-load').textContent = data.system_telemetry.load || '24%';
-      document.getElementById('nodes-online').textContent = data.system_telemetry.nodes_online || '5 / 6';
-      document.getElementById('total-nodes').textContent = data.system_telemetry.nodes_online || '5 / 6';
-      document.getElementById('avg-response').textContent = data.system_telemetry.avg_latency || '42ms';
-      
-      var km = document.getElementById('kassator-status-text');
-      if (km) {
-        km.textContent = data.kassator_monitor && data.kassator_monitor.status ? data.kassator_monitor.status : 'рџџў РђРєС‚РёРІРЅРёР№ (Tenant ID: kassator)';
-      }
-      var kt = document.getElementById('kassator-temp');
-      if (kt) { kt.textContent = data.kassator_monitor && data.kassator_monitor.temperature ? data.kassator_monitor.temperature : '42'; }
-      var kp = document.getElementById('kassator-power');
-      if (kp) { kp.textContent = data.kassator_monitor && data.kassator_monitor.power ? data.kassator_monitor.power : '1.2'; }
-      var ku = document.getElementById('kassator-uptime');
-      if (ku) { ku.textContent = data.kassator_monitor && data.kassator_monitor.connection ? data.kassator_monitor.connection : 'P2P Mesh'; }
-      var kl = document.getElementById('kassator-latency');
-      if (kl) { kl.textContent = data.kassator_monitor && data.kassator_monitor.latency ? data.kassator_monitor.latency : '18'; }
-      
-      applyP2PNodes(data && data.p2p_nodes ? data.p2p_nodes : []);
-      initMapWithH3(data && data.p2p_nodes ? data.p2p_nodes : []);
-      activateModule('map');
-    }
-    function loadStateData() {
-      var cached = null;
-      try { cached = JSON.parse(localStorage.getItem('imperia_state_cache')); } catch(e) {}
-      if (cached) { currentState = cached; applyState(currentState); return; }
-      fetch('./state_gateway.json').then(function(r){return r.json();}).then(function(data){currentState=data;try{localStorage.setItem('imperia_state_cache',JSON.stringify(data));}catch(e){}applyState(data);}).catch(function(err){console.warn('Fetch failed, using fallback:',err.message);currentState=FALLBACK_STATE;applyState(FALLBACK_STATE);});
-    }
-    function applyState(state) {
-    if (!state) return;
-    var sys = state.system_telemetry || {};
-    var kas = state.kassator_monitor || {};
-    
-    var elQ = document.getElementById('q-cohort'); if (elQ) elQ.textContent = sys.q_cohort || '0.94';
-    var elLoad = document.getElementById('system-load'); if (elLoad) elLoad.textContent = sys.load || '24%';
-    var elNodes = document.getElementById('nodes-online'); if (elNodes) elNodes.textContent = sys.nodes_online || '5/6';
-    var elLat = document.getElementById('avg-latency'); if (elLat) elLat.textContent = sys.avg_latency || '42ms';
-    
-    var elKasSt = document.getElementById('kassator-status'); if (elKasSt) elKasSt.textContent = kas.status || '🟢 Активний';
-    var elKasTmp = document.getElementById('kassator-temp'); if (elKasTmp) elKasTmp.textContent = (kas.temperature || '42') + '°C';
-    var elKasPwr = document.getElementById('kassator-power'); if (elKasPwr) elKasPwr.textContent = (kas.power || '1.2') + ' MW';
-    var elKasConn = document.getElementById('kassator-conn'); if (elKasConn) elKasConn.textContent = kas.connection || 'P2P Mesh';
-    var elKasLat = document.getElementById('kassator-latency'); if (elKasLat) elKasLat.textContent = (kas.latency || '18') + 'ms';
-    
-    applyP2PNodes(state.p2p_nodes);
-}
-    function initMapWithH3(nodes) {
-    if (typeof map !== 'undefined' && map) {
-        map.remove();
-    }
-    map = L.map('map').setView([48.3794, 31.1656], 6);
-    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
-        attribution: '&copy; OpenStreetMap &copy; CARTO',
-        maxZoom: 19
-    }).addTo(map);
+        var map = null;
 
-    h3Layers = [];
-    var list = Array.isArray(nodes) ? nodes : ((typeof FALLBACK_STATE !== 'undefined' && FALLBACK_STATE.p2p_nodes) || []);
-    if (!list || list.length === 0) return;
+        function loadData() {
+            fetch("./state_gateway.json")
+                .then(function(r) { return r.json(); })
+                .then(function(data) { renderUI(data); })
+                .catch(function() { renderUI(FALLBACK_STATE); });
+        }
 
-    for (var i = 0; i < list.length; i++) {
-        var n = list[i] || {};
-        var latlng = n.coordinates || [50.4501, 30.5234];
-        var qVal = n.qFactor || n.q || 0.90;
-        var eVec = n.eVectors || { E_lang: 0.9, E_geo: 0.9, E_hist: 0.9, E_soc: 0.9 };
-        
-        var cell = h3.geoToCell(latlng[0], latlng[1], 7);
-        var hex = h3.cellToBoundary(cell);
-        var latlngs = hex.map(function(c) { return [c[0], c[1]]; });
-        var color = typeof qColor === 'function' ? qColor(qVal) : '#00ffcc';
-        
-        var poly = L.polygon(latlngs, {
-            color: color,
-            weight: 2,
-            fillColor: color,
-            fillOpacity: 0.3
-        }).addTo(map);
-        
-        var popupText = '<strong>' + (n.hub || n.name || 'Hub') + '</strong><br>' +
-                         'Q: ' + qVal + '<br>' +
-                         'E = [' + eVec.E_lang + ', ' + eVec.E_geo + ', ' + eVec.E_hist + ', ' + eVec.E_soc + ']<br>' +
-                         'Статус: ' + (n.status || '🟢 Активний');
-        
-        poly.bindPopup(popupText);
-        poly.on('mouseover', function() { poly.setStyle({ fillOpacity: 0.6, weight: 3 }); });
-        poly.on('mouseout', function() { poly.setStyle({ fillOpacity: 0.3, weight: 2 }); });
-        h3Layers.push(poly);
-    }
-    map.invalidateSize();
-}
-    function updateTelemetry(t){document.getElementById('cohort-q').textContent=safeFixed(t.cohortQ, 2);document.getElementById('system-load').textContent=t.currentLoad;document.getElementById('nodes-online').textContent=t.nodesOnline;document.getElementById('total-nodes').textContent=t.totalNodes;document.getElementById('avg-response').textContent=t.avgResponseTime;}
-function applyP2PNodes(nodes) {
-    var list = Array.isArray(nodes) ? nodes : [];
-    if (list.length === 0 && typeof FALLBACK_STATE !== 'undefined' && Array.isArray(FALLBACK_STATE.p2p_nodes)) {
-        list = FALLBACK_STATE.p2p_nodes;
-    }
-    var container = document.getElementById('p2p-nodes-list') || document.getElementById('p2p-nodes');
-    if (!container) return;
-    
-    var html = '';
-    for (var i = 0; i < list.length; i++) {
-        var n = list[i] || {};
-        html += '<div class="p2p-node-card"><strong>' + (n.name || n.id || 'Node') + '</strong> вЂ” Q: ' + (n.q || '0.90') + '</div>';
-    }
-    container.innerHTML = html;
-    function qColor(q){if(q>=0.8)return'#10B981';if(q>=0.7)return'#F59E0B';return'#EF4444';}
-    function qLabel(q){if(q>=0.8)return'РЎРїРѕРєС–Р№';if(q>=0.7)return'РџРѕРјС–СЂРЅРёР№';return'РќР°РїСЂСѓРіР°';}
-    function activateModule(m) {
-      ['map','telemetry','kassator-monitor'].forEach(f => {
-        const opt = document.querySelector('#filter-module option[value="' + f + '"]');
-        if (opt) opt.selected = (f === m);
-      });
-      const km = document.getElementById('kassator-monitor');
-      if (km) km.classList.toggle('hidden', m !== 'kassator-monitor');
-      if (m === 'map') { document.getElementById('h3-overlay').classList.remove('hidden'); }
-      else { document.getElementById('h3-overlay').classList.add('hidden'); }
-      if (m === 'kassator-monitor') showKassatorMonitor();
-    }
-    function showKassatorMonitor(){document.getElementById('kassator-monitor').classList.remove('hidden');var cached=null;try{cached=JSON.parse(localStorage.getItem('imperia_state_cache'));}catch(e){}var n=(cached||FALLBACK_STATE).p2p_nodes.find(function(nn){return nn.hub==='Kyiv (101)';});if(n){document.getElementById('kassator-status-text').textContent=n.status;document.getElementById('kassator-temp').textContent=Math.round(65+Math.random()*15);document.getElementById('kassator-power').textContent=Math.round(100+Math.random()*500);document.getElementById('kassator-uptime').textContent=Math.round(99.9*100)/100+'%';document.getElementById('kassator-latency').textContent=Math.round(10+Math.random()*50)+'ms';}}
-    document.querySelectorAll('.accordion-btn').forEach(btn => {
-      btn.addEventListener('click', function() {
-        this.classList.toggle('active');
-        this.nextElementSibling.classList.toggle('open');
-      });
-    });
-    document.getElementById('filter-module').addEventListener('change', function() { activateModule(this.value); });
-    document.getElementById('h3-resolution').addEventListener('change', function() {});
-    document.getElementById('h3-mode').addEventListener('change', function() {});
-    window.masterOverride = {
-      pauseTenant: function() { if (confirm('Master Override: Tenant session paused.')) { console.log('Tenant session paused'); } },
-      recalibrateQ: function() { if (confirm('Master Override: Q-Bounds recalibrated.')) { console.log('Q-Bounds recalibrated'); const cq = parseFloat(document.getElementById('cohort-q').textContent || '0.94'); document.getElementById('cohort-q').textContent = safeFixed(cq + 0.01, 2); } }
-    };
-    document.addEventListener('DOMContentLoaded', function() { loadStateData(); });
-  </script>
-  <script src="supabase_client.js" defer></script>
-  <script src="swarm_inference.js" defer></script>
+        function renderUI(data) {
+            if (!data) data = FALLBACK_STATE;
+            var sys = data.system_telemetry || {};
+            
+            if (document.getElementById("cohort-q")) document.getElementById("cohort-q").textContent = sys.q_cohort || "0.94";
+            if (document.getElementById("system-load")) document.getElementById("system-load").textContent = sys.load || "24%";
+            if (document.getElementById("nodes-online")) document.getElementById("nodes-online").textContent = sys.nodes_online || "5 / 6";
+            if (document.getElementById("avg-response")) document.getElementById("avg-response").textContent = sys.avg_latency || "42ms";
+
+            renderNodes(data.p2p_nodes || []);
+            renderMap(data.p2p_nodes || []);
+        }
+
+        function renderNodes(nodes) {
+            var container = document.getElementById("p2p-nodes-list");
+            if (!container) return;
+            var list = Array.isArray(nodes) && nodes.length > 0 ? nodes : FALLBACK_STATE.p2p_nodes;
+            var html = "";
+            for (var i = 0; i < list.length; i++) {
+                var n = list[i];
+                html += '<div class="p2p-card"><strong>' + n.hub + '</strong> — Q: ' + n.qFactor + '</div>';
+            }
+            container.innerHTML = html;
+        }
+
+        function renderMap(nodes) {
+            if (typeof L === "undefined" || !document.getElementById("map")) return;
+            if (map) map.remove();
+            map = L.map("map").setView([48.3794, 31.1656], 6);
+            L.tileLayer("https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png", { maxZoom: 19 }).addTo(map);
+
+            var list = Array.isArray(nodes) && nodes.length > 0 ? nodes : FALLBACK_STATE.p2p_nodes;
+            for (var i = 0; i < list.length; i++) {
+                var n = list[i];
+                var color = n.qFactor >= 0.9 ? "#00ffcc" : (n.qFactor >= 0.75 ? "#ffcc00" : "#ff3366");
+                var circle = L.circleMarker(n.coordinates, { radius: 8, color: color, fillColor: color, fillOpacity: 0.6 }).addTo(map);
+                circle.bindPopup("<strong>" + n.hub + "</strong><br>Q-Factor: " + n.qFactor);
+            }
+        }
+
+        window.masterOverride = {
+            pauseTenant: function() { alert("Master Override: Tenant session paused."); },
+            recalibrateQ: function() { alert("Master Override: Q-Bounds recalibrated."); }
+        };
+
+        document.addEventListener("DOMContentLoaded", loadData);
+    </script>
 </body>
 </html>
