@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Imperia v4 - GitHub Pages Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <link rel="icon" href="/favicon.ico" type="image/x-icon">
+</head>
+<body>
+  <header>
+    <div class="container">
+      <h1 class="header-title">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x=14 y="3" width="7" height="7"></rect>
+          <rect x="3" y=14 width="7" height="7"></rect>
+          <rect x=14 y=14 width="7" height="7"></rect>
+        </svg>
+        Imperia v4 Admin Control Center
+      </h1>
+      <div class="header-right">
+        <span class="mode-indicator performance" id="mode-display">PERFORMANCE</span>
+        <span class="text-xs text-gray-400 ms-3" id="coherence-index">Coherence: --</span>
+        <span class="text-xs text-gray-400 ms-3" id="p2p-nodes-header">Nodes: --</span>
+        <span class="text-xs text-gray-400 ms-3" id="telemetry-status">Telemetry: --</span>
+      </div>
+    </div>
+  </header>
+
+  <div class="container">
+    <p class="subtitle">Zero-server client-side telemetry feed from kancelyariya facade</p>
+
+    <div class="dashboard">
+      <!-- System Mode Panel -->
+      <div class="panel" id="mode-panel">
+        <h3>System Mode</h3>
+        <div class="mode-indicator performance" id="mode-display">PERFORMANCE</div>
+      </div>
+
+      <!-- Environment Vectors Panel -->
+      <div class="panel" id="vectors-panel">
+        <h3>Environment Vectors E</h3>
+        <div id="vectors-container"><div class="vector-grid" id="vector-grid"></div></div>
+      </div>
+
+      <!-- H3 Spatial Grid Panel -->
+      <div class="panel" id="h3-panel">
+        <h3>H3 Spatial Grid</h3>
+        <canvas id="h3-canvas" width="400" height="200"></canvas>
+        <div id="h3-map" style="height: 350px; width: 100%; min-height: 350px; background-color: #0f172a;" class="rounded-lg border border-gray-700 overflow-hidden mt-2 shadow-inner"></div>
+      </div>
+
+      <!-- P2P Topology Panel -->
+      <div class="panel" id="p2p-panel">
+        <h3>P2P Topology</h3>
+        <div class="p2p-controls mb-3">
+          <button onclick="window.p2pSim.addNode('Brahman')" class="btn btn-sm btn-primary mr-1">+ Add High-Q Brahman</button>
+          <button onclick="window.p2pSim.addNode('Shudra')" class="btn btn-sm btn-secondary mr-1">+ Add Edge Sensor</button>
+          <button onclick="window.p2pSim.removeNode()" class="btn btn-sm btn-danger mr-1">- Disconnect Node</button>
+          <button onclick="window.p2pSim.triggerInferenceSpike()" class="btn btn-sm btn-warning mr-1">⚡ Inference Spike</button>
+        </div>
+        <span id="p2p-nodes">Nodes: <span id="p2p-node-count">5</span></span>
+        <div id="p2p-nodes-list" class="mt-3"></div>
+      </div>
+
+      <!-- Signals Panel -->
+      <div class="panel" id="signals-panel">
+        <h3>Active Signals</h3>
+        <div class="signal-section" id="signals-section"></div><ul id="signals-list"></ul>
+      </div>
+
+      <!-- Telegram Channel Gateway -->
+      <div class="panel" id="telegram-panel">
+        <h3>Telegram Channel Gateway</h3>
+        <div class="mb-2">
+          <span class="text-sm text-gray-300">Channel:</span>
+          <span class="text-lg text-cyan-400 font-medium">@imperial_chancery <span class="text-green-400">[Active Sync]</span></span>
+        </div>
+        <button onclick="window.telegramGateway.broadcastSignal({region:'Kyiv Central', timestamp: new Date().toUTCString(), text:'Manual OSINT Broadcast Test from Admin UI'})" class="px-3 py-1.5 bg-blue-600 hover:bg-blue-500 text-white rounded text-xs mb-2">Broadcast Test Signal to Telegram</button>
+        <div id="telegram-status" class="mt-2 text-xs text-gray-400">Status: Gateway Ready</div>
+      </div>
+
+      <!-- RAM Telemetry Panel -->
+      <div class="panel" id="ram-panel">
+        <h3>Resource RAM</h3>
+        <div id="ram-usage" class="ram-usage"><strong>RAM Utilization:</strong> <span id="ram-percent">--%</span></div>
+      </div>
+      <div class="panel" id="coherence-panel"><h3>Coherence Factor</h3><div class="coherence-val" id="coherence-val">0.94</div></div><div id="passports-grid" class="passports-grid"></div>
+    </div>
+  </div>
+
+  <script src="docs/telegram_bot.js"></script>
+<script src="docs/p2p_simulator.js"></script>
+<script src="app.js" defer></script>
+<script>
+(function() {
+  const DEFAULT_TELEMETRY = {
+    system: { ram: "42%", nodes: 12, coherence: 0.94 },
+    vectors: { spatial: 0.94, resonance: 0.88 },
+    regions: [
+      { name: "Київ Central", code: "101", status: "Active", tension: "Low", gps: "50.4501, 30.5234" },
+      { name: "Львів West", code: "102", status: "Active", tension: "Low", gps: "49.8397, 24.0297" },
+      { name: "Одеса South", code: "103", status: "Active", tension: "Medium", gps: "46.4825, 30.7233" },
+      { name: "Харків East", code: "104", status: "Active", tension: "Medium", gps: "49.9935, 36.2304" },
+      { name: "Дніпро Center", code: "105", status: "Active", tension: "Low", gps: "48.4647, 35.0462" }
+    ],
+    signals: [
+      { timestamp: "2026-10-26 22:18:07 UTC", region: "Kyiv Central", text: "Geopolitical OSINT signal ingested for TERR_UA_KYIV_CENTRAL" },
+      { timestamp: "2026-10-26 22:25:09 UTC", region: "Kyiv Central", text: "Broadcast delivered to Imperial Chancery Telegram Channel" },
+      { timestamp: "2026-10-26 22:25:39 UTC", region: "Lviv West", text: "Resonance vector E adjusted for Lviv Hub" }
+    ]
+  };
+
+  function renderDashboard(data) {
+    const ramEl = document.getElementById('ram-usage');
+    if (ramEl) ramEl.innerHTML = `<div class="w-full bg-gray-700 h-2 rounded"><div class="bg-blue-500 h-2 rounded" style="width: ${data.system.ram}"></div></div><span class="text-xs text-blue-400 mt-1 block">${data.system.ram} Utilization</span>`;
+
+    const nodesEl = document.getElementById('p2p-nodes');
+    if (nodesEl) nodesEl.innerText = `${data.system.nodes} Active Nodes`;
+
+    const cohEl = document.getElementById('coherence-val');
+    if (cohEl) cohEl.innerText = data.system.coherence;
+
+    const vecEl = document.getElementById('vectors-container');
+    if (vecEl) {
+      vecEl.innerHTML = `
+        <div class="mb-2"><div class="flex justify-between text-xs"><span>Spatial Coherence</span><span>${data.vectors.spatial}</span></div><div class="w-full bg-gray-700 h-1.5 rounded"><div class="bg-green-500 h-1.5 rounded" style="width: ${data.vectors.spatial * 100}%"></div></div></div>
+        <div><div class="flex justify-between text-xs"><span>Resonance</span><span>${data.vectors.resonance}</span></div><div class="w-full bg-gray-700 h-1.5 rounded"><div class="bg-purple-500 h-1.5 rounded" style="width: ${data.vectors.resonance * 100}%"></div></div></div>
+      `;
+    }
+
+    const regEl = document.getElementById('passports-grid');
+    if (regEl) {
+      regEl.innerHTML = data.regions.map(r => `
+        <div class="p-3 bg-gray-800 rounded border border-gray-700">
+          <div class="flex justify-between items-center mb-1"><span class="font-bold text-sm text-white">${r.name}</span><span class="text-xs px-2 py-0.5 bg-green-900 text-green-300 rounded">${r.status}</span></div>
+          <div class="text-xs text-gray-400">Code: ${r.code} | GPS: ${r.gps}</div>
+          <div class="text-xs text-yellow-400 mt-1">Tension: ${r.tension}</div>
+        </div>
+      `).join('');
+    }
+
+    const sigEl = document.getElementById('signals-list');
+    if (sigEl) {
+      sigEl.innerHTML = data.signals.map(s => `
+        <div class="p-2 mb-2 bg-gray-900 rounded border-l-2 border-blue-500 text-xs">
+          <div class="text-gray-500">${s.timestamp} [${s.region}]</div>
+          <div class="text-gray-200 mt-0.5">${s.text}</div>
+        </div>
+      `).join('');
+    }
+  }
+  renderDashboard(DEFAULT_TELEMETRY);
+  
+  function getH3HexPolygon(lat, lng, radius = 0.22) {
+    const points = [];
+    for (let i = 0; i < 6; i++) {
+      const angle = (i * 60) * Math.PI / 180;
+      const pLat = lat + radius * Math.sin(angle) * 0.7;
+      const pLng = lng + radius * Math.cos(angle);
+      points.push([pLat, pLng]);
+    }
+    return points;
+  }
+  
+  function initH3Map(data) {
+  const container = document.getElementById('h3-map');
+  if (!container || typeof L === 'undefined') return;
+
+  if (container._leaflet_id) {
+    container._leaflet_id = null;
+    container.innerHTML = '';
+  }
+
+  const map = L.map('h3-map', {
+    center: [48.3794, 31.1656],
+    zoom: 6,
+    zoomControl: true,
+    attributionControl: false
+  });
+
+  const tileHost = 'server.arcgisonline.com';
+  const tilePath = '/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+  const tileUrl = 'https://' + tileHost + tilePath;
+  L.tileLayer(tileUrl, { maxZoom: 16, attribution: 'Tiles © Esri', crossOrigin: true }).addTo(map);
+
+  const regionCoords = {
+    "101": [50.4501, 30.5234], // Kyiv
+    "102": [49.8397, 24.0297], // Lviv
+    "103": [46.4825, 30.7233], // Odesa
+    "104": [49.9935, 36.2304], // Kharkiv
+    "105": [48.4647, 35.0462]  // Dnipro
+  };
+
+  if (data && data.regions) {
+    data.regions.forEach(r => {
+      const coords = regionCoords[r.code];
+      if (!coords) return;
+
+      const lat = coords[0];
+      const lng = coords[1];
+      const isMedium = r.tension === "Medium" || r.tension === "High";
+      const color = isMedium ? "#f59e0b" : "#10b981";
+
+      const hexVertices = [];
+      const radius = 0.22;
+      for (let i = 0; i < 6; i++) {
+        const angle = (i * 60) * Math.PI / 180;
+        const pLat = lat + radius * Math.sin(angle) * 0.7;
+        const pLng = lng + radius * Math.cos(angle);
+        hexVertices.push([pLat, pLng]);
+      }
+
+      const polygon = L.polygon(hexVertices, {
+        color: color,
+        fillColor: color,
+        fillOpacity: 0.35,
+        weight: 2
+      }).addTo(map);
+
+      polygon.bindPopup(`
+        <div style="color: #111827; font-family: sans-serif; font-size: 12px; line-height: 1.4;">
+          <strong style="font-size: 14px;">${r.name}</strong><br/>
+          <b>H3 Cell:</b> 872b${r.code}ffffff<br/>
+          <b>Status:</b> ${r.status}<br/>
+          <b>Tension:</b> <span style="color: ${color}; font-weight: bold;">${r.tension}</span><br/>
+          <b>GPS:</b> ${r.gps}
+        </div>
+      `);
+    });
+  }
+
+  if (data && data.signals) {
+    data.signals.forEach(s => {
+      let coords = [50.4501, 30.5234];
+      if (s.region.includes("Lviv")) coords = [49.8397, 24.0297];
+      else if (s.region.includes("Odesa")) coords = [46.4825, 30.7233];
+      else if (s.region.includes("Kharkiv")) coords = [49.9935, 36.2304];
+      else if (s.region.includes("Dnipro")) coords = [48.4647, 35.0462];
+
+      const marker = L.circleMarker(coords, {
+        radius: 7,
+        color: '#3b82f6',
+        fillColor: '#60a5fa',
+        fillOpacity: 0.9,
+        weight: 2
+      }).addTo(map);
+
+      marker.bindPopup(`
+        <div style="color: #111827; font-family: sans-serif; font-size: 11px;">
+          <strong style="color: #1d4ed8;">OSINT Signal</strong><br/>
+          <b>Time:</b> ${s.timestamp}<br/>
+          <b>Region:</b> ${s.region}<br/>
+          <p style="margin-top: 4px; font-style: italic;">"${s.text}"</p>
+        </div>
+      `);
+    });
+  }
+
+  setTimeout(() => { map.invalidateSize(); }, 300);
+}
+
+// Initialize immediately
+window.addEventListener('load', () => {
+  if (typeof initH3Map === 'function') {
+    initH3Map(DEFAULT_TELEMETRY);
+  }
+});
+})(); </script>
+</body>
+</html>
