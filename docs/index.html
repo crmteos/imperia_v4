@@ -117,10 +117,10 @@
             if (map) map.remove();
             map = L.map("map").setView([48.3794, 31.1656], 6);
             
-            // Public OpenStreetMap tile layer - no API key required
-            L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", { 
-                maxZoom: 19,
-                attribution: '&copy; OpenStreetMap contributors'
+            // Esri Dark Gray Canvas — стабільно працює через file:// без 403 та без API-ключів
+            L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Canvas/MapServer/tile/{z}/{y}/{x}", { 
+                maxZoom: 16,
+                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
             }).addTo(map);
 
             var list = Array.isArray(nodes) && nodes.length > 0 ? nodes : FALLBACK_STATE.p2p_nodes;
