@@ -5,7 +5,8 @@ const OPENROUTER_API_KEY = 'your-openrouter-api-key';
 const OPENROUTER_ENDPOINT = 'https://openrouter.ai/api/v1';
 
 // Calculate 4D environment vector E = [E_lang, E_geo, E_hist, E_soc]^T
-export async function calculateEVector(hubId, geoData) {
+window.SwarmInference = window.SwarmInference || {};
+window.SwarmInference.calculateEVector = async function(hubId, geoData) {
   try {
     // Select appropriate model based on availability
     const model = 'nvidia/nemotron-3.5-lightning-free';
@@ -71,7 +72,7 @@ export async function calculateEVector(hubId, geoData) {
 }
 
 // Get weather/sensor data from Open-Meteo
-export async function get_weather_data(lat, lon) {
+async function get_weather_data(lat, lon) {
   try {
     const response = await fetch(
       `https://api.open-meteo.com/v1/forecast?latitude=${lat}&longitude=${lon}&hourly=temperature_2m,relative_humidity_2m,wind_speed_10m`
@@ -89,7 +90,7 @@ export async function get_weather_data(lat, lon) {
 }
 
 // Estimate socio-economic factor based on hub data
-export function estimateSocioEconomic(hubData) {
+function estimateSocioEconomic(hubData) {
   // Simple heuristic based on available hub data
   if (!hubData) return 0.5;
   
