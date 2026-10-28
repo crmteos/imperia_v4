@@ -273,7 +273,50 @@ function applyState(data) {
     
     applyP2PNodes(state.p2p_nodes);
 }
-    function initMapWithH3(nodes){if(map){map.remove();}map=L.map('map').setView([48.3794,31.1656],6);L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);h3Layers=[];if(!list||!Array.isArray(list))return;for(var i=0;i<list.length;i++){var n=list[i]||{}var latlng=node.coordinates;var cell=h3.geoToCell(latlng[0],latlng[1],7);var hex=h3.cellToBoundary(cell);var latlngs=hex.map(function(c){return[c[0],c[1]];});var color=qColor(node.qFactor);var poly=L.polygon(latlngs,{color:color,weight:2,fillColor:color,fillOpacity:0.3}).addTo(map);poly.bindPopup('<strong>'+node.hub+'</strong><br>Q: '+node.qFactor+' ('+qLabel(node.qFactor)+')<br>E = ['+node.eVectors.E_lang+', '+node.eVectors.E_geo+', '+node.eVectors.E_hist+', '+node.eVectors.E_soc+']<br>РЎС‚Р°С‚СѓСЃ: '+node.status);poly.on('mouseover',function(){poly.setStyle({fillOpacity:0.6,weight:3});});poly.on('mouseout',function(){poly.setStyle({fillOpacity:0.3,weight:2});});h3Layers.push(poly);});map.invalidateSize();}
+    function initMapWithH3(nodes) {
+    if (typeof map !== 'undefined' && map) {
+        map.remove();
+    }
+    map = L.map('map').setView([48.3794, 31.1656], 6);
+    L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png', {
+        attribution: '&copy; OpenStreetMap &copy; CARTO',
+        maxZoom: 19
+    }).addTo(map);
+
+    h3Layers = [];
+    var list = Array.isArray(nodes) ? nodes : ((typeof FALLBACK_STATE !== 'undefined' && FALLBACK_STATE.p2p_nodes) || []);
+    if (!list || list.length === 0) return;
+
+    for (var i = 0; i < list.length; i++) {
+        var n = list[i] || {};
+        var latlng = n.coordinates || [50.4501, 30.5234];
+        var qVal = n.qFactor || n.q || 0.90;
+        var eVec = n.eVectors || { E_lang: 0.9, E_geo: 0.9, E_hist: 0.9, E_soc: 0.9 };
+        
+        var cell = h3.geoToCell(latlng[0], latlng[1], 7);
+        var hex = h3.cellToBoundary(cell);
+        var latlngs = hex.map(function(c) { return [c[0], c[1]]; });
+        var color = typeof qColor === 'function' ? qColor(qVal) : '#00ffcc';
+        
+        var poly = L.polygon(latlngs, {
+            color: color,
+            weight: 2,
+            fillColor: color,
+            fillOpacity: 0.3
+        }).addTo(map);
+        
+        var popupText = '<strong>' + (n.hub || n.name || 'Hub') + '</strong><br>' +
+                         'Q: ' + qVal + '<br>' +
+                         'E = [' + eVec.E_lang + ', ' + eVec.E_geo + ', ' + eVec.E_hist + ', ' + eVec.E_soc + ']<br>' +
+                         'Статус: ' + (n.status || '🟢 Активний');
+        
+        poly.bindPopup(popupText);
+        poly.on('mouseover', function() { poly.setStyle({ fillOpacity: 0.6, weight: 3 }); });
+        poly.on('mouseout', function() { poly.setStyle({ fillOpacity: 0.3, weight: 2 }); });
+        h3Layers.push(poly);
+    }
+    map.invalidateSize();
+}
     function updateTelemetry(t){document.getElementById('cohort-q').textContent=safeFixed(t.cohortQ, 2);document.getElementById('system-load').textContent=t.currentLoad;document.getElementById('nodes-online').textContent=t.nodesOnline;document.getElementById('total-nodes').textContent=t.totalNodes;document.getElementById('avg-response').textContent=t.avgResponseTime;}
 function applyP2PNodes(nodes) {
     var list = Array.isArray(nodes) ? nodes : [];
