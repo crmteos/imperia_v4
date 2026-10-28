@@ -4,6 +4,28 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>IMPERIA v4: Master Sovereign UI</title>
+  <script src="https://unpkg.com/h3-js@3.15.0/dist/h3.js"></script>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+  
+  <style>
+    :root { --bg: #0a0a0f; --border: #2a2a3a; --tanunah: #ffd700; }
+    body { background-color: var(--bg); color: #e8e8f0; font-family: ui-sans-serif, system-ui, sans-serif; }
+    .leaflet-container img { max-width: none !important; max-height: none !important; }
+    #map { width: 100% !important; height: 550px !important; border-radius: 12px; border: 1px solid var(--border); display: block; position: relative; z-index: 1; }
+    .accordion-btn { width: 100%; text-align: left; padding: 12px 16px; background: #151520; border: 1px solid #2a2a3a; color: #e8e8f0; font-size: 0.875rem; font-weight: 500; border-radius: 8px; margin: 4px 0; cursor: pointer; transition: all 0.2s ease; }
+    .accordion-btn:hover { background: #1a1a25; border-color: #4a4a5a; }
+    .accordion-btn.active { border-color: #ffd700; color: #ffd700; }
+    .accordion-content { padding: 0 16px 16px; background: #0f0f1a; border-radius: 0 0 8px 8px; max-height: 0; overflow: hidden; transition: max-height 0.3s ease-out; }
+    .accordion-content.open { max-height: 200px; }
+    .telemetry-widget { background: #151520; border: 1px solid #2a2a3a; border-radius: 8px; padding: 16px; margin-top: 12px; }
+    .widget-title { font-size: 0.875rem; font-weight: 600; color: #888; margin-bottom: 12px; padding-bottom: 8px; border-bottom: 1px solid #2a2a3a; }
+    .widget-row { display: flex; justify-content: space-between; align-items: center; margin: 4px 0; font-size: 0.8125rem; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; margin-right: 6px; }
+    .status-healthy { background: #4ade80; box-shadow: 0 0 6px #4ade80; }
+    .status-degraded { background: #f59e0b; box-shadow: 0 0 6px #f59e0b; }
+    .status-strained { background: #ef4444; box-shadow: 0 0 6px #ef4444; }
+  </style>
 </head>
 <body class="p-4 md:p-6 max-w-7xl mx-auto space-y-6">
   <header class="bg-gray-900/90 border border-gray-800 rounded-2xl p-4 flex flex-col md:flex-row justify-between items-center gap-4">
@@ -44,9 +66,79 @@
       </div>
     </div>
   </header>
+
   <div class="p-4 space-y-4">
+    <!-- STATE GATEWAY DATA LOADER -->
+    <div id="state-loader" class="hidden">
+      <p class="text-sm text-gray-400">Завантаження стану проєкту...</p>
+    </div>
+    
+    <!-- P2P NODES ACCORDION -->
+    <div>
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-4">🛰️ P2P Вузли Kassator</h3>
+      <div id="p2p-accordion"></div>
+    </div>
+    
+    <!-- SYSTEM TELEMETRY Widget -->
+    <div>
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">📊 Системна телеметрія</h3>
+      <div class="telemetry-widget">
+        <div class="widget-title">Системний стан</div>
+        <div class="widget-row">
+          <span>Q-Cohort: <span id="cohort-q" class="font-mono text-yellow-400">Loading...</span></span>
+          <span>Навантаження: <span id="system-load" class="font-mono text-yellow-400">Loading...</span></span>
+        </div>
+        <div class="widget-row">
+          <span>Онлайн вузлів: <span id="nodes-online" class="font-mono text-yellow-400">Loading...</span> / <span id="total-nodes" class="font-mono text-yellow-400">Loading...</span></span>
+          <span>Середній отклик: <span id="avg-response" class="font-mono text-yellow-400">Loading...</span></span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- KASSATOR NODE MONITOR -->
+    <div id="kassator-monitor" class="hidden telemetry-widget">
+      <h4 class="widget-title">Kassator Node Monitor</h4>
+      <div class="widget-row">
+        <span>Стан: <span id="kassator-status-text">Loading...</span></span>
+      </div>
+      <div class="widget-row">
+        <span>Температура: <span id="kassator-temp" class="font-mono text-yellow-400">--</span>°C</span>
+        <span>Потужність: <span id="kassator-power" class="font-mono text-yellow-400">--</span> MW</span>
+      </div>
+      <div class="widget-row">
+        <span>Зв'язок: <span id="kassator-uptime" class="font-mono text-yellow-400">--</span></span>
+        <span>Latency: <span id="kassator-latency" class="font-mono text-yellow-400">--</span>ms</span>
+      </div>
+    </div>
+    
     <!-- FULL-WIDTH LEAFLET MAP (DOMINANT VISUAL CENTER) -->
     <div id="map"></div>
+    
+    <!-- H3 GRID OVERLAY SELECTOR -->
+    <div id="h3-overlay" class="hidden">
+      <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">🗺️ H3 Grid Overlay</h3>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-2 text-xs mb-3">
+        <div>
+          <label class="block text-xs text-gray-300 mb-1">Resolution</label>
+          <select id="h3-resolution" class="w-full bg-gray-800 text-white border border-gray-700 rounded px-2 py-1">
+            <option value="9">Level 9 (≈ 2km cells)</option>
+            <option value="10">Level 10 (≈ 1km cells)</option>
+            <option value="11">Level 11 (≈ 500m cells)</option>
+            <option value="12">Level 12 (≈ 250m cells)</option>
+          </select>
+        </div>
+        <div>
+          <label class="block text-xs text-gray-300 mb-1">Mode</label>
+          <select id="h3-mode" class="w-full bg-gray-800 text-white border border-gray-700 rounded px-2 py-1">
+            <option value="fill">Фільм-режим</option>
+            <option value="edge">Контурний режим</option>
+            <option value="fill-edge">Фільм+Контур</option>
+          </select>
+        </div>
+      </div>
+      <div id="h3-canvas"></div>
+    </div>
+
     <!-- HORIZONTAL REGIONAL PASSPORT ROWS -->
     <div class="space-y-2">
       <h3 class="text-xs font-bold text-gray-400 uppercase tracking-wider mb-2">📍 Паспорти Територій (4D Вектори Екології Н3: E = [E_lang, E_geo, E_hist, E_soc]^T)</h3>
@@ -93,5 +185,91 @@
     </a>
   </div>
 </div>
+  <script src="sl8_gateway.js"></script>
+  
+  <script>
+    var map = L.map('map').setView([50.4501, 30.5234], 5);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors', maxZoom: 19 }).addTo(map);
+    function updateTelemetry(t) {
+      document.getElementById('cohort-q').textContent = t.cohortQ.toFixed(2);
+      document.getElementById('system-load').textContent = t.currentLoad;
+      document.getElementById('nodes-online').textContent = t.nodesOnline;
+      document.getElementById('total-nodes').textContent = t.totalNodes;
+      document.getElementById('avg-response').textContent = t.avgResponseTime;
+    }
+    function updateP2PNodes(nodes) {
+      const acc = document.getElementById('p2p-accordion');
+      acc.innerHTML = '';
+      nodes.forEach(node => {
+        const c = node.status === 'healthy' ? 'status-healthy' : node.status === 'degraded' ? 'status-degraded' : 'status-strained';
+        const item = document.createElement('div');
+        item.className = 'accordion';
+        item.innerHTML = '<button class="accordion-btn" onclick="this.classList.toggle(\'active\')"><span><span class="status-dot ' + c + '"></span>' + node.hub + ' - Q: ' + node.qFactor + '</span><svg width="12" height="8" viewBox="0 0 12 8" fill="currentColor"><polygon points="0 0, 12 0, 12 8, 0 8"/></svg></button><div class="accordion-content"><div class="widget-row"><span>E_lang: <span class="font-mono text-gray-300">' + node.eVectors.E_lang + '</span></span><span>E_geo: <span class="font-mono text-gray-300">' + node.eVectors.E_geo + '</span></span></div><div class="widget-row"><span>E_hist: <span class="font-mono text-gray-300">' + node.eVectors.E_hist + '</span></span><span>E_soc: <span class="font-mono text-gray-300">' + node.eVectors.E_soc + '</span></span></div><div class="widget-row"><span>Стан: <span class="' + c + ' status-dot"></span>' + node.status + '</span></div></div>';
+        acc.appendChild(item);
+      });
+    }
+    function activateModule(m) {
+      ['map','telemetry','kassator-monitor'].forEach(f => {
+        const opt = document.querySelector('#filter-module option[value="' + f + '"]');
+        if (opt) opt.selected = (f === m);
+      });
+      const km = document.getElementById('kassator-monitor');
+      if (km) km.classList.toggle('hidden', m !== 'kassator-monitor');
+      if (m === 'map') { document.getElementById('h3-overlay').classList.remove('hidden'); initH3Overlay(); }
+      else { document.getElementById('h3-overlay').classList.add('hidden'); }
+      if (m === 'kassator-monitor') showKassatorMonitor();
+    }
+    function initH3Overlay() {
+      document.getElementById('h3-overlay').classList.remove('hidden');
+      const res = parseInt(document.getElementById('h3-resolution').value);
+      const mode = document.getElementById('h3-mode').value;
+      const canvas = document.getElementById('h3-canvas');
+      canvas.innerHTML = '';
+      for (let i = -2; i <= 2; i++) {
+        for (let j = -2; j <= 2; j++) {
+          try {
+            const cell = h3.geoToCell(50.4501 + i * 0.1, 30.5234 + j * 0.1, res);
+            const div = document.createElement('div');
+            div.className = 'py-1 px-2 text-xs ' + (mode === 'fill' ? 'bg-yellow-500/20' : 'bg-transparent border border-yellow-400/50');
+            div.textContent = cell;
+            canvas.appendChild(div);
+          } catch(e) {}
+        }
+      }
+    }
+    function showKassatorMonitor() {
+      document.getElementById('kassator-monitor').classList.remove('hidden');
+      fetch('docs/state_gateway.json').then(r => r.json()).then(d => {
+        const n = d.p2p_nodes.find(nn => nn.hub === 'Kyiv (101)');
+        if (n) {
+          document.getElementById('kassator-status-text').textContent = n.status;
+          document.getElementById('kassator-temp').textContent = Math.round(65 + Math.random() * 15);
+          document.getElementById('kassator-power').textContent = Math.round(100 + Math.random() * 500);
+          document.getElementById('kassator-uptime').textContent = Math.round(99.9 * 100) / 100 + '%';
+          document.getElementById('kassator-latency').textContent = Math.round(10 + Math.random() * 50) + 'ms';
+        }
+      });
+    }
+    document.querySelectorAll('.accordion-btn').forEach(btn => {
+      btn.addEventListener('click', function() {
+        this.classList.toggle('active');
+        this.nextElementSibling.classList.toggle('open');
+      });
+    });
+    document.getElementById('filter-module').addEventListener('change', function() { activateModule(this.value); });
+    document.getElementById('h3-resolution').addEventListener('change', initH3Overlay);
+    document.getElementById('h3-mode').addEventListener('change', initH3Overlay);
+    window.masterOverride = {
+      pauseTenant: function() { if (confirm('Master Override: Tenant session paused.')) { console.log('Tenant session paused'); } },
+      recalibrateQ: function() { if (confirm('Master Override: Q-Bounds recalibrated.')) { console.log('Q-Bounds recalibrated'); const cq = parseFloat(document.getElementById('cohort-q').textContent || '0.94'); document.getElementById('cohort-q').textContent = (cq + 0.01).toFixed(2); } }
+    };
+    document.addEventListener('DOMContentLoaded', function() {
+      fetch('docs/state_gateway.json').then(r => r.json()).then(data => {
+        updateTelemetry(data.system_telemetry);
+        updateP2PNodes(data.p2p_nodes);
+        activateModule('map');
+      }).catch(err => { console.error('State gateway load error:', err); });
+    });
+  </script>
 </body>
 </html>

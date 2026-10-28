@@ -1,28 +1,216 @@
 {
-  "version": "4.6.0-state-gateway",
-  "exported_at": "2026-10-27T02:50:00Z",
-  "system_state": {
-    "global_coherence": 0.94,
-    "active_p2p_nodes": 5,
-    "swarm_load": 0.42,
-    "telegram_channel": "@imperial_chancery"
+  "project_structure": {
+    "generatedAt": "2026-10-28T14:54:00+00:00",
+    "root": "c:\\imperia_v4",
+    "files": [
+      {
+        "path": "docs/index.html",
+        "modified": "2026-10-28T14:30:00+00:00",
+        "status": "active",
+        "description": "Master Sovereign UI - Spec v3.0"
+      },
+      {
+        "path": "docs/kassator.html",
+        "modified": "2026-10-27T23:46:00+00:00",
+        "status": "active",
+        "description": "Kassator Telemetry UI"
+      },
+      {
+        "path": "docs/state_gateway.json",
+        "modified": "2026-10-28T14:54:00+00:00",
+        "status": "active",
+        "description": "Project state gateway - single source of truth"
+      },
+      {
+        "path": "docs/master_checklist.md",
+        "modified": "2026-10-27T17:50:00+00:00",
+        "status": "active",
+        "description": "Master override checklist"
+      },
+      {
+        "path": "docs/PROJECT_STRUCTURE.md",
+        "modified": "2026-10-28T14:56:00+00:00",
+        "status": "active",
+        "description": "Generated directory catalog"
+      },
+      {
+        "path": "docs/project_catalog.json",
+        "modified": "2026-10-28T14:56:00+00:00",
+        "status": "active",
+        "description": "Generated JSON file catalog"
+      },
+      {
+        "path": ".clinerules",
+        "modified": "2026-10-28T14:53:00+00:00",
+        "status": "active",
+        "description": "Cline AI invariants configuration"
+      },
+      {
+        "path": "scripts/build_catalog.js",
+        "modified": "2026-10-28T14:54:00+00:00",
+        "status": "active",
+        "description": "Directory indexing script"
+      },
+      {
+        "path": "src/",
+        "modified": "2026-10-26T13:50:00+00:00",
+        "status": "active",
+        "description": "Source code directory"
+      },
+      {
+        "path": "tests/",
+        "modified": "2026-10-26T20:48:00+00:00",
+        "status": "active",
+        "description": "Test suite directory"
+      },
+      {
+        "path": "config/",
+        "modified": "2026-10-26T15:55:00+00:00",
+        "status": "active",
+        "description": "Configuration files directory"
+      },
+      {
+        "path": "data/",
+        "modified": "2026-10-26T20:14:00+00:00",
+        "status": "active",
+        "description": "Data directory with territory_passports.json and telemetry_feed.json"
+      }
+    ]
   },
-  "h3_passports_summary": [
-    { "code": "101", "name": "Kyiv Central", "q_factor": 0.92, "vector_E": [0.95, 0.91, 0.98, 0.89] },
-    { "code": "102", "name": "Lviv West", "q_factor": 0.88, "vector_E": [0.98, 0.89, 0.95, 0.92] },
-    { "code": "103", "name": "Odesa South", "q_factor": 0.74, "vector_E": [0.82, 0.95, 0.88, 0.78] },
-    { "code": "104", "name": "Kharkiv East", "q_factor": 0.68, "vector_E": [0.85, 0.72, 0.91, 0.71] },
-    { "code": "105", "name": "Dnipro Center", "q_factor": 0.81, "vector_E": [0.87, 0.88, 0.86, 0.83] }
-  ],
-  "context_bridge_prompt": "CRITICAL CONTEXT BRIDGE: Import state_gateway.json from crmteos/imperia_v4. System Q-Coherence is 0.94 across 5 active P2P nodes (Brahman-orchestrated). H3 spatial grid is fully synchronized with Telegram Channel @imperial_chancery.",
-  "memory_vault": {
-    "core_law": "Law of Synarchy & Scale-Frequency M-f Axis (Shudra -> Vaishya -> Kshatriya -> Brahman)",
-    "math_engine": "dQ/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback",
-    "tokenomics": "Reward = Tokens_processed * Q_node * K_H3_density (PoI / PoC)",
-    "active_h3_hubs": ["Kyiv Central (101)", "Lviv West (102)", "Odesa South (103)", "Kharkiv East (104)", "Dnipro Center (105)"],
-    "external_gateways": {
-      "telegram": "@imperial_chancery",
-      "slate_network_bridge": "Phase 7 v2.0 Active (Kassator Executive Node & Co-Development Workbench)"
+  "p2p_nodes": [
+    {
+      "tenantId": "kassator",
+      "hub": "Kyiv (101)",
+      "country": "ua",
+      "coordinates": [50.4501, 30.5234],
+      "qFactor": 0.94,
+      "eVectors": {
+        "E_lang": 0.95,
+        "E_geo": 0.91,
+        "E_hist": 0.98,
+        "E_soc": 0.21
+      },
+      "status": "healthy",
+      "lastSync": "2026-10-28T14:54:00+00:00"
+    },
+    {
+      "tenantId": "kassator",
+      "hub": "Lviv (102)",
+      "country": "ua",
+      "coordinates": [49.8397, 24.0297],
+      "qFactor": 0.88,
+      "eVectors": {
+        "E_lang": 0.98,
+        "E_geo": 0.89,
+        "E_hist": 0.95,
+        "E_soc": 0.18
+      },
+      "status": "healthy",
+      "lastSync": "2026-10-28T14:54:00+00:00"
+    },
+    {
+      "tenantId": "kassator",
+      "hub": "Odesa (103)",
+      "country": "ua",
+      "coordinates": [46.4825, 30.7233],
+      "qFactor": 0.74,
+      "eVectors": {
+        "E_lang": 0.82,
+        "E_geo": 0.95,
+        "E_hist": 0.88,
+        "E_soc": 0.31
+      },
+      "status": "degraded",
+      "lastSync": "2026-10-28T14:54:00+00:00"
+    },
+    {
+      "tenantId": "kassator",
+      "hub": "Kharkiv (104)",
+      "country": "ua",
+      "coordinates": [49.9935, 36.2304],
+      "qFactor": 0.68,
+      "eVectors": {
+        "E_lang": 0.85,
+        "E_geo": 0.72,
+        "E_hist": 0.91,
+        "E_soc": 0.45
+      },
+      "status": "strained",
+      "lastSync": "2026-10-28T14:54:00+00:00"
+    },
+    {
+      "tenantId": "kassator",
+      "hub": "Dnipro (105)",
+      "country": "ua",
+      "coordinates": [48.4647, 35.0462],
+      "qFactor": 0.81,
+      "eVectors": {
+        "E_lang": 0.87,
+        "E_geo": 0.88,
+        "E_hist": 0.86,
+        "E_soc": 0.28
+      },
+      "status": "healthy",
+      "lastSync": "2026-10-28T14:54:00+00:00"
+    },
+    {
+      "tenantId": "kassator",
+      "hub": "Tokyo (JP)",
+      "country": "jp",
+      "coordinates": [35.6895, 139.6917],
+      "qFactor": 0.92,
+      "eVectors": {
+        "E_lang": 0.94,
+        "E_geo": 0.87,
+        "E_hist": 0.96,
+        "E_soc": 0.15
+      },
+      "status": "healthy",
+      "lastSync": "2026-10-28T14:54:00+00:00"
     }
+  ],
+  "api_gateways": {
+    "h3": {
+      "name": "Uber H3",
+      "type": "free",
+      "endpoint": "https://h3-js.resolve.rest/",
+      "status": "operational",
+      "rateLimit": "free tier"
+    },
+    "map": {
+      "name": "OpenStreetMap",
+      "type": "free",
+      "endpoint": "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
+      "status": "operational",
+      "attribution": "&copy; OpenStreetMap contributors"
+    },
+    "weather": {
+      "name": "Open-Meteo",
+      "type": "free",
+      "endpoint": "https://api.open-meteo.com/v1/forecast",
+      "status": "operational",
+      "params": ["latitude", "longitude", "current_weather"],
+      "rateLimit": "unlimited"
+    },
+    "countries": {
+      "name": "REST Countries",
+      "type": "free",
+      "endpoint": "https://restcountries.com/v3.1/alpha/{alpha2}",
+      "status": "operational",
+      "params": ["alpha2-code"]
+    }
+  },
+  "system_telemetry": {
+    "tenantId": "kassator",
+    "cohortQ": 0.94,
+    "currentLoad": "light",
+    "isolationState": "balanced",
+    "lastUpdated": "2026-10-28T14:54:00+00:00",
+    "nodesOnline": 6,
+    "totalNodes": 6,
+    "avgResponseTime": "45ms",
+    "memoryUtilization": "62%",
+    "cpuUtilization": "48%",
+    "diskUtilization": "55%"
   }
 }
