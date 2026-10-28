@@ -12,7 +12,7 @@
     :root { --bg: #0a0a0f; --border: #2a2a3a; --tanunah: #ffd700; }
     body { background-color: var(--bg); color: #e8e8f0; font-family: ui-sans-serif, system-ui, sans-serif; }
     .leaflet-container img { max-width: none !important; max-height: none !important; }
-    #map { width: 100% !important; height: 550px !important; border-radius: 12px; border: 1px solid var(--border); display: block; position: relative; z-index: 1; }
+    #map { width: 100% !important; height: 450px !important; border-radius: 12px; border: 1px solid var(--border); display: block; position: relative; z-index: 1; margin-bottom: 20px; }
     .accordion-btn { width: 100%; text-align: left; padding: 12px 16px; background: #151520; border: 1px solid #2a2a3a; color: #e8e8f0; font-size: 0.875rem; font-weight: 500; border-radius: 8px; margin: 4px 0; cursor: pointer; transition: all 0.2s ease; }
     .accordion-btn:hover { background: #1a1a25; border-color: #4a4a5a; }
     .accordion-btn.active { border-color: #ffd700; color: #ffd700; }
@@ -188,26 +188,25 @@
   <script src="sl8_gateway.js"></script>
   
   <script>
-    var map = L.map('map').setView([50.4501, 30.5234], 5);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { attribution: '&copy; OpenStreetMap contributors', maxZoom: 19 }).addTo(map);
-    function updateTelemetry(t) {
-      document.getElementById('cohort-q').textContent = t.cohortQ.toFixed(2);
-      document.getElementById('system-load').textContent = t.currentLoad;
-      document.getElementById('nodes-online').textContent = t.nodesOnline;
-      document.getElementById('total-nodes').textContent = t.totalNodes;
-      document.getElementById('avg-response').textContent = t.avgResponseTime;
+    var FALLBACK_STATE = {"project_structure":{"files":[]},"p2p_nodes":[{"tenantId":"kassator","hub":"Kyiv (101)","country":"ua","coordinates":[50.4501,30.5234],"qFactor":0.94,"eVectors":{"E_lang":0.95,"E_geo":0.91,"E_hist":0.98,"E_soc":0.21},"status":"healthy"},{"tenantId":"kassator","hub":"Lviv (102)","country":"ua","coordinates":[49.8397,24.0297],"qFactor":0.88,"eVectors":{"E_lang":0.98,"E_geo":0.89,"E_hist":0.95,"E_soc":0.18},"status":"healthy"},{"tenantId":"kassator","hub":"Odesa (103)","country":"ua","coordinates":[46.4825,30.7233],"qFactor":0.74,"eVectors":{"E_lang":0.82,"E_geo":0.95,"E_hist":0.88,"E_soc":0.31},"status":"degraded"},{"tenantId":"kassator","hub":"Kharkiv (104)","country":"ua","coordinates":[49.9935,36.2304],"qFactor":0.68,"eVectors":{"E_lang":0.85,"E_geo":0.72,"E_hist":0.91,"E_soc":0.45},"status":"strained"},{"tenantId":"kassator","hub":"Dnipro (105)","country":"ua","coordinates":[48.4647,35.0462],"qFactor":0.81,"eVectors":{"E_lang":0.87,"E_geo":0.88,"E_hist":0.86,"E_soc":0.28},"status":"healthy"},{"tenantId":"kassator","hub":"Tokyo (JP)","country":"jp","coordinates":[35.6895,139.6917],"qFactor":0.92,"eVectors":{"E_lang":0.94,"E_geo":0.87,"E_hist":0.96,"E_soc":0.15},"status":"healthy"}],"system_telemetry":{"tenantId":"kassator","cohortQ":0.94,"currentLoad":"light","isolationState":"balanced","nodesOnline":6,"totalNodes":6,"avgResponseTime":"45ms"}};
+    var currentState = null;
+    function loadStateData() {
+      var cached = null;
+      try { cached = JSON.parse(localStorage.getItem('imperia_state_cache')); } catch(e) {}
+      if (cached) { currentState = cached; applyState(currentState); return; }
+      fetch('docs/state_gateway.json').then(function(r){return r.json();}).then(function(data){currentState=data;try{localStorage.setItem('imperia_state_cache',JSON.stringify(data));}catch(e){}applyState(data);}).catch(function(err){console.warn('Fetch failed, using fallback:',err.message);currentState=FALLBACK_STATE;applyState(FALLBACK_STATE);});
     }
-    function updateP2PNodes(nodes) {
-      const acc = document.getElementById('p2p-accordion');
-      acc.innerHTML = '';
-      nodes.forEach(node => {
-        const c = node.status === 'healthy' ? 'status-healthy' : node.status === 'degraded' ? 'status-degraded' : 'status-strained';
-        const item = document.createElement('div');
-        item.className = 'accordion';
-        item.innerHTML = '<button class="accordion-btn" onclick="this.classList.toggle(\'active\')"><span><span class="status-dot ' + c + '"></span>' + node.hub + ' - Q: ' + node.qFactor + '</span><svg width="12" height="8" viewBox="0 0 12 8" fill="currentColor"><polygon points="0 0, 12 0, 12 8, 0 8"/></svg></button><div class="accordion-content"><div class="widget-row"><span>E_lang: <span class="font-mono text-gray-300">' + node.eVectors.E_lang + '</span></span><span>E_geo: <span class="font-mono text-gray-300">' + node.eVectors.E_geo + '</span></span></div><div class="widget-row"><span>E_hist: <span class="font-mono text-gray-300">' + node.eVectors.E_hist + '</span></span><span>E_soc: <span class="font-mono text-gray-300">' + node.eVectors.E_soc + '</span></span></div><div class="widget-row"><span>Стан: <span class="' + c + ' status-dot"></span>' + node.status + '</span></div></div>';
-        acc.appendChild(item);
-      });
-    }
+    function applyState(data){updateTelemetry(data.system_telemetry);updateP2PNodes(data.p2p_nodes);initMapWithH3(data.p2p_nodes);activateModule('map');}
+    var map=null;var h3Layers=[];
+    function initMapWithH3(nodes){if(map){map.remove();}map=L.map('map').setView([48.3794,31.1656],6);L.tileLayer('https://cartodb-basemaps-{s}.global.ssl.fastly.net/dark_all/{z}/{x}/{y}{r}.png',{attribution:'&copy; OpenStreetMap &copy; CARTO',maxZoom:19}).addTo(map);h3Layers=[];nodes.forEach(function(node){var latlng=node.coordinates;var cell=h3.geoToCell(latlng[0],latlng[1],7);var hex=h3.cellToBoundary(cell);var latlngs=hex.map(function(c){return[c[0],c[1]];});var color=qColor(node.qFactor);var poly=L.polygon(latlngs,{color:color,weight:2,fillColor:color,fillOpacity:0.3}).addTo(map);poly.bindPopup('<strong>'+node.hub+'</strong><br>Q: '+node.qFactor+' ('+qLabel(node.qFactor)+')<br>E = ['+node.eVectors.E_lang+', '+node.eVectors.E_geo+', '+node.eVectors.E_hist+', '+node.eVectors.E_soc+']<br>Статус: '+node.status);poly.on('mouseover',function(){poly.setStyle({fillOpacity:0.6,weight:3});});poly.on('mouseout',function(){poly.setStyle({fillOpacity:0.3,weight:2});});h3Layers.push(poly);});map.invalidateSize();}
+    function updateTelemetry(t){document.getElementById('cohort-q').textContent=t.cohortQ.toFixed(2);document.getElementById('system-load').textContent=t.currentLoad;document.getElementById('nodes-online').textContent=t.nodesOnline;document.getElementById('total-nodes').textContent=t.totalNodes;document.getElementById('avg-response').textContent=t.avgResponseTime;}
+    function updateP2PNodes(nodes){const acc=document.getElementById('p2p-accordion');acc.innerHTML='';nodes.forEach(function(node){
+        const c=node.status==='healthy'?'status-healthy':node.status==='degraded'?'status-degraded':'status-strained';
+        var item=document.createElement('div');item.className='accordion';
+        item.innerHTML='<button class="accordion-btn" onclick="this.classList.toggle(\'active\')"><span><span class="status-dot ' + c + '"></span>' + node.hub + ' - Q: ' + node.qFactor + '</span><svg width="12" height="8" viewBox="0 0 12 8" fill="currentColor"><polygon points="0 0, 12 0, 12 8, 0 8"/></svg></button><div class="accordion-content"><div class="widget-row"><span>E_lang: <span class="font-mono text-gray-300">' + node.eVectors.E_lang + '</span></span><span>E_geo: <span class="font-mono text-gray-300">' + node.eVectors.E_geo + '</span></span></div><div class="widget-row"><span>E_hist: <span class="font-mono text-gray-300">' + node.eVectors.E_hist + '</span></span><span>E_soc: <span class="font-mono text-gray-300">' + node.eVectors.E_soc + '</span></span></div><div class="widget-row"><span>Стан: <span class="' + c + ' status-dot"></span>' + node.status + '</span></div></div>';
+        acc.appendChild(item);});}
+    function qColor(q){if(q>=0.8)return'#10B981';if(q>=0.7)return'#F59E0B';return'#EF4444';}
+    function qLabel(q){if(q>=0.8)return'Спокій';if(q>=0.7)return'Помірний';return'Напруга';}
     function activateModule(m) {
       ['map','telemetry','kassator-monitor'].forEach(f => {
         const opt = document.querySelector('#filter-module option[value="' + f + '"]');
@@ -215,40 +214,11 @@
       });
       const km = document.getElementById('kassator-monitor');
       if (km) km.classList.toggle('hidden', m !== 'kassator-monitor');
-      if (m === 'map') { document.getElementById('h3-overlay').classList.remove('hidden'); initH3Overlay(); }
+      if (m === 'map') { document.getElementById('h3-overlay').classList.remove('hidden'); }
       else { document.getElementById('h3-overlay').classList.add('hidden'); }
       if (m === 'kassator-monitor') showKassatorMonitor();
     }
-    function initH3Overlay() {
-      document.getElementById('h3-overlay').classList.remove('hidden');
-      const res = parseInt(document.getElementById('h3-resolution').value);
-      const mode = document.getElementById('h3-mode').value;
-      const canvas = document.getElementById('h3-canvas');
-      canvas.innerHTML = '';
-      for (let i = -2; i <= 2; i++) {
-        for (let j = -2; j <= 2; j++) {
-          try {
-            const cell = h3.geoToCell(50.4501 + i * 0.1, 30.5234 + j * 0.1, res);
-            const div = document.createElement('div');
-            div.className = 'py-1 px-2 text-xs ' + (mode === 'fill' ? 'bg-yellow-500/20' : 'bg-transparent border border-yellow-400/50');
-            div.textContent = cell;
-            canvas.appendChild(div);
-          } catch(e) {}
-        }
-      }
-    }
-    function showKassatorMonitor() {
-      document.getElementById('kassator-monitor').classList.remove('hidden');
-      fetch('docs/state_gateway.json').then(r => r.json()).then(d => {
-        const n = d.p2p_nodes.find(nn => nn.hub === 'Kyiv (101)');
-        if (n) {
-          document.getElementById('kassator-status-text').textContent = n.status;
-          document.getElementById('kassator-temp').textContent = Math.round(65 + Math.random() * 15);
-          document.getElementById('kassator-power').textContent = Math.round(100 + Math.random() * 500);
-          document.getElementById('kassator-uptime').textContent = Math.round(99.9 * 100) / 100 + '%';
-          document.getElementById('kassator-latency').textContent = Math.round(10 + Math.random() * 50) + 'ms';
-        }
-      });
+    function showKassatorMonitor(){document.getElementById('kassator-monitor').classList.remove('hidden');var cached=null;try{cached=JSON.parse(localStorage.getItem('imperia_state_cache'));}catch(e){}var n=(cached||FALLBACK_STATE).p2p_nodes.find(function(nn){return nn.hub==='Kyiv (101)';});if(n){document.getElementById('kassator-status-text').textContent=n.status;document.getElementById('kassator-temp').textContent=Math.round(65+Math.random()*15);document.getElementById('kassator-power').textContent=Math.round(100+Math.random()*500);document.getElementById('kassator-uptime').textContent=Math.round(99.9*100)/100+'%';document.getElementById('kassator-latency').textContent=Math.round(10+Math.random()*50)+'ms';}}
     }
     document.querySelectorAll('.accordion-btn').forEach(btn => {
       btn.addEventListener('click', function() {
@@ -257,19 +227,13 @@
       });
     });
     document.getElementById('filter-module').addEventListener('change', function() { activateModule(this.value); });
-    document.getElementById('h3-resolution').addEventListener('change', initH3Overlay);
-    document.getElementById('h3-mode').addEventListener('change', initH3Overlay);
+    document.getElementById('h3-resolution').addEventListener('change', function() {});
+    document.getElementById('h3-mode').addEventListener('change', function() {});
     window.masterOverride = {
       pauseTenant: function() { if (confirm('Master Override: Tenant session paused.')) { console.log('Tenant session paused'); } },
       recalibrateQ: function() { if (confirm('Master Override: Q-Bounds recalibrated.')) { console.log('Q-Bounds recalibrated'); const cq = parseFloat(document.getElementById('cohort-q').textContent || '0.94'); document.getElementById('cohort-q').textContent = (cq + 0.01).toFixed(2); } }
     };
-    document.addEventListener('DOMContentLoaded', function() {
-      fetch('docs/state_gateway.json').then(r => r.json()).then(data => {
-        updateTelemetry(data.system_telemetry);
-        updateP2PNodes(data.p2p_nodes);
-        activateModule('map');
-      }).catch(err => { console.error('State gateway load error:', err); });
-    });
+    document.addEventListener('DOMContentLoaded', function() { loadStateData(); });
   </script>
 </body>
 </html>
