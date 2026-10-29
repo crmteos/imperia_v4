@@ -14,7 +14,7 @@
 | `docs/3.master_checklist.md` | `/master_checklist.md` | [ ] В процесі | [ ] Ні |
 | `docs/STATE_GATEWAY_PROTOCOL.md` | `/STATE_GATEWAY_PROTOCOL.md` | [ ] В процесі | [ ] Ні |
 | `docs/master_checklist.md` | `/master_checklist.md` | [ ] В процесі | [ ] Ні |
-| Усі тимчасові файли `update_*.md` з кореня | `/docs/ARCHITECTURE_DECISIONS.md` | [ ] В процесі | [ ] Ні |
+| Усі тимчасові файли `update_*.md` з кореня | `/docs/ARCHITECTURE_DECISIONS.md` | [x] Витягнуто | [ ] Ні |
 | JSON/JS файли в корені та .v4_gateway | `/docs/PROJECT_STRUCTURE.md` | [ ] В процесі | [ ] Ні |
 
 ## 3. Статус Технічних Фаз Розробки
