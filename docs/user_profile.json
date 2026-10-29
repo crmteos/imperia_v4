@@ -1,0 +1,20 @@
+{
+  "version": "3.0",
+  "user_role": "Brahman Owner",
+  "ai_guide_settings": {
+    "guide_name": "Brahman AI Spatial Analyst",
+    "persona_style": "Strategic Sovereign Architect",
+    "language": "uk"
+  },
+  "saved_contexts": {
+    "focus_regions": ["Europe", "Kyiv Macro-Node", "Japan Sl8 Cluster"],
+    "active_patterns": ["Macro-Symbiosis", "P2P Mesh Quality"],
+    "custom_slicer_presets": [
+      {
+        "name": "Соборні Симбіози",
+        "filter": { "type": "symbiosis", "min_q": 0.88 }
+      }
+    ]
+  },
+  "last_session_timestamp": "2026-10-29T03:30:00Z"
+}

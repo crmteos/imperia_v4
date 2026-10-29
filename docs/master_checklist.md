@@ -48,6 +48,13 @@
 - [ ] **7.5** Transition to Network-Wide Scaling & Stellar SSLX IaaS Protocol upon Kassator's request
 - [x] **7.6** Reconstruct docs/index.html with full-width Leaflet H3 map, header dropdown navigation, 4D environment vectors $\vec{E}$, and --tanunah accordion panels.
 
+### Phase 8: Future Extensions & Supabase Integration (PLANNING)
+- [ ] **8.1** Integrate Supabase H3 Geo-DB with temporal vectors E(t) for system phenomenon detection
+- [ ] **8.2** Implement Cosine Similarity Pattern Matching module for Brahman AI Guide
+- [x] **8.3** Create User Profile Memory Vault (docs/user_profile.json) - persisted between sessions
+- [ ] **8.4** Develop AI Guide Prompt Slicer presets for real-time context filtering
+- [ ] **8.5** Transition to Network-Wide Supabase Sync upon Brahman's request
+
 ### 📊 Current Status
 - [x] Автономний `map_core.html` запущено із ізольованим H3 spatial viewport та Pivot JSON State Engine
 - [ ] Перехід до розробки специфікації `h3_layers.json` та JSON-потоків для маніпуляції шарами картки
