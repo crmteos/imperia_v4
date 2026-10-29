@@ -58,3 +58,8 @@
 ### 📊 Current Status
 - [x] Автономний `map_core.html` запущено із ізольованим H3 spatial viewport та Pivot JSON State Engine
 - [ ] Перехід до розробки специфікації `h3_layers.json` та JSON-потоків для маніпуляції шарами картки
+
+### Фундаментальні Аксіоми Проекту
+- [x] **ADR-006**: Протокол Проактивного Математичного Синтезу Брахмана та Cosine Similarity Standard
+- [x] ADR-004: Декомпозиція H3 Spatial Viewport та Pivot JSON State Engine
+- [x] ADR-005: Архітектура H3 Spatial Warehouse, Часових Векторів E(t) та Пам'яті ШІ-Гіда
