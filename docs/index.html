@@ -75,48 +75,49 @@
 
     <script>
         async function executeAIPrompt() {
-            var prompt = document.getElementById("ai-prompt-input").value;
-            if (!prompt) return;
-            
-            var log = document.getElementById("ai-status-log");
-            log.textContent = "ШІ-Гід: Аналіз запиту через OpenRouter...";
+    var prompt = document.getElementById("ai-prompt-input").value;
+    if (!prompt) return;
+    
+    var log = document.getElementById("ai-status-log");
+    log.textContent = "ШІ-Гід: Аналіз запиту через OpenRouter...";
 
-            var apiKey = (window.IMPERIA_CONFIG && window.IMPERIA_CONFIG.OPENROUTER_API_KEY) || "";
-            if (!apiKey) {
-                log.textContent = "Помилка: OpenRouter API key відсутній";
-                return;
-            }
+    var apiKey = (window.IMPERIA_CONFIG && window.IMPERIA_CONFIG.OPENROUTER_API_KEY) || "";
+    if (!apiKey) {
+        log.textContent = "Помилка: OpenRouter API key відсутній";
+        return;
+    }
 
-            try {
-                var res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                    method: "POST",
-                    headers: {
-                        "Authorization": "Bearer " + apiKey,
-                        "Content-Type": "application/json"
+    try {
+        var res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + apiKey,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model: "google/gemini-2.5-flash:free",
+                messages: [
+                    {
+                        role: "system",
+                        content: "Ти — ШІ-Гід Брахман (Brahman AI Spatial Analyst) системи IMPERIA v4. Твоє завдання — пояснювати Власнику сутність системи, 4D-векторів E=[Lang,Geo,Hist,Soc], H3-картки та дашборду, або формувати зрізи даних за його запитом. Відповідай дружньо, мудро, лаконічно та зрозуміло українською мовою."
                     },
-                    body: JSON.stringify({
-                        model: "google/gemini-2.5-flash:free",
-                        messages: [
-                            {
-                                role: "system",
-                                content: "Ти ШІ-Гід Брахман. Проаналізуй промпт користувача і відповідь короткою підтверджувальної фразою українською мовою про сформований зріз даних."
-                            },
-                            { role: "user", content: prompt }
-                        ]
-                    })
-                });
-                
-                var data = await res.json();
-                if (data.choices && data.choices[0]) {
-                    log.textContent = "ШІ-Гід: " + data.choices[0].message.content;
-                } else {
-                    log.textContent = "ШІ-Гід: Зріз сформовано локально.";
-                }
-            } catch (e) {
-                console.error("OpenRouter Error:", e);
-                log.textContent = "ШІ-Гід: Запит опрацьовано у локальному режимі.";
-            }
+                    { role: "user", content: prompt }
+                ]
+            })
+        });
+        
+        var data = await res.json();
+        if (data.choices && data.choices[0] && data.choices[0].message) {
+            log.style.color = "#00ffcc";
+            log.innerHTML = "<strong>ШІ-Гід:</strong> " + data.choices[0].message.content;
+        } else {
+            log.textContent = "ШІ-Гід: Зріз опрацьовано локально.";
         }
+    } catch (e) {
+        console.error("OpenRouter Error:", e);
+        log.textContent = "ШІ-Гід: Помилка з'єднання, запит оброблено локально.";
+    }
+}
 
         // Execute AI prompt on button press or Enter key
         document.getElementById("ai-prompt-input").addEventListener("keypress", function(e) {
