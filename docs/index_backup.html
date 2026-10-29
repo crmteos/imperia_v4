@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPERIA v4: Master Sovereign UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IMPERIA v4: Master Sovereign UI</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    
+    <!-- Tailwind CSS replaced -->
+    <script src="./state_gateway.js"></script>
+        
+<style>
+        @layer utilities {
+            .bg-dark { background-color: #0d0f12; }
+            .bg-card { background-color: #141820; }
+            .text-primary { color: #e0e6ed; }
+            .text-muted { color: #8899a6; }
+            .text-accent { color: #00ffcc; }
+            .border-card { border-color: #2a2f3a; }
+            .btn-primary { background-color: #00ffcc; color: #000; font-weight: bold; padding: 10px 16px; border-radius: 6px; text-decoration: none; border: none; cursor: pointer; transition: 0.2s; text-align: center; }
+            .btn-primary:hover { background-color: #00cca3; }
+            .btn-danger { background-color: #ff3366; color: #fff; padding: 10px 16px; border-radius: 6px; text-decoration: none; border: none; cursor: pointer; transition: 0.2s; text-align: center; }
+            .btn-danger:hover { background-color: #cc0033; }
+        }
+        .map-container { margin-bottom: 20px; }
+        #map { width: 100% !important; height: 500px !important; display: block; border-radius: 8px; border: 1px solid #2a2f3a; background: #0d0f12; position: relative; z-index: 1; }
+        .bottom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
+        .card { background: #141820; border: 1px solid #2a2f3a; border-radius: 8px; padding: 15px; }
+        .card h3 { margin-top: 0; color: #8899a6; font-size: 14px; text-transform: uppercase; border-bottom: 1px solid #2a2f3a; padding-bottom: 8px; }
+        .stat-row { display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #1c212c; }
+        .p2p-card { background: #1c212c; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; font-size: 13px; display: flex; justify-content: space-between; }
+        @media (max-width: 900px) { .bottom-grid { grid-template-columns: 1fr; } }
+        .leaflet-container img { max-width: none !important; max-height: none !important; }
+        .leaflet-tile-pane { filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3); }
+    </style>
+</head>
+<body class="bg-dark text-text">
+    <header class="border-card mb-8">
+        <div class="max-w-screen-xl mx-auto">
+            <div class="flex items-center justify-between py-4 mb-4">
+                <div>
+                    <h1 class="text-2xl font-bold text-accent">IMPERIA v4: Master Sovereign UI</h1>
+
+<!-- 3-Tier Filter Dropdowns: Country → Region → Module -->
+<div class="mb-6">
+    <div class="flex flex-col sm:flex-row gap-4">
+        <div class="w-full sm:w-1/3">
+            <label class="block text-sm text-muted mb-2">Країна</label>
+            <select id="filter-country" class="w-full bg-[1a2332] border border-[2a2f3a] rounded px-3 py-2 text-white appearance-none">
+                <option value="">Всі країни</option>
+                <option value="Ukraine">Україна</option>
+                <option value="Poland">Польща</option>
+                <option value="Germany">Німеччина</option>
+            </select>
+        </div>
+        <div class="w-full sm:w-1/3">
+            <label class="block text-sm text-muted mb-2">Регіон</label>
+            <select id="filter-region" class="w-full bg-[1a2332] border border-[2a2f3a] rounded px-3 py-2 text-white appearance-none">
+                <option value="">Всі регіони</option>
+            </select>
+        </div>
+        <div class="w-full sm:w-1/3">
+            <label class="block text-sm text-muted mb-2">Модуль</label>
+            <select id="filter-module" class="w-full bg-[1a2332] border border-[2a2f3a] rounded px-3 py-2 text-white appearance-none">
+                <option value="">Всі модулі</option>
+            </select>
+        </div>
+    </div>
+</div>
+                    <p class="text-sm text-muted">Brahman Orchestration Node</p>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-[1a2332] border border-[00ffcc] text-[00ffcc] px-2 py-1 rounded text-xs">Cohort Q: <span id="cohort-q" class="text-accent">0.94</span></span>
+                    <a href="kassator.html" class="btn-primary" style="margin-left: 10px;">Launch Kassator Terminal →</a>
+                </div>
+            </div>
+        </div>
+    </header>
+</html>
+        
+        
+        
+         
+        
+         
+        
+            
+            max-height: none !important;
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        .btn:hover { background: #00cca3; }
+        
+        
+        
+        
+#map { width: 100% !important; height: 500px !important; display: block; border-radius: 8px; border: 1px solid #2a2f3a; background: #0d0f12; position: relative; z-index: 1;
+  
+
+
+</head>
+<body>
+<div class="header">
+        <div>
+            
+            <div style="font-size: 12px; color: #8899a6;">Brahman Orchestration Node</div>
+        </div>
+        <div>
+            
+            Launch Kassator </a>
+        </div>
+    </div>
+
+    <!-- Regional Passport Rows with 4D Ecology Vectors E = [E_lang, E_geo, E_hist, E_soc]^T -->
+<div class="mb-8">
+    <h3 class="text-uppercase text-sm text-muted mb-3">Регіональні паспорти екології</h3>
+    <div id="passport-grid" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    </div>
+</div>
+
+<!-- Top Section: Full Width Map Block -->
+    <div class="map-container">
+        <div class="card">
+            <h3>H3 Grid Global Geospatial Overlay (World View)</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+
+    <!-- Bottom Section: 3-Column Grid below Map -->
+    <div class="bottom-grid">
+        <div class="card">
+            <h3>System Telemetry</h3>
+            <div class="stat-row"><span>System Load:</span><strong id="system-load">24%</strong></div>
+            <div class="stat-row"><span>Online Nodes:</span><strong id="nodes-online">5 / 6</strong></div>
+            <div class="stat-row"><span>Avg Response:</span><strong id="avg-response">42ms</strong></div>
+        </div>
+
+        <div class="card">
+            <h3>Master Override</h3>
+            <button class="btn btn-danger" onclick="masterOverride.pauseTenant()" style="width: 100%; margin-bottom: 10px;">Pause Tenant Session</button>
+            <button class="btn" onclick="masterOverride.recalibrateQ()" style="width: 100%;">Recalibrate Q-Bounds</button>
+        </div>
+
+        <div class="card">
+            <h3>P2P Mesh Nodes</h3>
+            <div id="p2p-nodes-list">Loading nodes...</div>
+        </div>
+    </div>
+
+    
+    <script src="./state_gateway.js"></script>
+    <script>
+        const FALLBACK_STATE = {
+            system_telemetry: { q_cohort: "0.94", load: "24%", nodes_online: "5 / 6", avg_latency: "42ms" },
+            p2p_nodes: [
+                { id: "101", hub: "Kyiv (101)", qFactor: 0.92, coordinates: [50.4501, 30.5234] },
+                { id: "102", hub: "Lviv (102)", qFactor: 0.88, coordinates: [49.8383, 24.0232] },
+                { id: "103", hub: "Odesa (103)", qFactor: 0.74, coordinates: [46.4825, 30.7233] },
+                { id: "104", hub: "Kharkiv (104)", qFactor: 0.68, coordinates: [49.9935, 36.2304] },
+                { id: "105", hub: "Dnipro (105)", qFactor: 0.81, coordinates: [48.4647, 35.0462] }
+            ]
+        };
+
+        
+
+        
+            var data = window.STATE_GATEWAY_DATA || FALLBACK_STATE;
+    renderUI(data);
+}
+
+        
+            if (!data) data = FALLBACK_STATE;
+            var sys = data.system_telemetry || {};
+            
+            if (document.getElementById("cohort-q")) document.getElementById("cohort-q").textContent = sys.q_cohort || "0.94";
+            if (document.getElementById("system-load")) document.getElementById("system-load").textContent = sys.load || "24%";
+            if (document.getElementById("nodes-online")) document.getElementById("nodes-online").textContent = sys.nodes_online || "5 / 6";
+            if (document.getElementById("avg-response")) document.getElementById("avg-response").textContent = sys.avg_latency || "42ms";
+
+            renderNodes(data.p2p_nodes || []);
+            renderMap(data.p2p_nodes || []);
+        }
+
+        
+            var container = document.getElementById("p2p-nodes-list");
+            if (!container) return;
+            var list = Array.isArray(nodes) && nodes.length > 0 ? nodes : FALLBACK_STATE.p2p_nodes;
+            var html = "";
+            for (var i = 0; i < list.length; i++) {
+                var n = list[i];
+                html += '<div class="p2p-card"><span><strong>' + n.hub + '</strong></span><span>Q: ' + n.qFactor + '</span></div>';
+            }
+            container.innerHTML = html;
+        }
+
+        
+            if (typeof L === "undefined" || !document.getElementById("map")) return;
+            if (map) map.remove();
+            map = L.map("map").setView([25, 10], 2);
+            
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { 
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
+            }).addTo(map);
+
+            var list = Array.isArray(nodes) && nodes.length > 0 ? nodes : FALLBACK_STATE.p2p_nodes;
+            for (var i = 0; i < list.length; i++) {
+                var n = list[i];
+                var color = n.qFactor >= 0.9 ? "#00ffcc" : (n.qFactor >= 0.75 ? "#ffcc00" : "#ff3366");
+                var circle = L.circleMarker(n.coordinates, { radius: 7, color: color, fillColor: color, fillOpacity: 0.9 }).addTo(map);
+                circle.bindPopup("<strong>" + n.hub + "</strong><br>Region: " + (n.region || "Global") + "<br>Q-Factor: " + n.qFactor);
+            }
+        }
+
+        
+            ,
+            
+        };
+
+        
+
+        
+    </script>
+</body>
+</html>
