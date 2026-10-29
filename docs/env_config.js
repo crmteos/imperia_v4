@@ -1,0 +1,6 @@
+window.IMPERIA_CONFIG = {
+    SUPABASE_URL: "https://qjhtbrsczxbtsvplfdwj.supabase.co",
+    SUPABASE_ANON_KEY: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFqaHRicnNjenhidHN2cGxmZHdqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE0OTU1NzAsImV4cCI6MjEwNzA3MTU3MH0.aduS107Efa9f3ADOpZVgT0czoaobsjfuiftpswrLWTQ",
+    OPENROUTER_API_KEY: "sk-or-v1-PLACEHOLDER_KEY_FOR_GITHUB",
+    GNEWS_API_KEY: "30815f5ff57b95c77a945d2492b11ace"
+};
