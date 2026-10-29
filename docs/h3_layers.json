@@ -1,0 +1,70 @@
+{
+  "version": "3.0",
+  "updated_at": "2026-10-29T02:00:00Z",
+  "layers": [
+    {
+      "id": "p2p_hubs",
+      "name": "Міжнародні P2P Вузли Mesh",
+      "type": "p2p",
+      "enabled": true,
+      "data": [
+        {
+          "id": "101",
+          "hub": "Kyiv Hub (101)",
+          "coordinates": [50.4501, 30.5234],
+          "qFactor": 0.92,
+          "region": "Europe",
+          "vector_E": { "lang": 0.95, "geo": 0.90, "hist": 0.88, "soc": 0.94 }
+        },
+        {
+          "id": "201",
+          "hub": "Tokyo Hub (201)",
+          "coordinates": [35.6762, 139.6503],
+          "qFactor": 0.89,
+          "region": "Asia",
+          "vector_E": { "lang": 0.82, "geo": 0.94, "hist": 0.91, "soc": 0.89 }
+        },
+        {
+          "id": "301",
+          "hub": "London Hub (301)",
+          "coordinates": [51.5074, -0.1278],
+          "qFactor": 0.85,
+          "region": "Europe",
+          "vector_E": { "lang": 0.88, "geo": 0.82, "hist": 0.95, "soc": 0.80 }
+        },
+        {
+          "id": "401",
+          "hub": "New York Hub (401)",
+          "coordinates": [40.7128, -74.0060],
+          "qFactor": 0.81,
+          "region": "North America",
+          "vector_E": { "lang": 0.85, "geo": 0.79, "hist": 0.75, "soc": 0.85 }
+        },
+        {
+          "id": "501",
+          "hub": "Berlin Hub (501)",
+          "coordinates": [52.5200, 13.4050],
+          "qFactor": 0.88,
+          "region": "Europe",
+          "vector_E": { "lang": 0.90, "geo": 0.87, "hist": 0.89, "soc": 0.86 }
+        }
+      ]
+    },
+    {
+      "id": "macro_symbiosis",
+      "name": "Макроорганізми та Егрегори",
+      "type": "symbiosis",
+      "enabled": true,
+      "data": [
+        {
+          "id": "symb_01",
+          "hub": "Соборний Симбіоз (Церква + Мовний Егрегор)",
+          "coordinates": [50.4536, 30.5164],
+          "qFactor": 0.96,
+          "region": "Kyiv / Macro-Node",
+          "vector_E": { "lang": 0.98, "geo": 0.91, "hist": 0.96, "soc": 0.93 }
+        }
+      ]
+    }
+  ]
+}
