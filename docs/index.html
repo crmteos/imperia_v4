@@ -35,6 +35,23 @@
         .btn-danger:hover { background: #cc0033; }
         .p2p-card { background: #1c212c; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; font-size: 13px; display: flex; justify-content: space-between; }
         @media (max-width: 900px) { .bottom-grid { grid-template-columns: 1fr; } }
+/* Leaflet Fix 1: Prevent tile distortion */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+#map {
+  width: 100% !important;
+  height: 500px !important;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #2a2f3a;
+  background: #141820;
+  position: relative;
+  z-index: 1;
+}
+
 </style>
 </head>
 <body>
