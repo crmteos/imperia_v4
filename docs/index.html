@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -23,7 +23,7 @@
         }
         
         .map-container { margin-bottom: 20px; }
-        #map { width: 100% !important; height: 480px !important; display: block; border-radius: 8px; border: 1px solid #2a2f3a; background: #000; position: relative; z-index: 1; }
+        #map { width: 100% !important; height: 500px !important; display: block; border-radius: 8px; border: 1px solid #2a2f3a; background: #0d0f12; position: relative; z-index: 1; }
         
         .bottom-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .card { background: #141820; border: 1px solid #2a2f3a; border-radius: 8px; padding: 15px; }
@@ -35,43 +35,12 @@
         .btn-danger:hover { background: #cc0033; }
         .p2p-card { background: #1c212c; padding: 8px 12px; border-radius: 4px; margin-bottom: 8px; font-size: 13px; display: flex; justify-content: space-between; }
         @media (max-width: 900px) { .bottom-grid { grid-template-columns: 1fr; } }
-/* Leaflet Fix 1: Prevent tile distortion */
-.leaflet-container img {
-  max-width: none !important;
-  max-height: none !important;
-}
+#map { width: 100% !important; height: 500px !important; display: block; border-radius: 8px; border: 1px solid #2a2f3a; background: #0d0f12; position: relative; z-index: 1;
+  
 
-#map {
-  width: 100% !important;
-  height: 500px !important;
-  display: block;
-  border-radius: 8px;
-  border: 1px solid #2a2f3a;
-  background: #141820;
-  position: relative;
-  z-index: 1;
-}
-
-/* Leaflet Fix 1: Prevent tile distortion */
-.leaflet-container img {
-  max-width: none !important;
-  max-height: none !important;
-}
-
-/* Темний кибернетичний фільтр для публічних тайлів OpenStreetMap */
+/* Темній кибернетичний фільтр для публічних тайлів OpenStreetMap */
 .leaflet-tile-pane {
   filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
-}
-
-#map {
-  width: 100% !important;
-  height: 500px !important;
-  display: block;
-  border-radius: 8px;
-  border: 1px solid #2a2f3a;
-  background: #0d0f12;
-  position: relative;
-  z-index: 1;
 }
 </head>
 <body>
@@ -164,20 +133,19 @@
         function renderMap(nodes) {
             if (typeof L === "undefined" || !document.getElementById("map")) return;
             if (map) map.remove();
-            map = L.map("map").setView([0, 0], 2);
+            map = L.map("map").setView([25, 10], 2);
             
-            // Esri Dark Gray Canvas — стабільно працює через file:// без 403 та без API-ключів
-            L.tileLayer("https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Canvas/MapServer/tile/{z}/{y}/{x}", { 
-                maxZoom: 16,
-                attribution: 'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ'
+            L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", { 
+                maxZoom: 19,
+                attribution: '&copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a>'
             }).addTo(map);
 
             var list = Array.isArray(nodes) && nodes.length > 0 ? nodes : FALLBACK_STATE.p2p_nodes;
             for (var i = 0; i < list.length; i++) {
                 var n = list[i];
                 var color = n.qFactor >= 0.9 ? "#00ffcc" : (n.qFactor >= 0.75 ? "#ffcc00" : "#ff3366");
-                var circle = L.circleMarker(n.coordinates, { radius: 8, color: color, fillColor: color, fillOpacity: 0.8 }).addTo(map);
-                circle.bindPopup("<strong>" + n.hub + "</strong><br>Q-Factor: " + n.qFactor);
+                var circle = L.circleMarker(n.coordinates, { radius: 7, color: color, fillColor: color, fillOpacity: 0.9 }).addTo(map);
+                circle.bindPopup("<strong>" + n.hub + "</strong><br>Region: " + (n.region || "Global") + "<br>Q-Factor: " + n.qFactor);
             }
         }
 
