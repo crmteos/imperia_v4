@@ -47,3 +47,7 @@
 - [x] **7.4** Build DAG Proof-of-Contribution (PoC) SSLX Tokenomics Simulator (`docs/poc_reward_engine.js`)
 - [ ] **7.5** Transition to Network-Wide Scaling & Stellar SSLX IaaS Protocol upon Kassator's request
 - [x] **7.6** Reconstruct docs/index.html with full-width Leaflet H3 map, header dropdown navigation, 4D environment vectors $\vec{E}$, and --tanunah accordion panels.
+
+### 📊 Current Status
+- [x] Автономний `map_core.html` запущено із ізольованим H3 spatial viewport та Pivot JSON State Engine
+- [ ] Перехід до розробки специфікації `h3_layers.json` та JSON-потоків для маніпуляції шарами картки
