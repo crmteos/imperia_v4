@@ -1,8 +1,35 @@
-# Imperia v4 Project Structure
-## Generated: 2026-10-28
-## Root Directory: c:\imperia_v4
+# PROJECT STRUCTURE & STATE FILE SPECIFICATION (Imperia v4)
 
-### Directory Tree
+## 1. Карта Топології Інтерфейсів та Фізичних Файлів
+
+### 1.1. Кореневий рівень (Root Infrastructure)
+- `/STATE_GATEWAY_PROTOCOL.md` — Єдиний шлюз протоколів, онтологія Брахмана та індекс джерел.
+- `/master_checklist.md` — Канонічний статусний чеклист та матриця контекстної міграції.
+- `/.v4_gateway/` — Транспортний та архівний буфер (`in/`, `out/`, `archive/`).
+
+### 1.2. Веб-інтерфейси (`/docs/`)
+- `docs/index.html` — Master Sovereign UI (Головний монітор синархічної телеметрії, карти H3 та P2P-вузлів).
+- `docs/kassator.html` — Kassator Executive Workbench (Операційний робочий стіл Касатора для керування ресурсами).
+- `docs/map_core.html` — Standalone Map Core Engine (Ізольоване геопросторове ядро Leaflet + H3).
+
+## 2. Специфікація Файлів Стан-Пам'яті (State Schemas)
+
+### 2.1. Конфігурація та Телеметрія
+- `docs/env_config.js` — Джерело конфігураційних змінних та API-ключів середовища.
+- `docs/state_gateway.json` — Динамічний реєстр Q-факторів, статусу P2P-вузлів, вектора E та системних параметрів.
+- `docs/h3_layers.json` — Геопросторова просторова сітка H3 (координати вузлів, Q-фактори, вектори E, шари symбіозу).
+
+### 2.2. Географічні Паспорти Територій
+- `docs/territory_passports.json` — Реєстр регіональних паспортів (Україна, Японія, глобальні хаби).
+- `docs/japan_analysis.json` — Деталізований регіональний профіль Японії.
+
+## 3. Модулі Логіки та Симуляції
+- `docs/sl8_gateway.js` — Шлюз інтеграції із P2P-мережею Slate.
+- `docs/p2p_simulator.js` — Симулятор топології та флуктуацій P2P-вузлів.
+
+ Directory: c:\imperia_v4
+
+
 
 ```
 .
@@ -52,20 +79,13 @@
 └── package.json                (project dependencies)
 ```
 
-### File Count Summary
+#
 
 - **Total files**: 23 (in docs directory)
 - **Total directories**: 9 (root level)
 - **Root directory**: c:\imperia_v4
-- **Ignored**: node_modules, .git
-- **Last generated**: 2026-10-28
 
-### Key Files Description
 
-- `index.html` - Master Sovereign UI with Leaflet map, 3-tier filters, regional passports
-- `kassator.html` - Kassator Telemetry UI (separate module, do not merge with index.html)
-- `sl8_gateway.js` - Multi-Tenant Gateway Engine
-- `state_gateway.json` - Session state persistence across sessions
-- `master_checklist.md` - Master override status and audit logs
-- `tz-slate-integration-v3.md` - Specification v3.0 compliance reference
-- `.clinerules` - Cline invariants for consistent AI-assisted development
+
+
+
