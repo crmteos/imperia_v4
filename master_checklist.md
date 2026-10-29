@@ -11,9 +11,9 @@
 
 | Вхідний файл для аудиту | Цільовий канонічний файл | Статус витягу контексту | Статус переміщення у archive/ |
 | :--- | :--- | :---: | :---: |
-| `docs/3.master_checklist.md` | `/master_checklist.md` | [ ] В процесі | [ ] Ні |
-| `docs/STATE_GATEWAY_PROTOCOL.md` | `/STATE_GATEWAY_PROTOCOL.md` | [ ] В процесі | [ ] Ні |
-| `docs/master_checklist.md` | `/master_checklist.md` | [ ] В процесі | [ ] Ні |
+| `docs/3.master_checklist.md` | `/master_checklist.md` | [x] Витягнуто | [x] Перенесно до archive/ |
+| `docs/STATE_GATEWAY_PROTOCOL.md` | `/STATE_GATEWAY_PROTOCOL.md` | [x] Витягнуто | [x] Перенесно до archive/ |
+| `docs/master_checklist.md` | `/master_checklist.md` | [x] Витягнуто | [x] Перенесно до archive/ |
 | Усі тимчасові файли `update_*.md` з кореня | `/docs/ARCHITECTURE_DECISIONS.md` | [x] Витягнуто | [ ] Ні |
 | JSON/JS файли в корені та .v4_gateway | `/docs/PROJECT_STRUCTURE.md` | [x] Витягнуто | [ ] Ні |
 
