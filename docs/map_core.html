@@ -17,6 +17,137 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
+        #map-wrapper {
+            width: 100%;
+            height: 100vh;
+            background: #0d0f12;
+        }
+        #map {
+            width: 100%;
+            height: 100%;
+            background: #0d0f12;
+        }
+        .leaflet-tile-pane {
+            filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
+        }
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            left: 50px;
+            z-index: 1000;
+            background: rgba(20, 24, 32, 0.9);
+            border: 1px solid #00ffcc;
+            padding: 10px 18px;
+            border-radius: 6px;
+            font-size: 13px;
+            color: #00ffcc;
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+        }
+    </style>
+</head>
+<body>
+    <div class="status-badge" id="engine-status">Imperia v4: Initializing Engine...</div>
+    <div id="map-wrapper">
+        <div id="map"></div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            try {
+                // 1. Повне очищення DOM-контейнера для усунення конфліктів Leaflet
+                if (window.imperiaMapInstance) {
+                    try { window.imperiaMapInstance.remove(); } catch(e) {}
+                }
+                var oldMap = document.getElementById('map');
+                if (oldMap && oldMap.parentNode) {
+                    var newMap = document.createElement('div');
+                    newMap.id = 'map';
+                    oldMap.parentNode.replaceChild(newMap, oldMap);
+                }
+
+                // 2. Створення карти Leaflet
+                var map = L.map("map", {
+                    minZoom: 2,
+                    maxBounds: [[-90, -180], [90, 180]],
+                    maxBoundsViscosity: 1.0
+                }).setView([50.4501, 30.5234], 2);
+                
+                window.imperiaMapInstance = map;
+
+                L.tileLayer("https://tile.openstreetmap.org/{z}/{x}/{y}.png", {
+                    maxZoom: 19,
+                    attribution: '&copy; OpenStreetMap'
+                }).addTo(map);
+
+                setTimeout(function() { map.invalidateSize(); }, 300);
+
+                // 3. Динамічне завантаження JSON шарів H3
+                fetch("./h3_layers.json")
+                    .then(function(res) { return res.json(); })
+                    .then(function(json) {
+                        var totalNodes = 0;
+                        (json.layers || []).forEach(function(layer) {
+                            if (!layer.enabled) return;
+                            (layer.data || []).forEach(function(n) {
+                                totalNodes++;
+                                var isSymb = layer.type === "symbiosis";
+                                var color = isSymb ? "#ff00ff" : (n.qFactor >= 0.9 ? "#00ffcc" : (n.qFactor >= 0.75 ? "#ffcc00" : "#ff3366"));
+                                var radius = isSymb ? 10 : 7;
+
+                                var circle = L.circleMarker(n.coordinates, {
+                                    radius: radius,
+                                    color: color,
+                                    fillColor: color,
+                                    fillOpacity: 0.85
+                                }).addTo(map);
+
+                                var vE = n.vector_E || {};
+                                var popupContent = "<strong>" + n.hub + "</strong><br>" +
+                                    "Region: " + (n.region || "Global") + "<br>" +
+                                    "Q-Factor: " + n.qFactor + "<br>" +
+                                    "<hr style='border-color:#333;margin:4px 0;'>" +
+                                    "<small><strong>4D Vector E:</strong><br>" +
+                                    "Lang: " + (vE.lang || "-") + " | Geo: " + (vE.geo || "-") + "<br>" +
+                                    "Hist: " + (vE.hist || "-") + " | Soc: " + (vE.soc || "-") + "</small>";
+
+                                circle.bindPopup(popupContent);
+                            });
+                        });
+
+                        document.getElementById("engine-status").textContent = "Imperia v4: H3 JSON Layer Active (" + totalNodes + " Nodes Rendered)";
+                    })
+                    .catch(function(err) {
+                        console.error("Failed to load h3_layers.json:", err);
+                        document.getElementById("engine-status").textContent = "Imperia v4: JSON Stream Offline (Fallback Mode)";
+                    });
+            } catch (err) {
+                console.error("Map Initialization Error:", err);
+                document.getElementById("engine-status").textContent = "Imperia v4 Error: " + err.message;
+            }
+        });
+    </script>
+</body>
+</html>
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperia v4 - Standalone Map Core Engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <style>
+        html, body {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            background: #0d0f12;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            overflow: hidden;
+        }
         #map {
             width: 100%;
             height: 100vh;
