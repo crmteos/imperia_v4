@@ -52,7 +52,27 @@
   z-index: 1;
 }
 
-</style>
+/* Leaflet Fix 1: Prevent tile distortion */
+.leaflet-container img {
+  max-width: none !important;
+  max-height: none !important;
+}
+
+/* Темний кибернетичний фільтр для публічних тайлів OpenStreetMap */
+.leaflet-tile-pane {
+  filter: brightness(0.6) invert(1) contrast(3) hue-rotate(200deg) saturate(0.3);
+}
+
+#map {
+  width: 100% !important;
+  height: 500px !important;
+  display: block;
+  border-radius: 8px;
+  border: 1px solid #2a2f3a;
+  background: #0d0f12;
+  position: relative;
+  z-index: 1;
+}
 </head>
 <body>
 <div class="header">
