@@ -177,11 +177,81 @@
             font-size: 12px;
         }
         .vault-actions button:hover { background: #00ffcc; color: #000; }
+
+        /* P2P Coherence Simulator panel */
+        .p2p-simulator {
+            border: 1px solid #2a2f3a;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            background: #121721;
+        }
+        .p2p-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 12px;
+        }
+        .mode-badge {
+            font-size: 12px;
+            font-weight: bold;
+            padding: 6px 12px;
+            border-radius: 4px;
+            border: 1px solid;
+            display: inline-block;
+        }
+        .mode-simulation {
+            background: #2a1a00;
+            color: #ffb300;
+            border-color: #ffb300;
+            box-shadow: 0 0 6px rgba(255, 179, 0, 0.3);
+        }
+        .mode-live {
+            background: #00221a;
+            color: #00ffcc;
+            border-color: #00ffcc;
+            box-shadow: 0 0 6px rgba(0, 255, 204, 0.5);
+        }
+        .p2p-controls {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 12px;
+        }
+        .p2p-controls label { font-size: 13px; color: #8899a6; }
+        .p2p-controls select {
+            background: #1c212c;
+            border: 1px solid #3a4255;
+            color: #e0e6ed;
+            padding: 4px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+        }
+        .p2p-controls button {
+            background: #1c212c;
+            border: 1px solid #00ffcc;
+            color: #00ffcc;
+            padding: 6px 14px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+        .p2p-controls button:hover { background: #00ffcc; color: #000; }
+        .p2p-output {
+            font-size: 13px;
+            color: #e0e6ed;
+            padding: 10px;
+            background: #1c212c;
+            border-radius: 4px;
+            border: 1px solid #2a2f3a;
+        }
     </style>
     <script src="./env_config.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script src="./supabase_gateway.js"></script>
     <script src="./supabase_vault_client.js"></script>
+    <script src="./p2p_simulator.js"></script>
 </head>
 <body>
     <div class="header">
@@ -372,6 +442,79 @@
             });
 
             loadInvariants();
+        })();
+    </script>
+
+    <!-- P2P Coherence Simulator Panel -->
+    <div class="card p2p-simulator">
+        <div class="p2p-header">
+            <h3>P2P Coherence Simulator</h3>
+            <div id="p2p-mode-badge" class="mode-badge mode-simulation">[SIMULATION MODE — VIRTUAL NODES]</div>
+        </div>
+        <div class="p2p-controls">
+            <label for="p2p-mode-select">Режим:</label>
+            <select id="p2p-mode-select">
+                <option value="SIMULATION">SIMULATION — Virtual Data</option>
+                <option value="LIVE">LIVE NETWORK — Real Nodes</option>
+            </select>
+            <button id="p2p-run-btn">Запустити розрахунок когерентності</button>
+        </div>
+        <div id="p2p-output" class="p2p-output">Очікування запуску...</div>
+    </div>
+
+    <script>
+        (function initP2PSimulatorPanel() {
+            if (typeof P2PSimulator === 'undefined') {
+                console.error('[P2P UI] P2PSimulator module not loaded');
+                return;
+            }
+            const sim = new P2PSimulator();
+            const modeBadge = document.getElementById('p2p-mode-badge');
+            const modeSelect = document.getElementById('p2p-mode-select');
+            const runBtn = document.getElementById('p2p-run-btn');
+            const output = document.getElementById('p2p-output');
+
+            function updateBadge() {
+                if (sim.mode === 'LIVE') {
+                    modeBadge.textContent = '[LIVE NETWORK — REAL NODES]';
+                    modeBadge.className = 'mode-badge mode-live';
+                } else {
+                    modeBadge.textContent = '[SIMULATION MODE — VIRTUAL NODES]';
+                    modeBadge.className = 'mode-badge mode-simulation';
+                }
+            }
+
+            modeSelect.addEventListener('change', function(e) {
+                const target = e.target.value;
+                if (target === 'LIVE') {
+                    const confirmed = confirm('ПОПЕРЕДЖЕННЯ: Перехід у режим LIVE підключатиме симулятор до реальних вузлів мережі. Продовжити?');
+                    if (!confirmed) {
+                        e.target.value = 'SIMULATION';
+                        return;
+                    }
+                }
+                sim.setMode(target);
+                updateBadge();
+            });
+
+            runBtn.addEventListener('click', function() {
+                const virtualNodes = [
+                    { id: 'H3-872b101', q_factor: 0.94 },
+                    { id: 'H3-872b102', q_factor: 0.91 },
+                    { id: 'H3-872b103', q_factor: 0.88 },
+                    { id: 'H3-872b104', q_factor: 0.95 },
+                ];
+                const coherence = sim.calculateSyntheticCoherence(virtualNodes);
+                if (coherence === null) {
+                    output.textContent = 'Режим LIVE: симуляційний розрахунок заборонений. Використовуйте реальні вузли.';
+                    output.style.color = '#ffb300';
+                } else {
+                    output.textContent = 'Синтетична когерентність H3-вузлів: ' + coherence.toFixed(3);
+                    output.style.color = '#00ffcc';
+                }
+            });
+
+            updateBadge();
         })();
     </script>
 

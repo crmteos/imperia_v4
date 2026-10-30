@@ -69,3 +69,37 @@ class P2PTopologySimulator {
 }
 window.p2pSim = new P2PTopologySimulator();
 document.addEventListener('DOMContentLoaded', () => { window.p2pSim.recalculateTopology(); });
+
+/**
+ * Imperia v4: P2P Phase Coherence Simulator & Node Manager
+ * Жорстка ізоляція режимів: SIMULATION (виртуальні дані, без запису в БД) vs LIVE (реальні вузли мережі).
+ */
+class P2PSimulator {
+    constructor() {
+        this.mode = 'SIMULATION'; // 'SIMULATION' | 'LIVE'
+        this.virtualNodes = [];
+        this.liveNodes = [];
+    }
+
+    setMode(newMode) {
+        if (newMode !== 'SIMULATION' && newMode !== 'LIVE') {
+            throw new Error("Invalid mode. Must be SIMULATION or LIVE");
+        }
+        this.mode = newMode;
+        console.log(`[P2P Engine] Switched to mode: ${this.mode}`);
+    }
+
+    // Симуляційне математичне затягування частот (без запису в БД)
+    calculateSyntheticCoherence(nodes) {
+        if (this.mode !== 'SIMULATION') return null;
+        let totalQ = 0;
+        nodes.forEach(node => {
+            totalQ += (node.q_factor || 0.95);
+        });
+        return nodes.length > 0 ? (totalQ / nodes.length) : 0;
+    }
+}
+
+if (typeof module !== 'undefined') {
+    module.exports = { P2PSimulator };
+}
