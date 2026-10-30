@@ -2,7 +2,7 @@
 
 **Repository**: `crmteos/imperia_v4`  
 **Status**: Active Framework Integration  
-**Version**: 4.1.0-master-checklist  
+**Version**: 4.1.0-hotfix  
 
 ---
 
@@ -65,6 +65,12 @@
 ### 📊 Current Status
 - [x] Автономний `map_core.html` запущено із ізольованим H3 spatial viewport та Pivot JSON State Engine
 - [ ] Перехід до розробки специфікації `h3_layers.json` та JSON-потоків для маніпуляції шарами картки
+
+### Hotfixes (Brahman Architecture Review)
+- [x] **HF-001** `docs/index.html` синтаксична помилка виправлена (line 454: `Помилка з'єднання` → `Помилка зєднання` в JS-рядку); локальний fallback для AI-Гіда гарантований
+- [x] **HF-002** `docs/index.html` `.chat-drawer.collapsed` трансформація змінена на `calc(100% - 42px)`; обробник кліку по `.chat-header` тоглить `.collapsed`, заголовок залишається видимим
+- [x] **HF-003** `docs/map_core.html` інфо-плашка `.info-panel` та `.controls` блок видалено; карта Leaflet повноекранна `100vw`×`100vh`; зумер `L.control.zoom` на `topleft`
+- [x] **HF-004** `master_checklist.md` оновлено з поточним статусом управління
 
 ### Фундаментальні Аксіоми Проекту
 - [x] **ADR-006**: Протокол Проактивного Математичного Синтезу Брахмана та Cosine Similarity Standard

@@ -11,17 +11,6 @@
         body { background: #0d0f12; color: #e0e6ed; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; overflow: hidden; }
         #map { z-index: 0; }
         .leaflet-container { background: #0d0f12; }
-        .info-panel {
-            position: absolute; top: 10px; right: 10px; z-index: 1000;
-            background: rgba(18, 23, 33, 0.92); border: 1px solid #2a2f3a;
-            border-radius: 8px; padding: 12px; font-size: 13px;
-            pointer-events: auto; backdrop-filter: blur(6px);
-            min-width: 260px;
-        }
-        .info-panel .title { font-weight: bold; color: #00ffcc; margin-bottom: 8px; font-size: 14px; }
-        .info-panel .line { margin: 4px 0; color: #c9d2dc; }
-        .info-panel .line b { color: #e0e6ed; }
-        .controls { position: absolute; bottom: 12px; right: 12px; z-index: 1000; display: flex; gap: 8px; }
         .btn {
             background: #1c212c; border: 1px solid #00ffcc; color: #00ffcc;
             padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px;
@@ -34,19 +23,7 @@
 <body>
     <div id="map"></div>
 
-    <div class="info-panel">
-        <div class="title">IMPERIA v4 — H3 Map Core</div>
-        <div class="line" id="info-text">Ініціалізація Leaflet + H3…</div>
-        <div class="line">Карта: OpenStreetMap</div>
-        <div class="line">Режим: автономна ініціалізація</div>
-        <div class="line" id="h3-stats">H3 гексагони: —</div>
-    </div>
-
-    <div class="controls">
-        <button class="btn" id="btn-reset">Скинути вигляд</button>
-    </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/h3-js@3.7.2/dist/h3-js.min.js"></script>
     <script>
         (function initMap() {
@@ -64,7 +41,7 @@
                 attribution: '© OpenStreetMap contributors'
             }).addTo(map);
 
-            L.control.zoom({ position: 'bottomright' }).addTo(map);
+            L.control.zoom({ position: 'topleft' }).addTo(map);
 
             // H3 гексагони навколо Києва (резолюція 8, кільце радіусом 2)
             var centerH3 = h3.geoToH3(center[0], center[1], 8);
@@ -97,3 +74,7 @@
     </script>
 </body>
 </html>
+
+
+
+

@@ -172,7 +172,7 @@
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
         .chat-drawer.collapsed {
-            transform: translateY(calc(100% - 44px)) !important;
+            transform: translateY(calc(100% - 42px)) !important;
             width: auto; height: auto; padding: 10px 16px;
             border-radius: 20px; cursor: pointer;
         }
@@ -360,6 +360,10 @@
                 chat.classList.toggle('collapsed');
             });
 
+            document.querySelector('.chat-header').addEventListener('click', function () {
+                chat.classList.toggle('collapsed');
+            });
+
             map = L.map('map', {
                 center: [50.4501, 30.5234],
                 zoom: 8,
@@ -451,7 +455,7 @@
                         }
                     }).catch(function (e) {
                         console.error('OpenRouter Error:', e);
-                        append('ШІ-Гід: Помилка з'єднання, запит оброблено локально.', '#ff4444');
+                        append('ШІ-Гід: Помилка зєднання, запит оброблено локально.', '#ff4444');
                     });
                 }
                 btnSend.addEventListener('click', run);
@@ -493,7 +497,7 @@
                         renderInvariants(data);
                     } catch (e) {
                         console.error('Vault Inspector error:', e);
-                        grid.innerHTML = '<div class="vault-empty">Помилка з\'єднання із Supabase Vault</div>';
+                        grid.innerHTML = '<div class="vault-empty">Помилка зєднання із Supabase Vault</div>';
                         setStatus('offline');
                     }
                 }
@@ -581,4 +585,7 @@
     <script src="./state_gateway.js"></script>
 </body>
 </html>
+
+
+
 
