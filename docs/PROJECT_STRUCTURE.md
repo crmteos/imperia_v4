@@ -101,6 +101,7 @@
 - **Скрипт очищення БД:** `docs/cleanup_legacy_tables.sql` (Видалення 13 застарілих таблиць із Supabase).
 - **Віджет Master UI:** `Brahman Vault Inspector` у `docs/index.html` — перегляд та фільтрація інваріантів `brahman_knowledge_vault` за октавами M0–M6, категоріями, тегами та показником добротності Q (зелений бадж при Q ≥ 0.90).
 - **Сеювання інваріантів:** `docs/seed_penrose_invariants.sql` та `docs/seed_penrose_invariants.py` — додання 4 канонічних занурень квантової свідомості Пенроуза (Orch OR) у `brahman_knowledge_vault` (Октави M0, M1, M4, M6).
+- **Canonical 3-panel UI:** `docs/index.html` reorganized into `Left Sidebar` (Джерела / Реєстр документації) | `Center Stage` (H3-карта `map_core.html` через `<iframe>` + Чат AI-Гід) | `Right Studio` (`Brahman Vault Inspector` з фільтрами М0–M6 + `P2P Coherence Simulator` із SIMULATION/LIVE режимом).
 
 ## 3. Модулі Логіки та Симуляції
 ## 3. Модулі Логіки та Симуляції
