@@ -1,91 +1,27 @@
 {
-  "version": "4.2.0-h3-passports",
-  "updated_at": "2026-10-27T02:22:00Z",
-  "regions": [
+  "version": "v4.0_canonical",
+  "status": "draft_architecture_skeleton",
+  "passports": [
     {
-      "code": "101",
-      "name": "Київський Центральний Хаб",
-      "h3_index": "872b101ffffff",
-      "h3_res": 7,
-      "gps": [50.4501, 30.5234],
-      "tension": "Low",
-      "q_factor": 0.92,
-      "vector_E": {
-        "E_lang": 0.95,
-        "E_geo": 0.91,
-        "E_hist": 0.98,
-        "E_soc": 0.89
+      "entity_id": "UA-KYIV-M4",
+      "name": "Київський Соборний Хаб (Чернетка)",
+      "m_axis": {
+        "octave_code": "M4",
+        "scale_name": "Meso-2: Regional Hub",
+        "h3_resolution": 4,
+        "spatial_index_h3": "872b101ffffff",
+        "nesting_factor_K": 7
       },
-      "status": "Active",
-      "nodes_count": 5
-    },
-    {
-      "code": "102",
-      "name": "Львівський Західний Вузол",
-      "h3_index": "872b102ffffff",
-      "h3_res": 7,
-      "gps": [49.8397, 24.0297],
-      "tension": "Low",
-      "q_factor": 0.88,
-      "vector_E": {
-        "E_lang": 0.98,
-        "E_geo": 0.89,
-        "E_hist": 0.95,
-        "E_soc": 0.92
+      "vector_E": { "lang": 0.95, "geo": 0.91, "hist": 0.98, "soc": 0.89, "E_norm": 0.932 },
+      "coherence_Q": { "current_Q": 0.94, "status_band": "GREEN" },
+      "synarchy_metrics": {
+        "cohesion_index_Isyn": 0.92,
+        "hierarchical_alignment_Ahier": 0.96,
+        "evolutionary_plasticity_Kevol": 0.88,
+        "triadic_state": { "spirit_identity": 0.95, "form_structure": 0.92, "energy_resource": 0.89 }
       },
-      "status": "Active",
-      "nodes_count": 3
-    },
-    {
-      "code": "103",
-      "name": "Одеський Південний Кластер",
-      "h3_index": "872b103ffffff",
-      "h3_res": 7,
-      "gps": [46.4825, 30.7233],
-      "tension": "Medium",
-      "q_factor": 0.74,
-      "vector_E": {
-        "E_lang": 0.82,
-        "E_geo": 0.95,
-        "E_hist": 0.88,
-        "E_soc": 0.78
-      },
-      "status": "Active",
-      "nodes_count": 2
-    },
-    {
-      "code": "104",
-      "name": "Харківський Східний Форпост",
-      "h3_index": "872b104ffffff",
-      "h3_res": 7,
-      "gps": [49.9935, 36.2304],
-      "tension": "Medium",
-      "q_factor": 0.68,
-      "vector_E": {
-        "E_lang": 0.85,
-        "E_geo": 0.72,
-        "E_hist": 0.91,
-        "E_soc": 0.71
-      },
-      "status": "Active",
-      "nodes_count": 2
-    },
-    {
-      "code": "105",
-      "name": "Дніпровський Центрально-Східний Хаб",
-      "h3_index": "872b105ffffff",
-      "h3_res": 7,
-      "gps": [48.4647, 35.0462],
-      "tension": "Low",
-      "q_factor": 0.81,
-      "vector_E": {
-        "E_lang": 0.87,
-        "E_geo": 0.88,
-        "E_hist": 0.86,
-        "E_soc": 0.83
-      },
-      "status": "Active",
-      "nodes_count": 2
+      "field_power_Peff": 0.876,
+      "synarchy_role": "Brahman"
     }
   ]
 }
