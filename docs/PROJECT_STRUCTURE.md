@@ -49,6 +49,16 @@
     "current_Q": 0.94,
     "status_band": "GREEN"
   },
+  "synarchy_metrics": {
+    "cohesion_index_Isyn": 0.92,
+    "hierarchical_alignment_Ahier": 0.96,
+    "evolutionary_plasticity_Kevol": 0.88,
+    "triadic_state": {
+      "spirit_identity": 0.95,
+      "form_structure": 0.92,
+      "energy_resource": 0.89
+    }
+  },
   "field_power_Peff": 0.876,
   "synarchy_role": "Brahman"
 }
@@ -73,6 +83,12 @@
 | `coherence_Q.current_Q` | `number` (0.00–1.00) | Поточний рівень фазової когерентності. |
 | `coherence_Q.status_band` | `string` | Статусний діапазон: `GREEN` (\\(Q \\ge 0.90\\)), `YELLOW` (\\(0.75 \\le Q < 0.90\\)), `RED` (\\(Q < 0.75\\)). |
 | `field_power_Peff` | `number` (0.0–1.0) | Ефективна потужність поля: \\(P_{eff} = \\|\vec{E}\\| \\times Q\\). |
+| `synarchy_metrics.cohesion_index_Isyn` | `number` (0.0–1.0) | Індекс синархічної когезії — баланс автономії вузла та здатності до соборного синтезу. |
+| `synarchy_metrics.hierarchical_alignment_Ahier` | `number` (0.0–1.0) | Коефіцієнт ієрархічної відповідності — чистота виконання Варнової ролі відповідно до Q. |
+| `synarchy_metrics.evolutionary_plasticity_Kevol` | `number` (0.0–1.0) | Індекс адаптивної пластичності — здатність до динамічного розгалуження під-октав. |
+| `synarchy_metrics.triadic_state.spirit_identity` | `number` (0.0–1.0) | Ідейно-контекстна чистота та когерентність смислів. |
+| `synarchy_metrics.triadic_state.form_structure` | `number` (0.0–1.0) | Якість кодової бази, цілісність DOM та H3-сітки. |
+| `synarchy_metrics.triadic_state.energy_resource` | `number` (0.0–1.0) | Апаратний обчислювальний квант (NPU/GPU, RAM, bandwidth). |
 | `synarchy_role` | `string` | Вартова роль сутності (наприклад, `Brahman`, `Kshatriya`, `Vaishya`, `Shudra`, `Periphery`). |
 
 ## 3. Модулі Логіки та Симуляції
