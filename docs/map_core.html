@@ -1,3 +1,73 @@
+<script>
+async function loadTerritoryPassports() {
+    const candidatePaths = ['./territory_passports.json', 'docs/territory_passports.json', '../docs/territory_passports.json'];
+    let data = null;
+
+    for (const path of candidatePaths) {
+        try {
+            const res = await fetch(path);
+            if (res.ok) {
+                data = await res.json();
+                console.log("Успішно завантажено паспорти з:", path);
+                break;
+            }
+        } catch (e) {}
+    }
+
+    if (!data || !data.passports) {
+        console.warn("Не вдалося знайти territory_passports.json.");
+        return;
+    }
+
+    const bounds = [];
+    data.passports.forEach(passport => {
+        const lat = passport.center_lat;
+        const lng = passport.center_lng;
+        bounds.push([lat, lng]);
+
+        // Неоновий маркер хабу
+        const marker = L.circleMarker([lat, lng], {
+            radius: 10,
+            fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#6366f1',
+            color: '#ffffff',
+            weight: 2,
+            opacity: 1,
+            fillOpacity: 0.9
+        }).addTo(map);
+
+        marker.bindPopup(`
+            <div style="font-family: sans-serif; padding: 6px; color: #0f172a;">
+                <strong style="font-size: 14px;">${passport.name}</strong><br/>
+                <small>Октава: <b>${passport.m_octave}</b> | Q: <b>${passport.q_coherence}</b></small><br/>
+                <span style="font-size: 11px; color: #475569;">${passport.role}</span>
+            </div>
+        `);
+
+        // H3 Полігон
+        if (passport.h3_index) {
+            try {
+                if (window.h3 && typeof h3.h3ToGeoBoundary === 'function') {
+                    const boundary = h3.h3ToGeoBoundary(passport.h3_index);
+                    L.polygon(boundary, {
+                        color: passport.m_octave === 'M5' ? '#0284c7' : '#4f46e5',
+                        weight: 2,
+                        fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#818cf8',
+                        fillOpacity: 0.35
+                    }).addTo(map);
+                }
+            } catch (e) {
+                console.warn("H3 render fallback for " + passport.id + ":", e);
+            }
+        }
+    });
+
+    if (bounds.length > 0) {
+        map.fitBounds(bounds, { padding: [50, 50] });
+    }
+}
+loadTerritoryPassports();
+</script>
+</body>
 ﻿<!DOCTYPE html>
 <html lang="uk">
 <head>
