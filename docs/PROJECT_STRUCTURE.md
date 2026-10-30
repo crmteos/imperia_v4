@@ -1,36 +1,36 @@
-# PROJECT STRUCTURE & STATE FILE SPECIFICATION (Imperia v4)
+﻿# PROJECT STRUCTURE & STATE FILE SPECIFICATION (Imperia v4)
 
-## 1. Карта Топології Інтерфейсів та Фізичних Файлів
+## 1. РљР°СЂС‚Р° РўРѕРїРѕР»РѕРіС–С— Р†РЅС‚РµСЂС„РµР№СЃС–РІ С‚Р° Р¤С–Р·РёС‡РЅРёС… Р¤Р°Р№Р»С–РІ
 
-### 1.1. Кореневий рівень (Root Infrastructure)
-- `/STATE_GATEWAY_PROTOCOL.md` — Єдиний шлюз протоколів, онтологія Брахмана та індекс джерел.
-- `/master_checklist.md` — Канонічний статусний чеклист та матриця контекстної міграції.
-- `/.v4_gateway/` — Транспортний та архівний буфер (`in/`, `out/`, `archive/`).
+### 1.1. РљРѕСЂРµРЅРµРІРёР№ СЂС–РІРµРЅСЊ (Root Infrastructure)
+- `/STATE_GATEWAY_PROTOCOL.md` вЂ” Р„РґРёРЅРёР№ С€Р»СЋР· РїСЂРѕС‚РѕРєРѕР»С–РІ, РѕРЅС‚РѕР»РѕРіС–СЏ Р‘СЂР°С…РјР°РЅР° С‚Р° С–РЅРґРµРєСЃ РґР¶РµСЂРµР».
+- `/master_checklist.md` вЂ” РљР°РЅРѕРЅС–С‡РЅРёР№ СЃС‚Р°С‚СѓСЃРЅРёР№ С‡РµРєР»РёСЃС‚ С‚Р° РјР°С‚СЂРёС†СЏ РєРѕРЅС‚РµРєСЃС‚РЅРѕС— РјС–РіСЂР°С†С–С—.
+- `/.v4_gateway/` вЂ” РўСЂР°РЅСЃРїРѕСЂС‚РЅРёР№ С‚Р° Р°СЂС…С–РІРЅРёР№ Р±СѓС„РµСЂ (`in/`, `out/`, `archive/`).
 
-### 1.2. Веб-інтерфейси (`/docs/`)
-- `docs/index.html` — Master Sovereign UI (Головний монітор синархічної телеметрії, карти H3 та P2P-вузлів).
-- `docs/kassator.html` — Kassator Executive Workbench (Операційний робочий стіл Касатора для керування ресурсами).
-- `docs/map_core.html` — Standalone Map Core Engine (Ізольоване геопросторове ядро Leaflet + H3).
+### 1.2. Р’РµР±-С–РЅС‚РµСЂС„РµР№СЃРё (`/docs/`)
+- `docs/index.html` вЂ” Master Sovereign UI (Р“РѕР»РѕРІРЅРёР№ РјРѕРЅС–С‚РѕСЂ СЃРёРЅР°СЂС…С–С‡РЅРѕС— С‚РµР»РµРјРµС‚СЂС–С—, РєР°СЂС‚Рё H3 С‚Р° P2P-РІСѓР·Р»С–РІ).
+- `docs/kassator.html` вЂ” Kassator Executive Workbench (РћРїРµСЂР°С†С–Р№РЅРёР№ СЂРѕР±РѕС‡РёР№ СЃС‚С–Р» РљР°СЃР°С‚РѕСЂР° РґР»СЏ РєРµСЂСѓРІР°РЅРЅСЏ СЂРµСЃСѓСЂСЃР°РјРё).
+- `docs/map_core.html` вЂ” Standalone Map Core Engine (Р†Р·РѕР»СЊРѕРІР°РЅРµ РіРµРѕРїСЂРѕСЃС‚РѕСЂРѕРІРµ СЏРґСЂРѕ Leaflet + H3).
 
-## 2. Специфікація Файлів Стан-Пам'яті (State Schemas)
+## 2. РЎРїРµС†РёС„С–РєР°С†С–СЏ Р¤Р°Р№Р»С–РІ РЎС‚Р°РЅ-РџР°Рј'СЏС‚С– (State Schemas)
 
-### 2.1. Конфігурація та Телеметрія
-- `docs/env_config.js` — Джерело конфігураційних змінних та API-ключів середовища.
-- `docs/state_gateway.json` — Динамічний реєстр Q-факторів, статусу P2P-вузлів, вектора E та системних параметрів.
-- `docs/h3_layers.json` — Геопросторова просторова сітка H3 (координати вузлів, Q-фактори, вектори E, шари symбіозу).
+### 2.1. РљРѕРЅС„С–РіСѓСЂР°С†С–СЏ С‚Р° РўРµР»РµРјРµС‚СЂС–СЏ
+- `docs/env_config.js` вЂ” Р”Р¶РµСЂРµР»Рѕ РєРѕРЅС„С–РіСѓСЂР°С†С–Р№РЅРёС… Р·РјС–РЅРЅРёС… С‚Р° API-РєР»СЋС‡С–РІ СЃРµСЂРµРґРѕРІРёС‰Р°.
+- `docs/state_gateway.json` вЂ” Р”РёРЅР°РјС–С‡РЅРёР№ СЂРµС”СЃС‚СЂ Q-С„Р°РєС‚РѕСЂС–РІ, СЃС‚Р°С‚СѓСЃСѓ P2P-РІСѓР·Р»С–РІ, РІРµРєС‚РѕСЂР° E С‚Р° СЃРёСЃС‚РµРјРЅРёС… РїР°СЂР°РјРµС‚СЂС–РІ.
+- `docs/h3_layers.json` вЂ” Р“РµРѕРїСЂРѕСЃС‚РѕСЂРѕРІР° РїСЂРѕСЃС‚РѕСЂРѕРІР° СЃС–С‚РєР° H3 (РєРѕРѕСЂРґРёРЅР°С‚Рё РІСѓР·Р»С–РІ, Q-С„Р°РєС‚РѕСЂРё, РІРµРєС‚РѕСЂРё E, С€Р°СЂРё symР±С–РѕР·Сѓ).
 
-### 2.2. Географічні Паспорти Територій
-- `docs/territory_passports.json` — Реєстр регіональних паспортів (Україна, Японія, глобальні хаби).
-- `docs/japan_analysis.json` — Деталізований регіональний профіль Японії.
+### 2.2. Р“РµРѕРіСЂР°С„С–С‡РЅС– РџР°СЃРїРѕСЂС‚Рё РўРµСЂРёС‚РѕСЂС–Р№
+- `docs/territory_passports.json` вЂ” Р РµС”СЃС‚СЂ СЂРµРіС–РѕРЅР°Р»СЊРЅРёС… РїР°СЃРїРѕСЂС‚С–РІ (РЈРєСЂР°С—РЅР°, РЇРїРѕРЅС–СЏ, РіР»РѕР±Р°Р»СЊРЅС– С…Р°Р±Рё).
+- `docs/japan_analysis.json` вЂ” Р”РµС‚Р°Р»С–Р·РѕРІР°РЅРёР№ СЂРµРіС–РѕРЅР°Р»СЊРЅРёР№ РїСЂРѕС„С–Р»СЊ РЇРїРѕРЅС–С—.
 
-### 2.3. Канонічні JSON-шаблони записів стан-пам'яті
+### 2.3. РљР°РЅРѕРЅС–С‡РЅС– JSON-С€Р°Р±Р»РѕРЅРё Р·Р°РїРёСЃС–РІ СЃС‚Р°РЅ-РїР°Рј'СЏС‚С–
 
-Нижче надано єдиний канонічний шаблон запису, який використовується одночасно для `docs/territory_passports.json` та `docs/h3_layers.json`. Кожен об'єкт у цих файлах має дотримуватися наступної структури:
+РќРёР¶С‡Рµ РЅР°РґР°РЅРѕ С”РґРёРЅРёР№ РєР°РЅРѕРЅС–С‡РЅРёР№ С€Р°Р±Р»РѕРЅ Р·Р°РїРёСЃСѓ, СЏРєРёР№ РІРёРєРѕСЂРёСЃС‚РѕРІСѓС”С‚СЊСЃСЏ РѕРґРЅРѕС‡Р°СЃРЅРѕ РґР»СЏ `docs/territory_passports.json` С‚Р° `docs/h3_layers.json`. РљРѕР¶РµРЅ РѕР±'С”РєС‚ Сѓ С†РёС… С„Р°Р№Р»Р°С… РјР°С” РґРѕС‚СЂРёРјСѓРІР°С‚РёСЃСЏ РЅР°СЃС‚СѓРїРЅРѕС— СЃС‚СЂСѓРєС‚СѓСЂРё:
 
 ```json
 {
   "entity_id": "UA-KYIV-M4",
-  "name": "Київський Соборний Хаб",
+  "name": "РљРёС—РІСЃСЊРєРёР№ РЎРѕР±РѕСЂРЅРёР№ РҐР°Р±",
   "m_axis": {
     "octave_code": "M4",
     "scale_name": "Meso-2: Regional Hub",
@@ -64,49 +64,49 @@
 }
 ```
 
-**Поля шаблону:**
+**РџРѕР»СЏ С€Р°Р±Р»РѕРЅСѓ:**
 
-| Поле | Тип | Опис |
+| РџРѕР»Рµ | РўРёРї | РћРїРёСЃ |
 | :--- | :--- | :--- |
-| `entity_id` | `string` | Унікальний ідентифікатор сутності у форматі `<КодКраїни>-<Місто/Регіон>-<Октава>`. |
-| `name` | `string` | Назва об'єкта на українській мові. |
-| `m_axis.octave_code` | `string` | Код октави M-осі: `M0` … `M6`. |
-| `m_axis.scale_name` | `string` | Назва рівня масштабу (наприклад, "Meso-2: Regional Hub"). |
-| `m_axis.h3_resolution` | `integer` | Uber H3 разрешальна здатність (0–15). |
-| `m_axis.spatial_index_h3` | `string` | H3-індекс геосектора (16-знаковий геeksadecimal). |
-| `m_axis.nesting_factor_K` | `integer` | Коефіцієнт гніздящості/вкладеності (канонічно 7). |
-| `vector_E.lang` | `number` (0.0–1.0) | Мовно-культурний коефіцієнт когерентності. |
-| `vector_E.geo` | `number` (0.0–1.0) | Геопросторова прив'язка H3 (просторова щільність). |
-| `vector_E.hist` | `number` (0.0–1.0) | Історико-хронологічна спадкоємність. |
-| `vector_E.soc` | `number` (0.0–1.0) | Соціально-синархічний коефіцієнт довіри. |
-| `vector_E.E_norm` | `number` (0.0–1.0) | Нормалізована довжина 4D-вектора \\(\\|\vec{E}\\|\\). |
-| `coherence_Q.current_Q` | `number` (0.00–1.00) | Поточний рівень фазової когерентності. |
-| `coherence_Q.status_band` | `string` | Статусний діапазон: `GREEN` (\\(Q \\ge 0.90\\)), `YELLOW` (\\(0.75 \\le Q < 0.90\\)), `RED` (\\(Q < 0.75\\)). |
-| `field_power_Peff` | `number` (0.0–1.0) | Ефективна потужність поля: \\(P_{eff} = \\|\vec{E}\\| \\times Q\\). |
-| `synarchy_metrics.cohesion_index_Isyn` | `number` (0.0–1.0) | Індекс синархічної когезії — баланс автономії вузла та здатності до соборного синтезу. |
-| `synarchy_metrics.hierarchical_alignment_Ahier` | `number` (0.0–1.0) | Коефіцієнт ієрархічної відповідності — чистота виконання Варнової ролі відповідно до Q. |
-| `synarchy_metrics.evolutionary_plasticity_Kevol` | `number` (0.0–1.0) | Індекс адаптивної пластичності — здатність до динамічного розгалуження під-октав. |
-| `synarchy_metrics.triadic_state.spirit_identity` | `number` (0.0–1.0) | Ідейно-контекстна чистота та когерентність смислів. |
-| `synarchy_metrics.triadic_state.form_structure` | `number` (0.0–1.0) | Якість кодової бази, цілісність DOM та H3-сітки. |
-| `synarchy_metrics.triadic_state.energy_resource` | `number` (0.0–1.0) | Апаратний обчислювальний квант (NPU/GPU, RAM, bandwidth). |
-| `synarchy_role` | `string` | Вартова роль сутності (наприклад, `Brahman`, `Kshatriya`, `Vaishya`, `Shudra`, `Periphery`). |
+| `entity_id` | `string` | РЈРЅС–РєР°Р»СЊРЅРёР№ С–РґРµРЅС‚РёС„С–РєР°С‚РѕСЂ СЃСѓС‚РЅРѕСЃС‚С– Сѓ С„РѕСЂРјР°С‚С– `<РљРѕРґРљСЂР°С—РЅРё>-<РњС–СЃС‚Рѕ/Р РµРіС–РѕРЅ>-<РћРєС‚Р°РІР°>`. |
+| `name` | `string` | РќР°Р·РІР° РѕР±'С”РєС‚Р° РЅР° СѓРєСЂР°С—РЅСЃСЊРєС–Р№ РјРѕРІС–. |
+| `m_axis.octave_code` | `string` | РљРѕРґ РѕРєС‚Р°РІРё M-РѕСЃС–: `M0` вЂ¦ `M6`. |
+| `m_axis.scale_name` | `string` | РќР°Р·РІР° СЂС–РІРЅСЏ РјР°СЃС€С‚Р°Р±Сѓ (РЅР°РїСЂРёРєР»Р°Рґ, "Meso-2: Regional Hub"). |
+| `m_axis.h3_resolution` | `integer` | Uber H3 СЂР°Р·СЂРµС€Р°Р»СЊРЅР° Р·РґР°С‚РЅС–СЃС‚СЊ (0вЂ“15). |
+| `m_axis.spatial_index_h3` | `string` | H3-С–РЅРґРµРєСЃ РіРµРѕСЃРµРєС‚РѕСЂР° (16-Р·РЅР°РєРѕРІРёР№ РіРµeksadecimal). |
+| `m_axis.nesting_factor_K` | `integer` | РљРѕРµС„С–С†С–С”РЅС‚ РіРЅС–Р·РґСЏС‰РѕСЃС‚С–/РІРєР»Р°РґРµРЅРѕСЃС‚С– (РєР°РЅРѕРЅС–С‡РЅРѕ 7). |
+| `vector_E.lang` | `number` (0.0вЂ“1.0) | РњРѕРІРЅРѕ-РєСѓР»СЊС‚СѓСЂРЅРёР№ РєРѕРµС„С–С†С–С”РЅС‚ РєРѕРіРµСЂРµРЅС‚РЅРѕСЃС‚С–. |
+| `vector_E.geo` | `number` (0.0вЂ“1.0) | Р“РµРѕРїСЂРѕСЃС‚РѕСЂРѕРІР° РїСЂРёРІ'СЏР·РєР° H3 (РїСЂРѕСЃС‚РѕСЂРѕРІР° С‰С–Р»СЊРЅС–СЃС‚СЊ). |
+| `vector_E.hist` | `number` (0.0вЂ“1.0) | Р†СЃС‚РѕСЂРёРєРѕ-С…СЂРѕРЅРѕР»РѕРіС–С‡РЅР° СЃРїР°РґРєРѕС”РјРЅС–СЃС‚СЊ. |
+| `vector_E.soc` | `number` (0.0вЂ“1.0) | РЎРѕС†С–Р°Р»СЊРЅРѕ-СЃРёРЅР°СЂС…С–С‡РЅРёР№ РєРѕРµС„С–С†С–С”РЅС‚ РґРѕРІС–СЂРё. |
+| `vector_E.E_norm` | `number` (0.0вЂ“1.0) | РќРѕСЂРјР°Р»С–Р·РѕРІР°РЅР° РґРѕРІР¶РёРЅР° 4D-РІРµРєС‚РѕСЂР° \\(\\|\vec{E}\\|\\). |
+| `coherence_Q.current_Q` | `number` (0.00вЂ“1.00) | РџРѕС‚РѕС‡РЅРёР№ СЂС–РІРµРЅСЊ С„Р°Р·РѕРІРѕС— РєРѕРіРµСЂРµРЅС‚РЅРѕСЃС‚С–. |
+| `coherence_Q.status_band` | `string` | РЎС‚Р°С‚СѓСЃРЅРёР№ РґС–Р°РїР°Р·РѕРЅ: `GREEN` (\\(Q \\ge 0.90\\)), `YELLOW` (\\(0.75 \\le Q < 0.90\\)), `RED` (\\(Q < 0.75\\)). |
+| `field_power_Peff` | `number` (0.0вЂ“1.0) | Р•С„РµРєС‚РёРІРЅР° РїРѕС‚СѓР¶РЅС–СЃС‚СЊ РїРѕР»СЏ: \\(P_{eff} = \\|\vec{E}\\| \\times Q\\). |
+| `synarchy_metrics.cohesion_index_Isyn` | `number` (0.0вЂ“1.0) | Р†РЅРґРµРєСЃ СЃРёРЅР°СЂС…С–С‡РЅРѕС— РєРѕРіРµР·С–С— вЂ” Р±Р°Р»Р°РЅСЃ Р°РІС‚РѕРЅРѕРјС–С— РІСѓР·Р»Р° С‚Р° Р·РґР°С‚РЅРѕСЃС‚С– РґРѕ СЃРѕР±РѕСЂРЅРѕРіРѕ СЃРёРЅС‚РµР·Сѓ. |
+| `synarchy_metrics.hierarchical_alignment_Ahier` | `number` (0.0вЂ“1.0) | РљРѕРµС„С–С†С–С”РЅС‚ С–С”СЂР°СЂС…С–С‡РЅРѕС— РІС–РґРїРѕРІС–РґРЅРѕСЃС‚С– вЂ” С‡РёСЃС‚РѕС‚Р° РІРёРєРѕРЅР°РЅРЅСЏ Р’Р°СЂРЅРѕРІРѕС— СЂРѕР»С– РІС–РґРїРѕРІС–РґРЅРѕ РґРѕ Q. |
+| `synarchy_metrics.evolutionary_plasticity_Kevol` | `number` (0.0вЂ“1.0) | Р†РЅРґРµРєСЃ Р°РґР°РїС‚РёРІРЅРѕС— РїР»Р°СЃС‚РёС‡РЅРѕСЃС‚С– вЂ” Р·РґР°С‚РЅС–СЃС‚СЊ РґРѕ РґРёРЅР°РјС–С‡РЅРѕРіРѕ СЂРѕР·РіР°Р»СѓР¶РµРЅРЅСЏ РїС–Рґ-РѕРєС‚Р°РІ. |
+| `synarchy_metrics.triadic_state.spirit_identity` | `number` (0.0вЂ“1.0) | Р†РґРµР№РЅРѕ-РєРѕРЅС‚РµРєСЃС‚РЅР° С‡РёСЃС‚РѕС‚Р° С‚Р° РєРѕРіРµСЂРµРЅС‚РЅС–СЃС‚СЊ СЃРјРёСЃР»С–РІ. |
+| `synarchy_metrics.triadic_state.form_structure` | `number` (0.0вЂ“1.0) | РЇРєС–СЃС‚СЊ РєРѕРґРѕРІРѕС— Р±Р°Р·Рё, С†С–Р»С–СЃРЅС–СЃС‚СЊ DOM С‚Р° H3-СЃС–С‚РєРё. |
+| `synarchy_metrics.triadic_state.energy_resource` | `number` (0.0вЂ“1.0) | РђРїР°СЂР°С‚РЅРёР№ РѕР±С‡РёСЃР»СЋРІР°Р»СЊРЅРёР№ РєРІР°РЅС‚ (NPU/GPU, RAM, bandwidth). |
+| `synarchy_role` | `string` | Р’Р°СЂС‚РѕРІР° СЂРѕР»СЊ СЃСѓС‚РЅРѕСЃС‚С– (РЅР°РїСЂРёРєР»Р°Рґ, `Brahman`, `Kshatriya`, `Vaishya`, `Shudra`, `Periphery`). |
 
-### 2.4. Суверенне Векторно-Контекстне Сховище Знань Брахмана (Supabase Vault)
-- **Файл схеми:** `docs/brahman_vault_schema.sql`
-- **Таблиця БД:** `brahman_knowledge_vault`
-- **Призначення:** Фізичне збереження опрацьованих дистильованих інваріантів, формул та онтологічних розширень Брахмана для усунення Q-decay між перезапусками сесій.
-- **Інструмент інвентаризації:** `docs/supabase_inventory.sql` — Read-only аналіз залишків старого культурного шару для подальшої дистиляції та чистки.
-- **Інструменти бекапу застарілих даних:** `docs/export_legacy_tables.py` та `docs/export_legacy_tables.sql` (вивантаження даних у `docs/legacy_archive/` перед очищенням).
-- **Ізольований архів заготовок:** `docs/legacy_archive/` (Марковано як ігровий сатиричний шар, повністю відокремлений від `brahman_knowledge_vault`).
-- **Скрипт очищення БД:** `docs/cleanup_legacy_tables.sql` (Видалення 13 застарілих таблиць із Supabase).
-- **Віджет Master UI:** `Brahman Vault Inspector` у `docs/index.html` — перегляд та фільтрація інваріантів `brahman_knowledge_vault` за октавами M0–M6, категоріями, тегами та показником добротності Q (зелений бадж при Q ≥ 0.90).
-- **Сеювання інваріантів:** `docs/seed_penrose_invariants.sql` та `docs/seed_penrose_invariants.py` — додання 4 канонічних занурень квантової свідомості Пенроуза (Orch OR) у `brahman_knowledge_vault` (Октави M0, M1, M4, M6).
-- **Canonical 3-panel UI:** `docs/index.html` reorganized into `Left Sidebar` (Джерела / Реєстр документації) | `Center Stage` (H3-карта `map_core.html` через `<iframe>` + Чат AI-Гід) | `Right Studio` (`Brahman Vault Inspector` з фільтрами М0–M6 + `P2P Coherence Simulator` із SIMULATION/LIVE режимом).
+### 2.4. РЎСѓРІРµСЂРµРЅРЅРµ Р’РµРєС‚РѕСЂРЅРѕ-РљРѕРЅС‚РµРєСЃС‚РЅРµ РЎС…РѕРІРёС‰Рµ Р—РЅР°РЅСЊ Р‘СЂР°С…РјР°РЅР° (Supabase Vault)
+- **Р¤Р°Р№Р» СЃС…РµРјРё:** `docs/brahman_vault_schema.sql`
+- **РўР°Р±Р»РёС†СЏ Р‘Р”:** `brahman_knowledge_vault`
+- **РџСЂРёР·РЅР°С‡РµРЅРЅСЏ:** Р¤С–Р·РёС‡РЅРµ Р·Р±РµСЂРµР¶РµРЅРЅСЏ РѕРїСЂР°С†СЊРѕРІР°РЅРёС… РґРёСЃС‚РёР»СЊРѕРІР°РЅРёС… С–РЅРІР°СЂС–Р°РЅС‚С–РІ, С„РѕСЂРјСѓР» С‚Р° РѕРЅС‚РѕР»РѕРіС–С‡РЅРёС… СЂРѕР·С€РёСЂРµРЅСЊ Р‘СЂР°С…РјР°РЅР° РґР»СЏ СѓСЃСѓРЅРµРЅРЅСЏ Q-decay РјС–Р¶ РїРµСЂРµР·Р°РїСѓСЃРєР°РјРё СЃРµСЃС–Р№.
+- **Р†РЅСЃС‚СЂСѓРјРµРЅС‚ С–РЅРІРµРЅС‚Р°СЂРёР·Р°С†С–С—:** `docs/supabase_inventory.sql` вЂ” Read-only Р°РЅР°Р»С–Р· Р·Р°Р»РёС€РєС–РІ СЃС‚Р°СЂРѕРіРѕ РєСѓР»СЊС‚СѓСЂРЅРѕРіРѕ С€Р°СЂСѓ РґР»СЏ РїРѕРґР°Р»СЊС€РѕС— РґРёСЃС‚РёР»СЏС†С–С— С‚Р° С‡РёСЃС‚РєРё.
+- **Р†РЅСЃС‚СЂСѓРјРµРЅС‚Рё Р±РµРєР°РїСѓ Р·Р°СЃС‚Р°СЂС–Р»РёС… РґР°РЅРёС…:** `docs/export_legacy_tables.py` С‚Р° `docs/export_legacy_tables.sql` (РІРёРІР°РЅС‚Р°Р¶РµРЅРЅСЏ РґР°РЅРёС… Сѓ `docs/legacy_archive/` РїРµСЂРµРґ РѕС‡РёС‰РµРЅРЅСЏРј).
+- **Р†Р·РѕР»СЊРѕРІР°РЅРёР№ Р°СЂС…С–РІ Р·Р°РіРѕС‚РѕРІРѕРє:** `docs/legacy_archive/` (РњР°СЂРєРѕРІР°РЅРѕ СЏРє С–РіСЂРѕРІРёР№ СЃР°С‚РёСЂРёС‡РЅРёР№ С€Р°СЂ, РїРѕРІРЅС–СЃС‚СЋ РІС–РґРѕРєСЂРµРјР»РµРЅРёР№ РІС–Рґ `brahman_knowledge_vault`).
+- **РЎРєСЂРёРїС‚ РѕС‡РёС‰РµРЅРЅСЏ Р‘Р”:** `docs/cleanup_legacy_tables.sql` (Р’РёРґР°Р»РµРЅРЅСЏ 13 Р·Р°СЃС‚Р°СЂС–Р»РёС… С‚Р°Р±Р»РёС†СЊ С–Р· Supabase).
+- **Р’С–РґР¶РµС‚ Master UI:** `Brahman Vault Inspector` Сѓ `docs/index.html` вЂ” РїРµСЂРµРіР»СЏРґ С‚Р° С„С–Р»СЊС‚СЂР°С†С–СЏ С–РЅРІР°СЂС–Р°РЅС‚С–РІ `brahman_knowledge_vault` Р·Р° РѕРєС‚Р°РІР°РјРё M0вЂ“M6, РєР°С‚РµРіРѕСЂС–СЏРјРё, С‚РµРіР°РјРё С‚Р° РїРѕРєР°Р·РЅРёРєРѕРј РґРѕР±СЂРѕС‚РЅРѕСЃС‚С– Q (Р·РµР»РµРЅРёР№ Р±Р°РґР¶ РїСЂРё Q в‰Ґ 0.90).
+- **РЎРµСЋРІР°РЅРЅСЏ С–РЅРІР°СЂС–Р°РЅС‚С–РІ:** `docs/seed_penrose_invariants.sql` С‚Р° `docs/seed_penrose_invariants.py` вЂ” РґРѕРґР°РЅРЅСЏ 4 РєР°РЅРѕРЅС–С‡РЅРёС… Р·Р°РЅСѓСЂРµРЅСЊ РєРІР°РЅС‚РѕРІРѕС— СЃРІС–РґРѕРјРѕСЃС‚С– РџРµРЅСЂРѕСѓР·Р° (Orch OR) Сѓ `brahman_knowledge_vault` (РћРєС‚Р°РІРё M0, M1, M4, M6).
+- **Canonical Full-Screen Map UI:** `docs/index.html` reorganized into `Left Sidebar` (Р”Р¶РµСЂРµР»Р° / Р РµС”СЃС‚СЂ РґРѕРєСѓРјРµРЅС‚Р°С†С–С—) | `Center Stage` (H3-РєР°СЂС‚Р° `map_core.html` С‡РµСЂРµР· `<iframe>` + Р§Р°С‚ AI-Р“С–Рґ) | `Right Studio` (`Brahman Vault Inspector` Р· С„С–Р»СЊС‚СЂР°РјРё Рњ0вЂ“M6 + `P2P Coherence Simulator` С–Р· SIMULATION/LIVE СЂРµР¶РёРјРѕРј).
 
-## 3. Модулі Логіки та Симуляції
-## 3. Модулі Логіки та Симуляції
-- `docs/sl8_gateway.js` — Шлюз інтеграції із P2P-мережею Slate.
-- `docs/p2p_simulator.js` — Симулятор топології та флуктуацій P2P-вузлів з жорсткою ізоляцією режимів SIMULATION (виртуальні дані, без запису в БД) та LIVE (реальні вузли мережі).
+## 3. РњРѕРґСѓР»С– Р›РѕРіС–РєРё С‚Р° РЎРёРјСѓР»СЏС†С–С—
+## 3. РњРѕРґСѓР»С– Р›РѕРіС–РєРё С‚Р° РЎРёРјСѓР»СЏС†С–С—
+- `docs/sl8_gateway.js` вЂ” РЁР»СЋР· С–РЅС‚РµРіСЂР°С†С–С— С–Р· P2P-РјРµСЂРµР¶РµСЋ Slate.
+- `docs/p2p_simulator.js` вЂ” РЎРёРјСѓР»СЏС‚РѕСЂ С‚РѕРїРѕР»РѕРіС–С— С‚Р° С„Р»СѓРєС‚СѓР°С†С–Р№ P2P-РІСѓР·Р»С–РІ Р· Р¶РѕСЂСЃС‚РєРѕСЋ С–Р·РѕР»СЏС†С–С”СЋ СЂРµР¶РёРјС–РІ SIMULATION (РІРёСЂС‚СѓР°Р»СЊРЅС– РґР°РЅС–, Р±РµР· Р·Р°РїРёСЃСѓ РІ Р‘Р”) С‚Р° LIVE (СЂРµР°Р»СЊРЅС– РІСѓР·Р»Рё РјРµСЂРµР¶С–).
 
  Directory: c:\imperia_v4
 
@@ -114,50 +114,50 @@
 
 ```
 .
-├── .clinerules                  (configuration file)
-├── .pytest_cache/               (test cache)
-├── .v4_gateway/                 (gateway engine)
-├── build_app.js                  (build script)
-├── config/                      (configuration files)
-├── copy_modules.py              (utility script)
-├── copy_swarm.py                (utility script)
-├── create_all_modules.py        (module creator)
-├── create_h3.py                 (H3 geo-matrix creator)
-├── create_modules.py            (module creator)
-├── data/                        (data directory)
-├── debug_transport.py           (debug utility)
-├── docs/                        (documentation)
-│   ├── 1. Єдиний Фреймворк Джерела Правди v3.0 Master Framework.md
-│   ├── 2. Зведений Реєстр Документації, Дорожня Карта та Специфікація Стан-Пам'яті Проєкту (Imperia v4, v3.0 Master Release).md
-│   ├── 3. master_checklist.md
-│   ├── 4. Специфікація та Співвідношення Парадигм_ Рольове, Антропоморфне та Контекстне Програмування (Context Engineering v3.0).md
-│   ├── app.js
-│   ├── app.js.bak
-│   ├── index.html               (IMPERIA v4: Master Sovereign UI - Spec v3.0)
-│   ├── index.html.bak
-│   ├── japan_analysis.json
-│   ├── kassator.html
-│   ├── master_checklist.md
-│   ├── negotiator_agent.js
-│   ├── p2p_simulator.js
-│   ├── poc_reward_engine.js
-│   ├── sl8_gateway.js           (Multi-Tenant Gateway Engine)
-│   ├── state_gateway.json       (Session state persistence)
-│   ├── style.css
-│   ├── telegram_bot.js
-│   ├── telemetry_engine.js
-│   ├── telemetry_feed.json
-│   ├── territory_passports.json
-│   ├── tz-slate-integration-v3.md  (Specification v3.0)
-│   └── style.css
-├── scripts/                     (utility scripts)
-│   └── build_catalog.js         (directory indexer script)
-├── src/                         (source code)
-├── tests/                       (test suite)
-├── 📄 *.py                      (various Python scripts)
-├── *.md                         (project documentation)
-├── *.docx                       (project concept)
-└── package.json                (project dependencies)
+в”њв”Ђв”Ђ .clinerules                  (configuration file)
+в”њв”Ђв”Ђ .pytest_cache/               (test cache)
+в”њв”Ђв”Ђ .v4_gateway/                 (gateway engine)
+в”њв”Ђв”Ђ build_app.js                  (build script)
+в”њв”Ђв”Ђ config/                      (configuration files)
+в”њв”Ђв”Ђ copy_modules.py              (utility script)
+в”њв”Ђв”Ђ copy_swarm.py                (utility script)
+в”њв”Ђв”Ђ create_all_modules.py        (module creator)
+в”њв”Ђв”Ђ create_h3.py                 (H3 geo-matrix creator)
+в”њв”Ђв”Ђ create_modules.py            (module creator)
+в”њв”Ђв”Ђ data/                        (data directory)
+в”њв”Ђв”Ђ debug_transport.py           (debug utility)
+в”њв”Ђв”Ђ docs/                        (documentation)
+в”‚   в”њв”Ђв”Ђ 1. Р„РґРёРЅРёР№ Р¤СЂРµР№РјРІРѕСЂРє Р”Р¶РµСЂРµР»Р° РџСЂР°РІРґРё v3.0 Master Framework.md
+в”‚   в”њв”Ђв”Ђ 2. Р—РІРµРґРµРЅРёР№ Р РµС”СЃС‚СЂ Р”РѕРєСѓРјРµРЅС‚Р°С†С–С—, Р”РѕСЂРѕР¶РЅСЏ РљР°СЂС‚Р° С‚Р° РЎРїРµС†РёС„С–РєР°С†С–СЏ РЎС‚Р°РЅ-РџР°Рј'СЏС‚С– РџСЂРѕС”РєС‚Сѓ (Imperia v4, v3.0 Master Release).md
+в”‚   в”њв”Ђв”Ђ 3. master_checklist.md
+в”‚   в”њв”Ђв”Ђ 4. РЎРїРµС†РёС„С–РєР°С†С–СЏ С‚Р° РЎРїС–РІРІС–РґРЅРѕС€РµРЅРЅСЏ РџР°СЂР°РґРёРіРј_ Р РѕР»СЊРѕРІРµ, РђРЅС‚СЂРѕРїРѕРјРѕСЂС„РЅРµ С‚Р° РљРѕРЅС‚РµРєСЃС‚РЅРµ РџСЂРѕРіСЂР°РјСѓРІР°РЅРЅСЏ (Context Engineering v3.0).md
+в”‚   в”њв”Ђв”Ђ app.js
+в”‚   в”њв”Ђв”Ђ app.js.bak
+в”‚   в”њв”Ђв”Ђ index.html               (IMPERIA v4: Master Sovereign UI - Spec v3.0)
+в”‚   в”њв”Ђв”Ђ index.html.bak
+в”‚   в”њв”Ђв”Ђ japan_analysis.json
+в”‚   в”њв”Ђв”Ђ kassator.html
+в”‚   в”њв”Ђв”Ђ master_checklist.md
+в”‚   в”њв”Ђв”Ђ negotiator_agent.js
+в”‚   в”њв”Ђв”Ђ p2p_simulator.js
+в”‚   в”њв”Ђв”Ђ poc_reward_engine.js
+в”‚   в”њв”Ђв”Ђ sl8_gateway.js           (Multi-Tenant Gateway Engine)
+в”‚   в”њв”Ђв”Ђ state_gateway.json       (Session state persistence)
+в”‚   в”њв”Ђв”Ђ style.css
+в”‚   в”њв”Ђв”Ђ telegram_bot.js
+в”‚   в”њв”Ђв”Ђ telemetry_engine.js
+в”‚   в”њв”Ђв”Ђ telemetry_feed.json
+в”‚   в”њв”Ђв”Ђ territory_passports.json
+в”‚   в”њв”Ђв”Ђ tz-slate-integration-v3.md  (Specification v3.0)
+в”‚   в””в”Ђв”Ђ style.css
+в”њв”Ђв”Ђ scripts/                     (utility scripts)
+в”‚   в””в”Ђв”Ђ build_catalog.js         (directory indexer script)
+в”њв”Ђв”Ђ src/                         (source code)
+в”њв”Ђв”Ђ tests/                       (test suite)
+в”њв”Ђв”Ђ рџ“„ *.py                      (various Python scripts)
+в”њв”Ђв”Ђ *.md                         (project documentation)
+в”њв”Ђв”Ђ *.docx                       (project concept)
+в””в”Ђв”Ђ package.json                (project dependencies)
 ```
 
 #
@@ -165,6 +165,7 @@
 - **Total files**: 23 (in docs directory)
 - **Total directories**: 9 (root level)
 - **Root directory**: c:\imperia_v4
+
 
 
 

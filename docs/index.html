@@ -1,192 +1,101 @@
 <!DOCTYPE html>
+        /* Drawers (collapsible side panels) */
+        .drawer {
+            position: fixed; top: 44px; bottom: 0; z-index: 1000;
+            background: #121721; border: 1px solid #2a2f3a;
+            border-radius: 0 8px 8px 0; width: 300px;
+            transform: translateX(-100%);
+            transition: transform 0.3s ease;
+            display: flex; flex-direction: column; overflow: hidden;
+        }
+        .drawer.open { transform: translateX(0); }
+        .drawer-right {
+            right: 0; left: auto;
+            border-radius: 8px 0 0 8px;
+            transform: translateX(100%);
+        }
+        .drawer-right.open { transform: translateX(0); }
+        .drawer-header {
+            padding: 10px 14px; border-bottom: 1px solid #2a2f3a;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-shrink: 0;
+        }
+        .drawer-title {
+            margin: 0; font-size: 13px; font-weight: bold; color: #00ffcc;
+        }
+        .drawer-body {
+            flex: 1; overflow: auto; padding: 10px 14px;
+            display: flex; flex-direction: column; gap: 10px;
+        }
+        .sidebar-section { margin-bottom: 12px; }
+        .sidebar-section h4 {
+            font-size: 12px; color: #8899a6; margin: 0 0 6px 0;
+            text-transform: uppercase; letter-spacing: 0.5px;
+        }
+        .sidebar-item {
+            background: #1c212c; border: 1px solid #2a2f3a;
+            border-radius: 5px; padding: 8px 10px; margin-bottom: 6px;
+            font-size: 12px; cursor: pointer; transition: 0.2s;
+        }
+        .sidebar-item:hover { border-color: #00ffcc; color: #00ffcc; }
+        .studio-card {
+            background: #1c212c; border: 1px solid #2a2f3a;
+            border-radius: 6px; overflow: hidden;
+            display: flex; flex-direction: column; min-height: 0;
+        }
+        .studio-card-header {
+            padding: 8px 12px; border-bottom: 1px solid #2a2f3a;
+            display: flex; justify-content: space-between; align-items: center;
+            background: #121721; flex-shrink: 0;
+        }
+        .studio-card-header h4 {
+            margin: 0; font-size: 13px; color: #00ffcc; font-weight: bold;
+        }
+        .studio-card-body { padding: 8px 12px; overflow: auto; }
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>IMPERIA v4: Master Sovereign Pivot UI</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
     <style>
         * { box-sizing: border-box; }
         html, body {
-            margin: 0;
-            padding: 0;
-            width: 100%;
-            height: 100%;
-            background: #0d0f12;
-            color: #e0e6ed;
+            margin: 0; padding: 0;
+            width: 100%; height: 100%;
+            background: #0d0f12; color: #e0e6ed;
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             overflow: hidden;
         }
+        #map-container {
+            position: absolute; top: 0; left: 0;
+            width: 100vw; height: 100vh; z-index: 1;
+        }
+        #map { width: 100%; height: 100%; }
+        .leaflet-container { background: #0d0f12; }
         .header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border-bottom: 1px solid #2a2f3a;
+            position: fixed; top: 0; left: 0; right: 0; z-index: 1100;
+            display: flex; justify-content: space-between; align-items: center;
             padding: 10px 20px;
-            background: #121721;
-            flex-shrink: 0;
+            background: rgba(18, 23, 33, 0.95);
+            border-bottom: 1px solid #2a2f3a;
         }
-        .title {
-            font-size: 20px;
-            font-weight: bold;
-            color: #00ffcc;
-            letter-spacing: 0.5px;
+        .title { font-size: 20px; font-weight: bold; color: #00ffcc; }
+        .btn-toggle {
+            background: #1c212c; border: 1px solid #00ffcc;
+            color: #00ffcc; padding: 6px 12px; border-radius: 4px;
+            cursor: pointer; font-size: 12px; font-family: inherit;
         }
+        .btn-toggle:hover { background: #00ffcc; color: #000; }
         .btn-kassator {
-            background: #1c212c;
-            border: 1px solid #00ffcc;
-            color: #00ffcc;
-            padding: 8px 16px;
-            border-radius: 6px;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 13px;
-            transition: 0.2s;
+            background: #1c212c; border: 1px solid #00ffcc;
+            color: #00ffcc; padding: 8px 16px; border-radius: 6px;
+            text-decoration: none; font-weight: bold; font-size: 13px;
+            transition: 0.2s; margin-left: 10px;
         }
-        .btn-kassator:hover {
-            background: #00ffcc;
-            color: #000;
-        }
+        .btn-kassator:hover { background: #00ffcc; color: #000; }
 
-        /* Canonical 3-panel layout */
-        .shell {
-            display: grid;
-            grid-template-columns: 300px 1fr 340px;
-            grid-template-rows: 1fr;
-            height: calc(100vh - 54px);
-            gap: 10px;
-            padding: 10px;
-            overflow: hidden;
-        }
-        .panel {
-            background: #121721;
-            border: 1px solid #2a2f3a;
-            border-radius: 8px;
-            display: flex;
-            flex-direction: column;
-            overflow: hidden;
-        }
-        .panel-header {
-            padding: 10px 14px;
-            border-bottom: 1px solid #2a2f3a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            flex-shrink: 0;
-        }
-        .panel-title {
-            font-size: 14px;
-            font-weight: bold;
-            color: #00ffcc;
-            margin: 0;
-        }
-        .panel-body {
-            flex: 1;
-            overflow: auto;
-            padding: 10px 14px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-
-        /* Left Sidebar */
-        .sidebar-section {
-            margin-bottom: 12px;
-        }
-        .sidebar-section h4 {
-            font-size: 12px;
-            color: #8899a6;
-            margin: 0 0 6px 0;
-            text-transform: uppercase;
-            letter-spacing: 0.5px;
-        }
-        .sidebar-item {
-            background: #1c212c;
-            border: 1px solid #2a2f3a;
-            border-radius: 5px;
-            padding: 8px 10px;
-            margin-bottom: 6px;
-            font-size: 12px;
-            cursor: pointer;
-            transition: 0.2s;
-        }
-        .sidebar-item:hover {
-            border-color: #00ffcc;
-            color: #00ffcc;
-        }
-
-        /* Center Stage */
-        .center-stage { flex-direction: column; gap: 8px; }
-        .map-container {
-            flex: 1;
-            min-height: 0;
-            border-radius: 6px;
-            overflow: hidden;
-            background: #0a0c10;
-        }
-        .map-container iframe {
-            width: 100%;
-            height: 100%;
-            display: block;
-            border: none;
-        }
-        .ai-guide {
-            height: 300px;
-            min-height: 300px;
-            border-radius: 6px;
-            background: #1c212c;
-            border: 1px solid #2a2f3a;
-            display: flex;
-            flex-direction: column;
-        }
-        .ai-guide .log {
-            flex: 1;
-            overflow: auto;
-            padding: 10px;
-            font-size: 13px;
-            line-height: 1.5;
-        }
-        .ai-guide input {
-            flex-shrink: 0;
-            padding: 8px;
-            border: 1px solid #3a4255;
-            border-radius: 4px;
-            background: #0d0f12;
-            color: #e0e6ed;
-            font-size: 13px;
-        }
-        .ai-guide input:focus { outline: none; border-color: #00ffcc; }
-
-        /* Right Studio */
-        .right-studio { gap: 10px; }
-        .studio-card {
-            background: #1c212c;
-            border: 1px solid #2a2f3a;
-            border-radius: 6px;
-            overflow: hidden;
-            display: flex;
-            flex-direction: column;
-            min-height: 0;
-        }
-        .studio-card-header {
-            padding: 8px 12px;
-            border-bottom: 1px solid #2a2f3a;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: #121721;
-            flex-shrink: 0;
-        }
-        .studio-card-header h4 {
-            margin: 0;
-            font-size: 13px;
-            color: #00ffcc;
-            font-weight: bold;
-        }
-        .studio-card-body {
-            padding: 8px 12px;
-            overflow: auto;
-        }
-        /* Vault Inspector (compact) */
+        /* Vault Inspector (compact, right panel) */
         .vault-status { display: flex; align-items: center; gap: 6px; font-size: 12px; font-weight: bold; }
         .status-dot { width: 6px; height: 6px; border-radius: 50%; background: #ffb300; }
         .status-online { background: #00ffcc; box-shadow: 0 0 5px #00ffcc; }
@@ -194,126 +103,166 @@
         .status-standby { background: #ffb300; box-shadow: 0 0 5px #ffb300; }
         .vault-filters { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 6px; }
         .vault-filter-btn {
-            background: #1c212c;
-            border: 1px solid #3a4255;
-            color: #e0e6ed;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-size: 10px;
-            cursor: pointer;
+            background: #1c212c; border: 1px solid #3a4255;
+            color: #e0e6ed; padding: 2px 6px; border-radius: 3px;
+            font-size: 10px; cursor: pointer;
         }
         .vault-filter-btn.active { border-color: #00ffcc; color: #00ffcc; }
         .vault-grid { display: grid; grid-template-columns: 1fr; gap: 6px; margin-top: 6px; }
         .vault-card {
-            background: #121721;
-            border: 1px solid #2a2f3a;
-            border-radius: 4px;
-            padding: 6px 8px;
+            background: #121721; border: 1px solid #2a2f3a;
+            border-radius: 4px; padding: 6px 8px;
         }
-        .vault-card .meta { font-size: 10px; color: #8899a6; display: flex; gap: 6px; margin-bottom: 3px; flex-wrap: wrap; }
+        .vault-card .meta {
+            font-size: 10px; color: #8899a6; display: flex;
+            gap: 6px; margin-bottom: 3px; flex-wrap: wrap;
+        }
         .vault-card .invariant { font-size: 12px; color: #e0e6ed; }
-        .q-badge { display: inline-block; font-size: 10px; font-weight: bold; padding: 1px 5px; border-radius: 3px; text-align: center; width: 30px; }
+        .q-badge {
+            display: inline-block; font-size: 10px; font-weight: bold;
+            padding: 1px 5px; border-radius: 3px; text-align: center; width: 30px;
+        }
         .q-badge.high { background: #00221a; color: #00ffcc; border: 1px solid #00ffcc; }
         .q-badge.med { background: #2a2200; color: #ffb300; border: 1px solid #ffb300; }
         .vault-tags { display: flex; gap: 4px; flex-wrap: wrap; margin-top: 3px; }
-        .vault-tag { background: #1a2332; border: 1px solid #3a4255; color: #aabbcc; padding: 1px 5px; border-radius: 3px; font-size: 10px; }
+        .vault-tag {
+            background: #1a2332; border: 1px solid #3a4255;
+            color: #aabbcc; padding: 1px 5px; border-radius: 3px; font-size: 10px;
+        }
         .vault-empty { text-align: center; color: #8899a6; padding: 10px; font-style: italic; }
         .vault-actions { display: flex; justify-content: flex-end; margin-bottom: 4px; }
         .vault-actions button {
-            background: #1c212c;
-            border: 1px solid #00ffcc;
-            color: #00ffcc;
-            padding: 3px 8px;
-            border-radius: 3px;
-            cursor: pointer;
-            font-size: 11px;
+            background: #1c212c; border: 1px solid #00ffcc;
+            color: #00ffcc; padding: 3px 8px; border-radius: 3px;
+            cursor: pointer; font-size: 11px;
         }
         .vault-actions button:hover { background: #00ffcc; color: #000; }
 
-        /* P2P Simulator (compact) */
-        .mode-badge { font-size: 11px; font-weight: bold; padding: 3px 7px; border-radius: 3px; border: 1px solid; display: inline-block; }
+        /* P2P Simulator (compact, right panel) */
+        .mode-badge {
+            font-size: 11px; font-weight: bold; padding: 3px 7px;
+            border-radius: 3px; border: 1px solid; display: inline-block;
+        }
         .mode-simulation { background: #2a1a00; color: #ffb300; border-color: #ffb300; }
         .mode-live { background: #00221a; color: #00ffcc; border-color: #00ffcc; }
         .p2p-controls { display: flex; align-items: center; gap: 6px; flex-wrap: wrap; margin-top: 5px; }
         .p2p-controls label { font-size: 11px; color: #8899a6; }
-        .p2p-controls select { background: #1c212c; border: 1px solid #3a4255; color: #e0e6ed; padding: 2px 6px; border-radius: 3px; font-size: 11px; }
-        .p2p-controls button { background: #1c212c; border: 1px solid #00ffcc; color: #00ffcc; padding: 3px 8px; border-radius: 3px; cursor: pointer; font-size: 11px; }
+        .p2p-controls select {
+            background: #1c212c; border: 1px solid #3a4255;
+            color: #e0e6ed; padding: 2px 6px; border-radius: 3px; font-size: 11px;
+        }
+        .p2p-controls button {
+            background: #1c212c; border: 1px solid #00ffcc;
+            color: #00ffcc; padding: 3px 8px; border-radius: 3px;
+            cursor: pointer; font-size: 11px;
+        }
         .p2p-controls button:hover { background: #00ffcc; color: #000; }
-        .p2p-output { font-size: 12px; color: #e0e6ed; padding: 6px; background: #121721; border-radius: 3px; border: 1px solid #2a2f3a; margin-top: 5px; }
-
-        @media (max-width: 1200px) {
-            .shell { grid-template-columns: 260px 1fr 300px; }
-        }
-        @media (max-width: 900px) {
-            .shell { grid-template-columns: 1fr; grid-template-rows: auto 1fr auto; }
+        .p2p-output {
+            font-size: 12px; color: #e0e6ed; padding: 6px;
+            background: #121721; border-radius: 3px; border: 1px solid #2a2f3a; margin-top: 5px;
         }
 
-
+        /* Floating AI-Гід chat (VS Code style) */
+        #floating-chat {
+            position: fixed; bottom: 20px; left: 20px; z-index: 1050;
+            width: 360px; height: 420px;
+            background: #121721; border: 1px solid #2a2f3a;
+            border-radius: 12px; display: flex; flex-direction: column;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+        #floating-chat.collapsed {
+            transform: translateY(105%) translateX(-60px);
+            width: auto; height: auto; padding: 10px 16px;
+            border-radius: 20px; cursor: pointer;
+        }
+        #floating-chat.collapsed .chat-body { display: none; }
+        #floating-chat.collapsed .chat-handle { display: block; }
+        .chat-handle {
+            display: none; font-size: 14px; font-weight: bold; color: #00ffcc;
+        }
+        .chat-header {
+            padding: 10px 14px; border-bottom: 1px solid #2a2f3a;
+            font-weight: bold; font-size: 13px; color: #00ffcc;
+            display: flex; justify-content: space-between; align-items: center;
+            flex-shrink: 0;
+        }
+        .chat-body {
+            flex: 1; overflow: auto; padding: 10px;
+            font-size: 13px; display: flex; flex-direction: column; gap: 8px;
+        }
+        .chat-input-area {
+            flex-shrink: 0; padding: 8px 10px;
+            border-top: 1px solid #2a2f3a; display: flex; gap: 8px;
+        }
+        .chat-input {
+            flex: 1; padding: 8px; border: 1px solid #3a4255;
+            border-radius: 4px; background: #0d0f12; color: #e0e6ed;
+        }
+        .chat-send {
+            background: #00ffcc; color: #000; border: none;
+            border-radius: 4px; padding: 8px 16px;
+            font-weight: bold; cursor: pointer;
+        }
+        .chat-send:hover { background: #00e6b8; }
+        .btn-close-chat {
+            background: transparent; border: none;
+            color: #8899a6; cursor: pointer; font-size: 12px;
+        }
+        .btn-close-chat:hover { color: #e0e6ed; }
     </style>
-    <script src="./env_config.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
-    <script src="./supabase_gateway.js"></script>
-    <script src="./supabase_vault_client.js"></script>
-    <script src="./p2p_simulator.js"></script>
 </head>
 <body>
+    <div id="map-container"><div id="map"></div></div>
+
     <div class="header">
         <div class="title">IMPERIA v4 — Master Sovereign Pivot UI</div>
-        <a href="kassator.html" class="btn-kassator">Kassator</a>
+        <div>
+            <button class="btn-toggle" id="btn-toggle-left">« Джерела</button>
+            <button class="btn-toggle" id="btn-toggle-right">Студія »</button>
+            <a href="kassator.html" class="btn-kassator">Kassator</a>
+        </div>
     </div>
 
-    <div class="shell">
-        <!-- Left Sidebar — Джерела / Реєстр документації -->
-        <div class="panel">
-            <div class="panel-header"><div class="panel-title">Джерела</div></div>
-            <div class="panel-body">
-                <div class="sidebar-section">
-                    <h4>Реєстр документації</h4>
-                    <div class="sidebar-item">env_config.js — конфігурація та ключі</div>
-                    <div class="sidebar-item">state_gateway.json — стан сесій</div>
-                    <div class="sidebar-item">territory_passports.json — регіональні паспорти</div>
-                    <div class="sidebar-item">h3_layers.json — H3 простір</div>
-                    <div class="sidebar-item">japan_analysis.json — профіль Японії</div>
-                    <div class="sidebar-item">master_checklist.md — дорожній чеклист</div>
-                </div>
-                <div class="sidebar-section">
-                    <h4>Інструменти чистки</h4>
-                    <div class="sidebar-item">supabase_inventory.sql — інвентаризація</div>
-                    <div class="sidebar-item">export_legacy_tables.sql — бекап таблиць</div>
-                    <div class="sidebar-item">export_legacy_tables.py — Python архівер</div>
-                    <div class="sidebar-item">cleanup_legacy_tables.sql — DROP TABLE</div>
-                    <div class="sidebar-item">seed_penrose_invariants.sql — Orch OR сеювання</div>
-                    <div class="sidebar-item">seed_penrose_invariants.py — Python сеєр</div>
-                </div>
-                <div class="sidebar-section">
-                    <h4>Архів</h4>
-                    <div class="sidebar-item">legacy_archive/README.md — сатир. заготовки</div>
-                </div>
+    <!-- Left Drawer — Джерела / Реєстр документації -->
+    <div class="drawer" id="left-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title">Джерела</div>
+            <button class="btn-toggle" id="btn-close-left">×</button>
+        </div>
+        <div class="drawer-body">
+            <div class="sidebar-section">
+                <h4>Реєстр документації</h4>
+                <div class="sidebar-item">env_config.js — конфігурація та ключі</div>
+                <div class="sidebar-item">state_gateway.json — стан сесій</div>
+                <div class="sidebar-item">territory_passports.json — регіональні паспорти</div>
+                <div class="sidebar-item">h3_layers.json — H3 простір</div>
+                <div class="sidebar-item">japan_analysis.json — профіль Японії</div>
+                <div class="sidebar-item">master_checklist.md — дорожній чеклист</div>
+            </div>
+            <div class="sidebar-section">
+                <h4>Інструменти чистки</h4>
+                <div class="sidebar-item">supabase_inventory.sql — інвентаризація</div>
+                <div class="sidebar-item">export_legacy_tables.sql — бекап таблиць</div>
+                <div class="sidebar-item">export_legacy_tables.py — Python архівер</div>
+                <div class="sidebar-item">cleanup_legacy_tables.sql — DROP TABLE</div>
+                <div class="sidebar-item">seed_penrose_invariants.sql — Orch OR сеювання</div>
+                <div class="sidebar-item">seed_penrose_invariants.py — Python сеєр</div>
+            </div>
+            <div class="sidebar-section">
+                <h4>Архів</h4>
+                <div class="sidebar-item">legacy_archive/README.md — сатир. заготовки</div>
             </div>
         </div>
-
-        <!-- Center Stage — H3-карта + AI-Гід -->
-        <div class="panel center-stage">
-            <div class="panel-header"><div class="panel-title">H3-Карта та Чат AI-Гіда</div></div>
-            <div class="panel-body">
-                <div class="map-container">
-                    <iframe src="map_core.html" title="H3 Map Core" loading="lazy"></iframe>
-                </div>
-                <div class="ai-guide">
-                    <div class="log" id="ai-log">
-                        <div style="color:#8899a6">AI-Гід готовий. Введіть запит нижче...</div>
-                    </div>
-                    <input type="text" id="ai-prompt-input" placeholder="Введіть запит для ШІ-Гіда...">
-                </div>
-            </div>
-        </div>
-
     </div>
-    <!-- Right Studio — Vault Inspector + P2P Simulator -->
-    <div class="panel right-studio">
-        <div class="panel-header"><div class="panel-title">Студія</div></div>
-        <div class="panel-body">
-            <!-- Brahman Vault Inspector -->
+
+    <!-- Right Drawer — Студія (Vault Inspector + P2P Simulator) -->
+    <div class="drawer drawer-right" id="right-drawer">
+        <div class="drawer-header">
+            <div class="drawer-title">Студія</div>
+            <button class="btn-toggle" id="btn-close-right">×</button>
+        </div>
+        <div class="drawer-body">
             <div class="studio-card">
                 <div class="studio-card-header">
                     <h4>Brahman Vault Inspector</h4>
@@ -340,8 +289,7 @@
                 </div>
             </div>
 
-            <!-- P2P Coherence Simulator -->
-            <div class="studio-card" style="min-height: 180px;">
+            <div class="studio-card" style="min-height: 170px;">
                 <div class="studio-card-header">
                     <h4>P2P Coherence Simulator</h4>
                     <div id="p2p-mode-badge" class="mode-badge mode-simulation">[SIMULATION MODE — VIRTUAL NODES]</div>
@@ -360,137 +308,235 @@
             </div>
         </div>
     </div>
+
+    <div id="floating-chat">
+        <div class="chat-header">
+            <span>AI-Гід</span>
+            <button class="btn-close-chat" id="btn-toggle-chat">▾</button>
+        </div>
+        <div class="chat-body" id="chat-body">
+            <div style="color:#8899a6">Готовий до запиту...</div>
+        </div>
+        <div class="chat-input-area">
+            <input type="text" id="chat-input" placeholder="Запит для ШІ-Гіда...">
+            <button class="chat-send" id="btn-chat-send">Надіслати</button>
+        </div>
     </div>
 
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
+    <script src="./supabase_vault_client.js"></script>
+    <script src="./p2p_simulator.js"></script>
     <script>
-        // AI-Гід (Spatial Guide)
-        (function initAIGuide() {
-            var input = document.getElementById("ai-prompt-input");
-            var log = document.getElementById("ai-log");
-            if (!input || !log) return;
+        (function initLayout() {
+            var leftDrawer = document.getElementById('left-drawer');
+            var rightDrawer = document.getElementById('right-drawer');
+            var map = null;
 
-            function appendLog(text, color) {
-                var div = document.createElement("div");
-                div.textContent = text;
-                if (color) div.style.color = color;
-                div.style.marginBottom = "6px";
-                log.appendChild(div);
-                log.scrollTop = log.scrollHeight;
+            function toggleLeft() {
+                leftDrawer.classList.toggle('open');
+                if (map) map.invalidateSize();
+            }
+            function toggleRight() {
+                rightDrawer.classList.toggle('open');
+                if (map) map.invalidateSize();
             }
 
-            async function executeAIPrompt() {
-                var prompt = input.value;
-                if (!prompt) return;
-                appendLog("> " + prompt, "#e0e6ed");
-                input.value = "";
-                appendLog("ШІ-Гід: Аналіз запиту через OpenRouter...", "#8899a6");
-                var apiKey = (window.IMPERIA_CONFIG && window.IMPERIA_CONFIG.OPENROUTER_API_KEY) || "";
-                if (!apiKey) {
-                    appendLog("Помилка: OpenRouter API key відсутній", "#ff4444");
-                    return;
+            document.getElementById('btn-toggle-left').addEventListener('click', toggleLeft);
+            document.getElementById('btn-close-left').addEventListener('click', function () {
+                leftDrawer.classList.remove('open');
+                if (map) map.invalidateSize();
+            });
+            document.getElementById('btn-toggle-right').addEventListener('click', toggleRight);
+            document.getElementById('btn-close-right').addEventListener('click', function () {
+                rightDrawer.classList.remove('open');
+                if (map) map.invalidateSize();
+            });
+
+            var chat = document.getElementById('floating-chat');
+            var btnChat = document.getElementById('btn-toggle-chat');
+            btnChat.addEventListener('click', function () {
+                chat.classList.toggle('collapsed');
+            });
+
+            map = L.map('map', {
+                center: [50.4501, 30.5234],
+                zoom: 8,
+                zoomControl: false,
+                attributionControl: false
+            });
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '© OpenStreetMap contributors'
+            }).addTo(map);
+            L.control.zoom({ position: 'bottomright' }).addTo(map);
+            map.invalidateSize();
+
+            (function initAIGuide() {
+                var input = document.getElementById('chat-input');
+                var log = document.getElementById('chat-body');
+                var btnSend = document.getElementById('btn-chat-send');
+                if (!input || !log || !btnSend) return;
+
+                function append(text, color) {
+                    var div = document.createElement('div');
+                    div.textContent = text;
+                    if (color) div.style.color = color;
+                    div.style.marginBottom = '6px';
+                    log.appendChild(div);
+                    log.scrollTop = log.scrollHeight;
                 }
-                try {
-                    var res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-                        method: "POST",
-                        headers: {
-                            "Authorization": "Bearer " + apiKey,
-                            "Content-Type": "application/json"
-                        },
+
+                function run() {
+                    var prompt = input.value;
+                    if (!prompt) return;
+                    append('> ' + prompt, '#e0e6ed');
+                    input.value = '';
+                    append('ШІ-Гід: Аналіз запиту через OpenRouter…', '#8899a6');
+                    var apiKey = (window.IMPERIA_CONFIG && window.IMPERIA_CONFIG.OPENROUTER_API_KEY) || '';
+                    if (!apiKey) { append('Помилка: OpenRouter API key відсутній', '#ff4444'); return; }
+                    fetch('https://openrouter.ai/api/v1/chat/completions', {
+                        method: 'POST',
+                        headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
                         body: JSON.stringify({
-                            model: "google/gemini-2.5-flash:free",
+                            model: 'google/gemini-2.5-flash:free',
                             messages: [
-                                { role: "system", content: "Ти — ШІ-Гід Брахман (Brahman AI Spatial Analyst) системи IMPERIA v4. Твоє завдання — пояснювати Власнику сутність системи, 4D-векторів E=[Lang,Geo,Hist,Soc], H3-картки та дашборду, або формувати зрізи даних за його запитом. Відповідай дружньо, мудро, лаконічно та зрозуміло українською мовою." },
-                                { role: "user", content: prompt }
+                                { role: 'system', content: 'Ти — ШІ-Гід Брахман (Brahman AI Spatial Analyst) системи IMPERIA v4. Твоє завдання — пояснювати Власнику сутність системи, 4D-векторів E=[Lang,Geo,Hist,Soc], H3-картки та дашборду, або формувати зрізи даних за його запитом. Відповідай дружньо, мудро, лаконічно та зрозуміло українською мовою.' },
+                                { role: 'user', content: prompt }
                             ]
                         })
+                    }).then(function (res) { return res.json(); }).then(function (data) {
+                        if (data.choices && data.choices[0] && data.choices[0].message) {
+                            append('<strong>ШІ-Гід:</strong> ' + data.choices[0].message.content, '#00ffcc');
+                        } else {
+                            append('ШІ-Гід: Зріз опрацьовано локально.', '#8899a6');
+                        }
+                    }).catch(function (e) {
+                        console.error('OpenRouter Error:', e);
+                        append('ШІ-Гід: Помилка з’єднання, запит оброблено локально.', '#ff4444');
                     });
-                    var data = await res.json();
-                    if (data.choices && data.choices[0] && data.choices[0].message) {
-                        appendLog("<strong>ШІ-Гід:</strong> " + data.choices[0].message.content, "#00ffcc");
-                    } else {
-                        appendLog("ШІ-Гід: Зріз опрацьовано локально.", "#8899a6");
+                }
+                btnSend.addEventListener('click', run);
+                input.addEventListener('keypress', function (e) { if (e.key === 'Enter') run(); });
+            })();
+
+            (function initVaultInspector() {
+                var cfg = window.IMPERIA_CONFIG || {};
+                var supabaseUrl = cfg.SUPABASE_URL || '';
+                var supabaseKey = cfg.SUPABASE_ANON_KEY || '';
+                var statusDot = document.getElementById('vault-status-dot');
+                var statusText = document.getElementById('vault-status-text');
+                var grid = document.getElementById('vault-grid');
+                var refreshBtn = document.getElementById('vault-refresh-btn');
+                var filters = document.getElementById('vault-filters');
+
+                function setStatus(state) {
+                    statusDot.className = 'status-dot status-' + state;
+                    statusText.textContent = state.charAt(0).toUpperCase() + state.slice(1);
+                }
+                function qBadge(score) {
+                    var high = score >= 0.90;
+                    return '<span class="q-badge ' + (high ? 'high' : 'med') + '">Q ' + (score * 100).toFixed(0) + '</span>';
+                }
+                async function loadInvariants(octave) {
+                    if (!supabaseUrl || !supabaseKey) {
+                        grid.innerHTML = '<div class="vault-empty">Supabase не сконфігурований у env_config.js</div>';
+                        setStatus('offline');
+                        return;
                     }
-                } catch (e) {
-                    console.error("OpenRouter Error:", e);
-                    appendLog("ШІ-Гід: Помилка з'єднання, запит оброблено локально.", "#ff4444");
+                    setStatus('standby');
+                    try {
+                        var url = supabaseUrl + '/rest/v1/brahman_knowledge_vault?select=*&order=q_coherence_score.desc';
+                        if (octave && octave !== 'all') { url += '&m_octave=eq.' + octave; }
+                        var res = await fetch(url, { headers: { apikey: supabaseKey, Authorization: 'Bearer ' + supabaseKey } });
+                        if (!res.ok) throw new Error('HTTP ' + res.status);
+                        var data = await res.json() || [];
+                        setStatus('online');
+                        renderInvariants(data);
+                    } catch (e) {
+                        console.error('Vault Inspector error:', e);
+                        grid.innerHTML = '<div class="vault-empty">Помилка з\'єднання із Supabase Vault</div>';
+                        setStatus('offline');
+                    }
                 }
-            }
-            input.addEventListener("keypress", function(e) {
-                if (e.key === "Enter") { executeAIPrompt(); }
-            });
-        })();
+                function renderInvariants(data) {
+                    if (!data || data.length === 0) {
+                        grid.innerHTML = '<div class="vault-empty">Інваріанти не знайдено</div>';
+                        return;
+                    }
+                    grid.innerHTML = data.map(function (item) {
+                        var tags = (item.tags || []).map(function (t) { return '<span class="vault-tag">' + t + '</span>'; }).join('');
+                        return '<div class="vault-card">' +
+                            '<div class="meta">' +
+                            '<span><strong>Октава:</strong> ' + (item.m_octave || '—') + '</span>' +
+                            '<span><strong>Категорія:</strong> ' + (item.domain_category || '—') + '</span>' +
+                            qBadge(item.q_coherence_score || 0) +
+                            '</div>' +
+                            '<div class="invariant">' + (item.distilled_invariant || '—') + '</div>' +
+                            '<div class="meta"><strong>Сигнал:</strong> ' + (item.raw_signal || '—') + '</div>' +
+                            '<div class="vault-tags">' + tags + '</div>' +
+                            '</div>';
+                    }).join('');
+                }
+                refreshBtn.addEventListener('click', function () {
+                    var active = filters.querySelector('.vault-filter-btn.active');
+                    loadInvariants(active ? active.dataset.octave : 'all');
+                });
+                filters.addEventListener('click', function (e) {
+                    if (e.target.classList.contains('vault-filter-btn')) {
+                        filters.querySelectorAll('.vault-filter-btn').forEach(function (b) { b.classList.remove('active'); });
+                        e.target.classList.add('active');
+                        loadInvariants(e.target.dataset.octave);
+                    }
+                });
+                loadInvariants();
+            })();
 
-        // Brahman Vault Inspector logic (right panel)
-        (function initVaultInspector() {
-            var cfg = window.IMPERIA_CONFIG || {};
-            var supabaseUrl = cfg.SUPABASE_URL || "";
-            var supabaseKey = cfg.SUPABASE_ANON_KEY || "";
-            var statusDot = document.getElementById("vault-status-dot");
-            var statusText = document.getElementById("vault-status-text");
-            var grid = document.getElementById("vault-grid");
-            var refreshBtn = document.getElementById("vault-refresh-btn");
-            var filters = document.getElementById("vault-filters");
-
-            function setStatus(state) {
-                statusDot.className = "status-dot status-" + state;
-                statusText.textContent = state.charAt(0).toUpperCase() + state.slice(1);
-            }
-            function qBadge(score) {
-                var high = score >= 0.90;
-                return '<span class="q-badge ' + (high ? "high" : "med") + '">Q ' + (score * 100).toFixed(0) + '</span>';
-            }
-            async function loadInvariants(octave) {
-                if (!supabaseUrl || !supabaseKey) {
-                    grid.innerHTML = '<div class="vault-empty">Supabase не сконфігурований у env_config.js</div>';
-                    setStatus("offline");
+            (function initP2PSimulatorPanel() {
+                if (typeof P2PSimulator === 'undefined') {
+                    console.error('[P2P UI] P2PSimulator module not loaded');
                     return;
                 }
-                setStatus("standby");
-                try {
-                    var url = supabaseUrl + "/rest/v1/brahman_knowledge_vault?select=*&order=q_coherence_score.desc";
-                    if (octave && octave !== "all") { url += "&m_octave=eq." + octave; }
-                    var res = await fetch(url, { headers: { apikey: supabaseKey, Authorization: "Bearer " + supabaseKey } });
-                    if (!res.ok) throw new Error("HTTP " + res.status);
-                    var data = await res.json() || [];
-                    setStatus("online");
-                    renderInvariants(data);
-                } catch (e) {
-                    console.error("Vault Inspector error:", e);
-                    grid.innerHTML = '<div class="vault-empty">Помилка з\'єднання із Supabase Vault</div>';
-                    setStatus("offline");
+                var sim = new P2PSimulator();
+                var modeBadge = document.getElementById('p2p-mode-badge');
+                var modeSelect = document.getElementById('p2p-mode-select');
+                var runBtn = document.getElementById('p2p-run-btn');
+                var output = document.getElementById('p2p-output');
+                function updateBadge() {
+                    if (sim.mode === 'LIVE') {
+                        modeBadge.textContent = '[LIVE NETWORK — REAL NODES]';
+                        modeBadge.className = 'mode-badge mode-live';
+                    } else {
+                        modeBadge.textContent = '[SIMULATION MODE — VIRTUAL NODES]';
+                        modeBadge.className = 'mode-badge mode-simulation';
+                    }
                 }
-            }
-            function renderInvariants(data) {
-                if (!data || data.length === 0) {
-                    grid.innerHTML = '<div class="vault-empty">Інваріанти не знайдено</div>';
-                    return;
-                }
-                grid.innerHTML = data.map(function(item) {
-                    var tags = (item.tags || []).map(function(t) { return '<span class="vault-tag">' + t + '</span>'; }).join("");
-                    return '<div class="vault-card">' +
-                        '<div class="meta">' +
-                        '<span><strong>Октава:</strong> ' + (item.m_octave || "—") + '</span>' +
-                        '<span><strong>Категорія:</strong> ' + (item.domain_category || "—") + '</span>' +
-                        qBadge(item.q_coherence_score || 0) +
-                        '</div>' +
-                        '<div class="invariant">' + (item.distilled_invariant || "—") + '</div>' +
-                        '<div class="meta"><strong>Сигнал:</strong> ' + (item.raw_signal || "—") + '</div>' +
-                        '<div class="vault-tags">' + tags + '</div>' +
-                        '</div>';
-                }).join("");
-            }
-            refreshBtn.addEventListener("click", function() {
-                var active = filters.querySelector(".vault-filter-btn.active");
-                loadInvariants(active ? active.dataset.octave : "all");
-            });
-            filters.addEventListener("click", function(e) {
-                if (e.target.classList.contains("vault-filter-btn")) {
-                    filters.querySelectorAll(".vault-filter-btn").forEach(function(b) { b.classList.remove("active"); });
-                    e.target.classList.add("active");
-                    loadInvariants(e.target.dataset.octave);
-                }
-            });
-            loadInvariants();
+                modeSelect.addEventListener('change', function (e) {
+                    var target = e.target.value;
+                    if (target === 'LIVE') {
+                        var confirmed = confirm('ПОПЕРЕДЖЕННЯ: Перехід у режим LIVE підключатиме симулятор до реальних вузлів мережі. Продовжити?');
+                        if (!confirmed) { e.target.value = 'SIMULATION'; return; }
+                    }
+                    sim.setMode(target);
+                    updateBadge();
+                });
+                runBtn.addEventListener('click', function () {
+                    var virtualNodes = [
+                        { id: 'H3-872b101', q_factor: 0.94 },
+                        { id: 'H3-872b102', q_factor: 0.91 },
+                        { id: 'H3-872b103', q_factor: 0.88 },
+                        { id: 'H3-872b104', q_factor: 0.95 }
+                    ];
+                    var coherence = sim.calculateSyntheticCoherence(virtualNodes);
+                    if (coherence === null) {
+                        output.textContent = 'Режим LIVE: симуляційний розрахунок заборонений. Використовуйте реальні вузли.';
+                        output.style.color = '#ffb300';
+                    } else {
+                        output.textContent = 'Синтетична когерентність H3-вузлів: ' + coherence.toFixed(3);
+                        output.style.color = '#00ffcc';
+                    }
+                });
+                updateBadge();
+            })();
         })();
     </script>
     <script src="./state_gateway.js"></script>
