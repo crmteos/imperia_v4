@@ -77,6 +77,8 @@
 - [x] **HF-002** `docs/index.html` `.chat-drawer.collapsed` трансформація змінена на `calc(100% - 42px)`; обробник кліку по `.chat-header` тоглить `.collapsed`, заголовок залишається видимим
 - [x] **HF-003** `docs/map_core.html` інфо-плашка `.info-panel` та `.controls` блок видалено; карта Leaflet повноекранна `100vw`×`100vh`; зумер `L.control.zoom` на `topleft`
 - [x] **HF-004** `master_checklist.md` оновлено з поточним статусом управління
+- [x] **HF-005** `docs/env_config.js` ключ `OPENROUTER_API_KEY` замінено на placeholder для пробирання GitHub secret scanning
+- [x] **HF-006** `docs/territory_passports.json` заповнено 5 канонічними H3-паспортами етапу Б.3
 
 ### Фундаментальні Аксіоми Проекту
 - [x] **ADR-006**: Протокол Проактивного Математичного Синтезу Брахмана та Cosine Similarity Standard

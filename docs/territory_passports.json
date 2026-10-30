@@ -1,27 +1,61 @@
 {
-  "version": "v4.0_canonical",
-  "status": "draft_architecture_skeleton",
+  "version": "v4.0_master",
+  "updated_at": "2026-10-30",
   "passports": [
     {
-      "entity_id": "UA-KYIV-M4",
-      "name": "Київський Соборний Хаб (Чернетка)",
-      "m_axis": {
-        "octave_code": "M4",
-        "scale_name": "Meso-2: Regional Hub",
-        "h3_resolution": 4,
-        "spatial_index_h3": "872b101ffffff",
-        "nesting_factor_K": 7
-      },
-      "vector_E": { "lang": 0.95, "geo": 0.91, "hist": 0.98, "soc": 0.89, "E_norm": 0.932 },
-      "coherence_Q": { "current_Q": 0.94, "status_band": "GREEN" },
-      "synarchy_metrics": {
-        "cohesion_index_Isyn": 0.92,
-        "hierarchical_alignment_Ahier": 0.96,
-        "evolutionary_plasticity_Kevol": 0.88,
-        "triadic_state": { "spirit_identity": 0.95, "form_structure": 0.92, "energy_resource": 0.89 }
-      },
-      "field_power_Peff": 0.876,
-      "synarchy_role": "Brahman"
+      "id": "hub-kyiv-m4",
+      "name": "Київський Соборний Хаб",
+      "m_octave": "M4",
+      "h3_index": "8828308281fffff",
+      "center_lat": 50.4501,
+      "center_lng": 30.5234,
+      "q_coherence": 0.99,
+      "status": "ACTIVE_PRIMARY",
+      "role": "Центральний вузол фазової синхронізації та суверенного управління"
+    },
+    {
+      "id": "hub-west-m4",
+      "name": "Західний Резонансний Хаб (Львів)",
+      "m_octave": "M4",
+      "h3_index": "8828347001fffff",
+      "center_lat": 49.8397,
+      "center_lng": 24.0297,
+      "q_coherence": 0.97,
+      "status": "ACTIVE_SECONDARY",
+      "role": "Західний інфраструктурний форпост та P2P-міст"
+    },
+    {
+      "id": "hub-east-m4",
+      "name": "Східний Форпост (Харків)",
+      "m_octave": "M4",
+      "h3_index": "882832a88dfffff",
+      "center_lat": 50.0015,
+      "center_lng": 36.2315,
+      "q_coherence": 0.95,
+      "status": "ACTIVE_SECONDARY",
+      "role": "Східний контур безпеки та периферифійного моніторингу"
+    },
+    {
+      "id": "contour-ukraine-m5",
+      "name": "Соборний Контур України",
+      "m_octave": "M5",
+      "h3_index": "85283083fffffff",
+      "center_lat": 48.3794,
+      "center_lng": 31.1656,
+      "q_coherence": 0.98,
+      "status": "MACRO_CONTOUR",
+      "role": "Загальнонаціональна мережа фазового затягування"
+    },
+    {
+      "id": "cluster-japan-m4",
+      "name": "Японський Геостратегічний Кластер (Токіо)",
+      "m_octave": "M4",
+      "h3_index": "8829b52001fffff",
+      "center_lat": 35.6762,
+      "center_lng": 139.6503,
+      "q_coherence": 0.96,
+      "status": "EXTERNAL_BRIDGE",
+      "role": "Східноазійський вектор інтеграції та дослідження технологічних осей"
     }
   ]
 }
