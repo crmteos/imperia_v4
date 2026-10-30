@@ -91,6 +91,12 @@
 | `synarchy_metrics.triadic_state.energy_resource` | `number` (0.0–1.0) | Апаратний обчислювальний квант (NPU/GPU, RAM, bandwidth). |
 | `synarchy_role` | `string` | Вартова роль сутності (наприклад, `Brahman`, `Kshatriya`, `Vaishya`, `Shudra`, `Periphery`). |
 
+### 2.4. Суверенне Векторно-Контекстне Сховище Знань Брахмана (Supabase Vault)
+- **Файл схеми:** `docs/brahman_vault_schema.sql`
+- **Таблиця БД:** `brahman_knowledge_vault`
+- **Призначення:** Фізичне збереження опрацьованих дистильованих інваріантів, формул та онтологічних розширень Брахмана для усунення Q-decay між перезапусками сесій.
+
+## 3. Модулі Логіки та Симуляції
 ## 3. Модулі Логіки та Симуляції
 - `docs/sl8_gateway.js` — Шлюз інтеграції із P2P-мережею Slate.
 - `docs/p2p_simulator.js` — Симулятор топології та флуктуацій P2P-вузлів.
