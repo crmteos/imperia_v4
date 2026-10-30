@@ -23,6 +23,58 @@
 - `docs/territory_passports.json` — Реєстр регіональних паспортів (Україна, Японія, глобальні хаби).
 - `docs/japan_analysis.json` — Деталізований регіональний профіль Японії.
 
+### 2.3. Канонічні JSON-шаблони записів стан-пам'яті
+
+Нижче надано єдиний канонічний шаблон запису, який використовується одночасно для `docs/territory_passports.json` та `docs/h3_layers.json`. Кожен об'єкт у цих файлах має дотримуватися наступної структури:
+
+```json
+{
+  "entity_id": "UA-KYIV-M4",
+  "name": "Київський Соборний Хаб",
+  "m_axis": {
+    "octave_code": "M4",
+    "scale_name": "Meso-2: Regional Hub",
+    "h3_resolution": 4,
+    "spatial_index_h3": "872b101ffffff",
+    "nesting_factor_K": 7
+  },
+  "vector_E": {
+    "lang": 0.95,
+    "geo": 0.91,
+    "hist": 0.98,
+    "soc": 0.89,
+    "E_norm": 0.932
+  },
+  "coherence_Q": {
+    "current_Q": 0.94,
+    "status_band": "GREEN"
+  },
+  "field_power_Peff": 0.876,
+  "synarchy_role": "Brahman"
+}
+```
+
+**Поля шаблону:**
+
+| Поле | Тип | Опис |
+| :--- | :--- | :--- |
+| `entity_id` | `string` | Унікальний ідентифікатор сутності у форматі `<КодКраїни>-<Місто/Регіон>-<Октава>`. |
+| `name` | `string` | Назва об'єкта на українській мові. |
+| `m_axis.octave_code` | `string` | Код октави M-осі: `M0` … `M6`. |
+| `m_axis.scale_name` | `string` | Назва рівня масштабу (наприклад, "Meso-2: Regional Hub"). |
+| `m_axis.h3_resolution` | `integer` | Uber H3 разрешальна здатність (0–15). |
+| `m_axis.spatial_index_h3` | `string` | H3-індекс геосектора (16-знаковий геeksadecimal). |
+| `m_axis.nesting_factor_K` | `integer` | Коефіцієнт гніздящості/вкладеності (канонічно 7). |
+| `vector_E.lang` | `number` (0.0–1.0) | Мовно-культурний коефіцієнт когерентності. |
+| `vector_E.geo` | `number` (0.0–1.0) | Геопросторова прив'язка H3 (просторова щільність). |
+| `vector_E.hist` | `number` (0.0–1.0) | Історико-хронологічна спадкоємність. |
+| `vector_E.soc` | `number` (0.0–1.0) | Соціально-синархічний коефіцієнт довіри. |
+| `vector_E.E_norm` | `number` (0.0–1.0) | Нормалізована довжина 4D-вектора \\(\\|\vec{E}\\|\\). |
+| `coherence_Q.current_Q` | `number` (0.00–1.00) | Поточний рівень фазової когерентності. |
+| `coherence_Q.status_band` | `string` | Статусний діапазон: `GREEN` (\\(Q \\ge 0.90\\)), `YELLOW` (\\(0.75 \\le Q < 0.90\\)), `RED` (\\(Q < 0.75\\)). |
+| `field_power_Peff` | `number` (0.0–1.0) | Ефективна потужність поля: \\(P_{eff} = \\|\vec{E}\\| \\times Q\\). |
+| `synarchy_role` | `string` | Вартова роль сутності (наприклад, `Brahman`, `Kshatriya`, `Vaishya`, `Shudra`, `Periphery`). |
+
 ## 3. Модулі Логіки та Симуляції
 - `docs/sl8_gateway.js` — Шлюз інтеграції із P2P-мережею Slate.
 - `docs/p2p_simulator.js` — Симулятор топології та флуктуацій P2P-вузлів.
