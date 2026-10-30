@@ -48,6 +48,13 @@
 - [ ] **7.5** Transition to Network-Wide Scaling & Stellar SSLX IaaS Protocol upon Kassator's request
 - [x] **7.6** Reconstruct docs/index.html with full-width Leaflet H3 map, header dropdown navigation, 4D environment vectors $\vec{E}$, and --tanunah accordion panels.
 
+### Phase A: Brahman Knowledge Vault Enrichment (IN PROGRESS)
+- [ ] **A.1** Систематичне збагачення `brahman_knowledge_vault` канонічними інваріантами з першоджерел (Октави M0–M6).
+
+### Phase B: Infrastructure Integration & UI (PLANNED)
+- [ ] **B.1** Інтеграція `BrahmanVaultClient` у Master UI (`index.html`) для відображення віджета "Brahman Vault Inspector".
+- [ ] **B.2** Підключення P2P-симулятора когерентності вузлів у `docs/p2p_simulator.js`.
+
 ### Phase 8: Future Extensions & Supabase Integration (PLANNING)
 - [ ] **8.1** Integrate Supabase H3 Geo-DB with temporal vectors E(t) for system phenomenon detection
 - [ ] **8.2** Implement Cosine Similarity Pattern Matching module for Brahman AI Guide

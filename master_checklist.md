@@ -24,3 +24,9 @@
 - [ ] Фаза 2: Тотальне наповнення H3-паспортів (territory_passports.json та japan_analysis.json)
 - [ ] Фаза 3: P2P Topology Simulator (p2p_simulator.js)
 - [ ] Фаза 4: Telegram Channel Gateway (@imperial_chancery)
+
+## 4. Магістральні Етапи Розширення (А та Б)
+
+- [ ] **Етап А:** Систематичне збагачення `brahman_knowledge_vault` канонічними інваріантами з першоджерел (Октави M0–M6).
+- [ ] **Етап Б.1:** Інтеграція `BrahmanVaultClient` у Master UI (`index.html`) для відображення віджета "Brahman Vault Inspector".
+- [ ] **Етап Б.2:** Підключення P2P-симулятора когерентності вузлів у `docs/p2p_simulator.js`.
