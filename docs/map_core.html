@@ -1,296 +1,120 @@
-<script>
-async function loadTerritoryPassports() {
-    const candidatePaths = ['./territory_passports.json', 'docs/territory_passports.json', '../docs/territory_passports.json'];
-    let data = null;
-
-    for (const path of candidatePaths) {
-        try {
-            const res = await fetch(path);
-            if (res.ok) {
-                data = await res.json();
-                console.log("Успішно завантажено паспорти з:", path);
-                break;
-            }
-        } catch (e) {}
-    }
-
-    if (!data || !data.passports) {
-        console.warn("Не вдалося знайти territory_passports.json.");
-        return;
-    }
-
-    const bounds = [];
-    data.passports.forEach(passport => {
-        const lat = passport.center_lat;
-        const lng = passport.center_lng;
-        bounds.push([lat, lng]);
-
-        // Неоновий маркер хабу
-        const marker = L.circleMarker([lat, lng], {
-            radius: 10,
-            fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#6366f1',
-            color: '#ffffff',
-            weight: 2,
-            opacity: 1,
-            fillOpacity: 0.9
-        }).addTo(map);
-
-        marker.bindPopup(`
-            <div style="font-family: sans-serif; padding: 6px; color: #0f172a;">
-                <strong style="font-size: 14px;">${passport.name}</strong><br/>
-                <small>Октава: <b>${passport.m_octave}</b> | Q: <b>${passport.q_coherence}</b></small><br/>
-                <span style="font-size: 11px; color: #475569;">${passport.role}</span>
-            </div>
-        `);
-
-        // H3 Полігон
-        if (passport.h3_index) {
-            try {
-                if (window.h3 && typeof h3.h3ToGeoBoundary === 'function') {
-                    const boundary = h3.h3ToGeoBoundary(passport.h3_index);
-                    L.polygon(boundary, {
-                        color: passport.m_octave === 'M5' ? '#0284c7' : '#4f46e5',
-                        weight: 2,
-                        fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#818cf8',
-                        fillOpacity: 0.35
-                    }).addTo(map);
-                }
-            } catch (e) {
-                console.warn("H3 render fallback for " + passport.id + ":", e);
-            }
-        }
-    });
-
-    if (bounds.length > 0) {
-        map.fitBounds(bounds, { padding: [50, 50] });
-    }
-}
-loadTerritoryPassports();
-</script>
-<script>
-async function loadTerritoryPassports() {
-    const candidatePaths = ['./territory_passports.json', 'docs/territory_passports.json', '../docs/territory_passports.json'];
-    let data = null;
-
-    for (const path of candidatePaths) {
-        try {
-            const res = await fetch(path);
-            if (res.ok) {
-                data = await res.json();
-                console.log("Успішно завантажено паспорти з:", path);
-                break;
-            }
-        } catch (e) {}
-    }
-
-    if (!data || !data.passports) {
-        console.warn("Не вдалося знайти territory_passports.json.");
-        return;
-    }
-
-    const bounds = [];
-    const h3Lib = window.h3 || (window.exports && window.exports.h3);
-
-    data.passports.forEach(passport => {
-        const lat = passport.center_lat;
-        const lng = passport.center_lng;
-        bounds.push([lat, lng]);
-
-        // 1. Маркер хабу
-        const marker = L.circleMarker([lat, lng], {
-            radius: 10,
-            fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#6366f1',
-            color: '#ffffff',
-            weight: 2,
-            opacity: 1,
-            fillOpacity: 0.9
-        }).addTo(window.map);
-
-        marker.bindPopup(`
-            <div style="font-family: sans-serif; padding: 6px; color: #0f172a;">
-                <strong style="font-size: 14px;">${passport.name}</strong><br/>
-                <small>Октава: <b>${passport.m_octave}</b> | Q: <b>${passport.q_coherence}</b></small><br/>
-                <span style="font-size: 11px; color: #475569;">${passport.role}</span>
-            </div>
-        `);
-
-        // 2. H3 Полігон (Res 7/8)
-        if (passport.h3_index && h3Lib && typeof h3Lib.h3ToGeoBoundary === 'function') {
-            try {
-                const boundary = h3Lib.h3ToGeoBoundary(passport.h3_index);
-                L.polygon(boundary, {
-                    color: passport.m_octave === 'M5' ? '#0284c7' : '#4f46e5',
-                    weight: 2,
-                    fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#818cf8',
-                    fillOpacity: 0.35
-                }).addTo(window.map);
-            } catch (e) {
-                console.warn("H3 render fallback for " + passport.id + ":", e);
-            }
-        }
-    });
-
-    if (bounds.length > 0) {
-        window.map.fitBounds(bounds, { padding: [30, 30] });
-    }
-}
-
-loadTerritoryPassports();
-</script>
-</body>
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="uk">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>IMPERIA v4 — H3 Map Core</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css" />
+    <title>Imperia v4 — Spatial Map Core</title>
+    
+    <!-- 1. Leaflet CSS & JS -->
+    <link rel="stylesheet" href="https://[suspicious link removed]/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://[suspicious link removed]/leaflet@1.9.4/dist/leaflet.js"></script>
+    
+    <!-- 2. Browser Polyfill & UMD H3-JS -->
+    <script>window.exports = window.exports || {};</script>
+    <script src="https://[suspicious link removed]/h3-js@3.7.2/dist/h3-js.umd.js"></script>
+    
     <style>
-        * { box-sizing: border-box; margin: 0; padding: 0; }
-        html, body, #map { height: 100%; width: 100%; }
-        body { background: #0d0f12; color: #e0e6ed; font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; overflow: hidden; }
-        #map { z-index: 0; }
-        .leaflet-container { background: #0d0f12; }
-        .btn {
-            background: #1c212c; border: 1px solid #00ffcc; color: #00ffcc;
-            padding: 8px 14px; border-radius: 6px; cursor: pointer; font-size: 12px;
-            font-family: inherit;
+        html, body, #map {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: #090d16;
         }
-        .btn:hover { background: #00ffcc; color: #000; }
-        .btn:active { transform: translateY(1px); }
+        .leaflet-control-zoom {
+            border: none !important;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.5) !important;
+        }
+        .leaflet-control-zoom a {
+            background-color: #1e293b !important;
+            color: #f8fafc !important;
+            border-color: #334155 !important;
+        }
     </style>
 </head>
 <body>
     <div id="map"></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/h3-js@3.7.2/dist/h3-js.min.js"></script>
     <script>
-        (function initMap() {
-            var center = [50.4501, 30.5234]; // Київ
-
-            var map = L.map('map', {
-                center: center,
-                zoom: 8,
-                zoomControl: false,
-                attributionControl: false
-            });
-
-            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '© OpenStreetMap contributors'
-            }).addTo(map);
-
+        if (typeof L === 'undefined') {
+            console.error("Не вдалося завантажити Leaflet");
+        } else {
+            const map = L.map('map', { zoomControl: false }).setView([48.3794, 31.1656], 6);
             L.control.zoom({ position: 'topleft' }).addTo(map);
 
-            // H3 гексагони навколо Києва (резолюція 8, кільце радіусом 2)
-            var centerH3 = h3.geoToH3(center[0], center[1], 8);
-            var ring = h3.gridRing(centerH3, 2);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+                attribution: '&copy; OSM &copy; CARTO',
+                subdomains: 'abcd',
+                maxZoom: 19
+            }).addTo(map);
 
-            ring.forEach(function (h) {
-                var boundary = h3.h3ToGeoBoundary(h);
-                var latlngs = boundary.map(function (p) { return [p[0], p[1]]; });
-                L.polygon(latlngs, {
-                    color: '#3a4255',
-                    weight: 1,
-                    fillColor: '#121721',
-                    fillOpacity: 0.55,
-                    stroke: true
-                }).addTo(map).bindTooltip(h, { direction: 'center', opacity: 0.9, sticky: true });
-            });
+            async function loadTerritoryPassports() {
+                const candidatePaths = ['./territory_passports.json', 'docs/territory_passports.json', '../docs/territory_passports.json'];
+                let data = null;
 
-            document.getElementById('info-text').textContent = 'Карта активна — Kyiv, Україна';
-            document.getElementById('h3-stats').textContent = 'H3 гексагони (res 8): ' + ring.length + ' шт. | h3-js v3.7.2';
-
-            // Перерахунок сітки при зміні розміра вікна
-            function onResize() { map.invalidateSize(); }
-            window.addEventListener('resize', onResize);
-            map.on('resize', onResize);
-
-            document.getElementById('btn-reset').addEventListener('click', function () {
-                map.setView(center, 8);
-            });
-        })();
-    </script>
-<script>
-async function loadTerritoryPassports() {
-    const candidatePaths = ['./territory_passports.json', 'docs/territory_passports.json', '../docs/territory_passports.json'];
-    let data = null;
-
-    for (const path of candidatePaths) {
-        try {
-            const res = await fetch(path);
-            if (res.ok) {
-                data = await res.json();
-                console.log("Успішно завантажено паспорти з:", path);
-                break;
-            }
-        } catch (e) {}
-    }
-
-    if (!data || !data.passports) {
-        console.warn("Не вдалося знайти territory_passports.json.");
-        return;
-    }
-
-    const bounds = [];
-    data.passports.forEach(passport => {
-        const lat = passport.center_lat;
-        const lng = passport.center_lng;
-        bounds.push([lat, lng]);
-
-        // 1. Маркер
-        const marker = L.circleMarker([lat, lng], {
-            radius: 10,
-            fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#6366f1',
-            color: '#ffffff',
-            weight: 2,
-            opacity: 1,
-            fillOpacity: 0.9
-        }).addTo(map);
-
-        marker.bindPopup(`
-            <div style="font-family: sans-serif; padding: 4px;">
-                <strong style="color: #0f172a; font-size: 14px;">${passport.name}</strong><br/>
-                <small>Октава: <b>${passport.m_octave}</b> | Q: <b>${passport.q_coherence}</b></small><br/>
-                <span style="font-size: 11px; color: #475569;">${passport.role}</span>
-            </div>
-        `);
-
-        // 2. H3 Полігон
-        if (passport.h3_index) {
-            try {
-                if (window.h3 && typeof h3.h3ToGeoBoundary === 'function') {
-                    const boundary = h3.h3ToGeoBoundary(passport.h3_index);
-                    L.polygon(boundary, {
-                        color: passport.m_octave === 'M5' ? '#0284c7' : '#4f46e5',
-                        weight: 2,
-                        fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#818cf8',
-                        fillOpacity: 0.3
-                    }).addTo(map);
+                for (const path of candidatePaths) {
+                    try {
+                        const res = await fetch(path);
+                        if (res.ok) {
+                            data = await res.json();
+                            console.log("Успішно завантажено H3-паспорти з:", path);
+                            break;
+                        }
+                    } catch (e) {}
                 }
-            } catch (e) {
-                console.warn("H3 render fallback for " + passport.id + ":", e);
+
+                if (!data || !data.passports) {
+                    console.warn("Не вдалося знайти territory_passports.json");
+                    return;
+                }
+
+                const bounds = [];
+                const h3Lib = window.h3 || (window.exports && window.exports.h3);
+
+                data.passports.forEach(passport => {
+                    const lat = passport.center_lat;
+                    const lng = passport.center_lng;
+                    bounds.push([lat, lng]);
+
+                    const marker = L.circleMarker([lat, lng], {
+                        radius: 10,
+                        fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#6366f1',
+                        color: '#ffffff',
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0.9
+                    }).addTo(map);
+
+                    marker.bindPopup(`
+                        <div style="font-family: sans-serif; padding: 6px; color: #0f172a;">
+                            <strong style="font-size: 14px;">${passport.name}</strong><br/>
+                            <small>Октава: <b>${passport.m_octave}</b> | Q: <b>${passport.q_coherence}</b></small><br/>
+                            <span style="font-size: 11px; color: #475569;">${passport.role}</span>
+                        </div>
+                    `);
+
+                    if (passport.h3_index && h3Lib && typeof h3Lib.h3ToGeoBoundary === 'function') {
+                        try {
+                            const boundary = h3Lib.h3ToGeoBoundary(passport.h3_index);
+                            L.polygon(boundary, {
+                                color: passport.m_octave === 'M5' ? '#0284c7' : '#4f46e5',
+                                weight: 2,
+                                fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#818cf8',
+                                fillOpacity: 0.35
+                            }).addTo(map);
+                        } catch (e) {
+                            console.warn("H3 render fallback for " + passport.id + ":", e);
+                        }
+                    }
+                });
+
+                if (bounds.length > 0) {
+                    map.fitBounds(bounds, { padding: [30, 30] });
+                }
             }
+
+            loadTerritoryPassports();
         }
-    });
-
-    if (bounds.length > 0) {
-        map.fitBounds(bounds, { padding: [30, 30] });
-    }
-}
-loadTerritoryPassports();
-</script>
+    </script>
+</body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
