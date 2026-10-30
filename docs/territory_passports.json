@@ -3,10 +3,10 @@
   "updated_at": "2026-10-30",
   "passports": [
     {
-      "id": "hub-kyiv-m4",
-      "name": "Київський Соборний Хаб",
+      "id": "hub-101-kyiv-m4",
+      "name": "101 — Київський Соборний Хаб",
       "m_octave": "M4",
-      "h3_index": "8828308281fffff",
+      "h3_index": "872b101ffffff",
       "center_lat": 50.4501,
       "center_lng": 30.5234,
       "q_coherence": 0.99,
@@ -14,10 +14,10 @@
       "role": "Центральний вузол фазової синхронізації та суверенного управління"
     },
     {
-      "id": "hub-west-m4",
-      "name": "Західний Резонансний Хаб (Львів)",
+      "id": "hub-102-lviv-m4",
+      "name": "102 — Львівський Західний Вузол",
       "m_octave": "M4",
-      "h3_index": "8828347001fffff",
+      "h3_index": "872b102ffffff",
       "center_lat": 49.8397,
       "center_lng": 24.0297,
       "q_coherence": 0.97,
@@ -25,10 +25,21 @@
       "role": "Західний інфраструктурний форпост та P2P-міст"
     },
     {
-      "id": "hub-east-m4",
-      "name": "Східний Форпост (Харків)",
+      "id": "hub-103-odesa-m4",
+      "name": "103 — Одеський Південний Кластер",
       "m_octave": "M4",
-      "h3_index": "882832a88dfffff",
+      "h3_index": "872b103ffffff",
+      "center_lat": 46.4825,
+      "center_lng": 30.7233,
+      "q_coherence": 0.96,
+      "status": "ACTIVE_SECONDARY",
+      "role": "Південний логістичний та морський контур"
+    },
+    {
+      "id": "hub-104-kharkiv-m4",
+      "name": "104 — Харківський Східний Форпост",
+      "m_octave": "M4",
+      "h3_index": "872b104ffffff",
       "center_lat": 50.0015,
       "center_lng": 36.2315,
       "q_coherence": 0.95,
@@ -36,15 +47,15 @@
       "role": "Східний контур безпеки та периферифійного моніторингу"
     },
     {
-      "id": "contour-ukraine-m5",
-      "name": "Соборний Контур України",
-      "m_octave": "M5",
-      "h3_index": "85283083fffffff",
-      "center_lat": 48.3794,
-      "center_lng": 31.1656,
-      "q_coherence": 0.98,
-      "status": "MACRO_CONTOUR",
-      "role": "Загальнонаціональна мережа фазового затягування"
+      "id": "hub-105-dnipro-m4",
+      "name": "105 — Дніпровський Центрально-Східний Хаб",
+      "m_octave": "M4",
+      "h3_index": "872b105ffffff",
+      "center_lat": 48.4647,
+      "center_lng": 35.0462,
+      "q_coherence": 0.96,
+      "status": "ACTIVE_SECONDARY",
+      "role": "Промислово-технологічний контур підтримки"
     },
     {
       "id": "cluster-japan-m4",
