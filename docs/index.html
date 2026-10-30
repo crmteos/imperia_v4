@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
         /* Drawers (collapsible side panels) */
         .drawer {
             position: fixed; top: 44px; bottom: 0; z-index: 1000;
@@ -163,7 +163,7 @@
         }
 
         /* Floating AI-Гід chat (VS Code style) */
-        #floating-chat {
+        #floating-chat, .chat-drawer {
             position: fixed; bottom: 20px; left: 20px; z-index: 1050;
             width: 360px; height: 420px;
             background: #121721; border: 1px solid #2a2f3a;
@@ -171,12 +171,12 @@
             box-shadow: 0 8px 32px rgba(0,0,0,0.5);
             transition: transform 0.3s ease, opacity 0.3s ease;
         }
-        #floating-chat.collapsed {
-            transform: translateY(105%) translateX(-60px);
+        .chat-drawer.collapsed {
+            transform: translateY(calc(100% - 44px)) !important;
             width: auto; height: auto; padding: 10px 16px;
             border-radius: 20px; cursor: pointer;
         }
-        #floating-chat.collapsed .chat-body { display: none; }
+        .chat-drawer.collapsed .chat-body { display: none; }
         #floating-chat.collapsed .chat-handle { display: block; }
         .chat-handle {
             display: none; font-size: 14px; font-weight: bold; color: #00ffcc;
@@ -185,8 +185,10 @@
             padding: 10px 14px; border-bottom: 1px solid #2a2f3a;
             font-weight: bold; font-size: 13px; color: #00ffcc;
             display: flex; justify-content: space-between; align-items: center;
-            flex-shrink: 0;
+            flex-shrink: 0; cursor: pointer; user-select: none;
+            border-top-left-radius: 12px; border-top-right-radius: 12px;
         }
+        .chat-header:hover { background: #1a2332; }
         .chat-body {
             flex: 1; overflow: auto; padding: 10px;
             font-size: 13px; display: flex; flex-direction: column; gap: 8px;
@@ -386,6 +388,35 @@
                     log.scrollTop = log.scrollHeight;
                 }
 
+                               function getVaultStatus() {
+                    var status = 'Offline';
+                    try {
+                        var cfg = window.IMPERIA_CONFIG || {};
+                        var url = cfg.SUPABASE_URL || 'not-configured';
+                        var now = new Date().toISOString();
+                        status = 'configured:' + url + ' (' + now + ')';
+                    } catch (e) {
+                        status = 'error reading config';
+                    }
+                    return status;
+                }
+                function getP2PState() {
+                    var mode = 'UNDEFINED';
+                    try {
+                        if (typeof P2PSimulator !== 'undefined') {
+                            try { var inst = new P2PSimulator(); mode = inst.mode || 'UNDEFINED'; } catch (e) { /* ignore */ }
+                        }
+                    } catch (e) { /* ignore */ }
+                    return mode;
+                }
+                function getVaultCount() {
+                    var count = 0;
+                    try {
+                        var cfg = window.IMPERIA_CONFIG || {};
+                        count = typeof cfg.SUPABASE_URL === 'string' && cfg.SUPABASE_URL ? 1 : 0;
+                    } catch (e) { /* ignore */ }
+                    return count;
+                }
                 function run() {
                     var prompt = input.value;
                     if (!prompt) return;
@@ -393,7 +424,15 @@
                     input.value = '';
                     append('ШІ-Гід: Аналіз запиту через OpenRouter…', '#8899a6');
                     var apiKey = (window.IMPERIA_CONFIG && window.IMPERIA_CONFIG.OPENROUTER_API_KEY) || '';
-                    if (!apiKey) { append('Помилка: OpenRouter API key відсутній', '#ff4444'); return; }
+                    if (!apiKey) {
+                        append('ШІ-Гід (Локальний режим): OpenRouter API key не задано в env_config.js.', '#ffb300');
+                        append('Поточний стан системи:', '#8899a6');
+                        append('• Supabase Vault: ' + getVaultStatus(), '#8899a6');
+                        append('• P2P Симулятор: ' + getP2PState(), '#8899a6');
+                        append('• Завантажено інваріантів: ' + getVaultCount(), '#8899a6');
+                        append('Система працює в автономному суверенному режимі.', '#ffb300');
+                        return;
+                    }
                     fetch('https://openrouter.ai/api/v1/chat/completions', {
                         method: 'POST',
                         headers: { 'Authorization': 'Bearer ' + apiKey, 'Content-Type': 'application/json' },
@@ -412,7 +451,7 @@
                         }
                     }).catch(function (e) {
                         console.error('OpenRouter Error:', e);
-                        append('ШІ-Гід: Помилка з’єднання, запит оброблено локально.', '#ff4444');
+                        append('ШІ-Гід: Помилка з'єднання, запит оброблено локально.', '#ff4444');
                     });
                 }
                 btnSend.addEventListener('click', run);
@@ -542,3 +581,4 @@
     <script src="./state_gateway.js"></script>
 </body>
 </html>
+

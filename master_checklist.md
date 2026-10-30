@@ -1,4 +1,4 @@
-# MASTER CHECKLIST & CONTEXT MIGRATION ROADMAP (Imperia v4)
+﻿# MASTER CHECKLIST & CONTEXT MIGRATION ROADMAP (Imperia v4)
 
 ## 1. Реєстр Канонічних Джерел Проєкту
 - [x] `/STATE_GATEWAY_PROTOCOL.md` — Шлюз взаємодії та онтологія Брахмана
@@ -33,4 +33,4 @@
 - [x] **Етап Б.2:** Підключення P2P-симулятора когерентності вузлів у `docs/p2p_simulator.js`.
 
 ## 5. Концепція UI Індексу (Візія Власника)
-- [x] **Візія UI Індексу (Еволюціонуюча концепція Власника):** 3-панельна топологія реалізована у `docs/index.html` (Джерела ліворуч | H3-Карта + Чат AI-Гіда по центру | Vault Inspector + P2P Simulator праворуч).
+- [x] **- [x] **Візія UI Індексу (Еволюціонуюча концепція Власника):** Full-Screen Map UI (H3-карта 100vw×100vh, колапсибле drawers, плаваючий чат AI-Гід, фолбек ШІ-Гіда у режимі автономного режиму).:** 3-панельна топологія реалізована у `docs/index.html` (Джерела ліворуч | H3-Карта + Чат AI-Гіда по центру | Vault Inspector + P2P Simulator праворуч).
