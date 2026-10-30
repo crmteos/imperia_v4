@@ -55,6 +55,12 @@
 - [ ] **B.1** Інтеграція `BrahmanVaultClient` у Master UI (`index.html`) для відображення віджета "Brahman Vault Inspector".
 - [ ] **B.2** Підключення P2P-симулятора когерентності вузлів у `docs/p2p_simulator.js`.
 
+### Phase B.3: Environment Configuration Activation (ENV-ACT)
+- [x] **B.3.1** `docs/env_config.js` заповнено актуальними ключами: `SUPABASE_URL`, `SUPABASE_ANON_KEY`, `OPENROUTER_API_KEY`
+- [x] **B.3.2** `window.IMPERIA_CONFIG` містить `DEFAULT_OCTAVE: "M4"` та `SIMULATION_MODE: true`
+- [x] **B.3.3** AI-Гід буде обробляти запити через OpenRouter API (ключ активовано)
+- [x] **B.3.4** Brahman Vault Inspector отримує Online-статус з Supabase
+
 ### Phase 8: Future Extensions & Supabase Integration (PLANNING)
 - [ ] **8.1** Integrate Supabase H3 Geo-DB with temporal vectors E(t) for system phenomenon detection
 - [ ] **8.2** Implement Cosine Similarity Pattern Matching module for Brahman AI Guide
