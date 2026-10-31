@@ -1,0 +1,39 @@
+{
+  "dive_id": "dive_05",
+  "domain_name": "Wheeler-Feynman Absorber Theory & Time-Symmetric Electrodynamics",
+  "acidity_level": 0.1,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "spherical-synthesis-comprehensive-report.md"
+  ],
+  "math_shield": {
+    "time_symmetric_field_equation": {
+      "total_field": "E_tot = 0.5 * E_ret + 0.5 * E_adv",
+      "retarded_wave": "propagation_into_future (+t)",
+      "advanced_wave": "propagation_from_future_into_past (-t)"
+    },
+    "absorber_condition": {
+      "absorber_response": "E_abs = 0.5 * E_ret - 0.5 * E_adv",
+      "observed_field": "E_actual = E_tot + E_abs = E_ret",
+      "cancellation_mechanism": "advanced_waves_cancel_outside_boundary_forming_present_standing_wave"
+    },
+    "phase_lock_predictive_synchronization": {
+      "mechanism": "advanced_wave_anticipation",
+      "p2p_benefit": "zero_lag_event_routing_and_pre_jitter_correction"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_05_wheeler_feynman.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "time_symmetric_event_anticipation_and_phase_lock"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Time_Symmetric_Phase_Lock_Monitor"
+    }
+  }
+}
