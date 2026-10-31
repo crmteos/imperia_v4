@@ -1,0 +1,40 @@
+{
+  "dive_id": "dive_21",
+  "domain_name": "Zero-Budget Tokenomics, Dual-Contour DAG & Sl8 H3 Spatial Integration",
+  "acidity_level": 0.0,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "2.Зведений_Реєстр_Документації,_Дорожня_Карта_та_Специфікація_Стан-Пам'яті_Проєкту_Imperia_v4_v3.0_Master_Release.md",
+    "master_checklist.md"
+  ],
+  "math_shield": {
+    "dual_contour_dag_tokenomics": {
+      "l1_internal_contour": "accounting_of_useful_power_[L^5_T^-5]_without_external_fiat",
+      "l2_external_gateway": "entropy_compensated_resource_exchange",
+      "zero_budget_invariant": "Delta_Budget = 0 under positive_useful_power_growth"
+    },
+    "uber_h3_spatial_indexing": {
+      "mechanism": "hexagonal_spatial_tessellation_resolution_7_to_9",
+      "nodes_anchoring": "Kyiv, Lviv, Odesa, Kharkiv, Dnipro H3_Index mapping",
+      "p2p_geo_sync": "jitter_free_spatial_packet_routing"
+    },
+    "kassator_p2p_resource_pooling": {
+      "mechanism": "decentralized_browser_and_node_hardware_aggregation",
+      "sl8_telemetry_coupling": "real_time_dag_transaction_validation"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_21_zero_budget_tokenomics_sl8.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "dag_validation_h3_indexing_and_kassator_balance_routing"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Zero_Budget_DAG_H3_Tokenomics_Monitor"
+    }
+  }
+}
