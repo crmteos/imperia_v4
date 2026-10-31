@@ -1,0 +1,40 @@
+{
+  "dive_id": "dive_25",
+  "domain_name": "I Ching 6D Hexagram Matrix & 64-Codon Phase Passport Domain",
+  "acidity_level": 0.15,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "spherical-synthesis-comprehensive-report.md",
+    "катехизис.docx"
+  ],
+  "math_shield": {
+    "i_ching_6d_isomorphism": {
+      "yao_lines_to_dimensions": "6 Yao lines == 6D space-time continuum (3L spatial, 3T temporal)",
+      "state_space_cardinality": "2^6 = 64 Hexagrams == 64 DNA codons",
+      "trigram_resolution": "3 Yao lines = 102.04 octaves (Microcosm 3L or Macrocosm 3T radius)"
+    },
+    "yin_yang_wave_pulsation": {
+      "yin_zero": "In-Wave collapse and spatial volume compression (V_down, f_up)",
+      "yang_one": "Out-Wave expansion and spatial volume dispersion (V_up, f_down)"
+    },
+    "cosine_hexagram_alignment": {
+      "hexagram_1_qian_111111": "Anti-Node Peak (cos = +1.0) at 102.04 octaves (Cell / Observer)",
+      "hexagram_2_kun_000000": "Boundary Anti-Nodes (cos = -1.0) at 0.0 octaves (Planck) and 204.08 octaves (Metagalaxy)",
+      "phase_shift_hexagrams": "Zero-Nodes (cos = 0.0) at 51.02 octaves (Atomic) and 153.06 octaves (Solar)"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_25_i_ching_6d_hexagrams.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "i_ching_6d_hexagram_phase_routing_and_64_codon_state_filtering"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "I_Ching_6D_Hexagram_Matrix_Monitor"
+    }
+  }
+}
