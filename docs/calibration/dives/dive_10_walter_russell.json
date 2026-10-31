@@ -1,0 +1,39 @@
+{
+  "dive_id": "dive_10",
+  "domain_name": "Walter Russell New Wave Theory & Dual Vortex Cosmology",
+  "acidity_level": 0.35,
+  "sources": [
+    "spherical-synthesis-comprehensive-report.md",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "hvylyova-heometriya-platonavikh-til.md"
+  ],
+  "math_shield": {
+    "involution_evolution_balance": {
+      "involution": "centripetal_inward_wave_compression_generation_mass",
+      "evolution": "centrifugal_outward_wave_expansion_radiation_dissolution",
+      "power_balance_equation": "dQ_gen/dt + dQ_rad/dt = 0 matching [L^5 T^-5]"
+    },
+    "dual_counter_rotating_vortices": {
+      "geometry": "conical_vortices_compressing_to_common_apex",
+      "vector_field": "V(r, theta) = V_radial(r) + V_angular(theta)"
+    },
+    "toroidal_spherical_topology": {
+      "flow": "center_to_surface_reversal_returning_to_centripetal_core",
+      "lt_mass_coupling": "[L^3 T^-2] volume_acceleration_vortex_compression"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_10_walter_russell.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "dual_vortex_telemetry_balancing_involution_evolution"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Walter_Russell_Dual_Vortex_Engine"
+    }
+  }
+}
