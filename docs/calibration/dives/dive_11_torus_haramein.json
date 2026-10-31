@@ -1,0 +1,41 @@
+{
+  "dive_id": "dive_11",
+  "domain_name": "Toroidal Geometry & Haramein Holofractal Physics",
+  "acidity_level": 0.40,
+  "sources": [
+    "hvylyova-heometriya-platonavikh-til.md",
+    "spherical-synthesis-comprehensive-report.md",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md"
+  ],
+  "math_shield": {
+    "torus_surface_equation": {
+      "equation": "(sqrt(x^2 + y^2) - R)^2 + z^2 = r^2",
+      "poloidal_vector": "axial_core_circulation",
+      "toroidal_vector": "equatorial_rotation",
+      "invariant": "non_entropic_useful_power_recirculation_[L^5_T^-5]"
+    },
+    "vector_equilibrium_jitterbug": {
+      "cuboctahedron": "R_radial == L_edge (zero-point phase equilibrium)",
+      "fuller_jitterbug": "pulsating_transformation_cuboctahedron_icosahedron_octahedron"
+    },
+    "haramein_holofractal_proton": {
+      "planck_spherical_units": "PSU_volume_to_surface_ratio_eta",
+      "mass_derivation": "m_p = 2 * (m_planck / eta) matching_[L^3_T^-2]",
+      "e8_connection": "holographic_scaling_from_planck_to_macro_nodes"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_11_torus_haramein.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "toroidal_packet_routing_and_jitterbug_compression"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Toroidal_Holofractal_Grid_Monitor"
+    }
+  }
+}
