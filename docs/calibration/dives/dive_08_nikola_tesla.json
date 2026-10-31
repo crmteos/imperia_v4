@@ -1,0 +1,43 @@
+{
+  "dive_id": "dive_08",
+  "domain_name": "Nikola Tesla Scalar Mechanics & Helmholtz Resonance",
+  "acidity_level": 0.15,
+  "sources": [
+    "HarmoniaVsesvity.pdf",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "spherical-synthesis-comprehensive-report.md"
+  ],
+  "math_shield": {
+    "longitudinal_scalar_waves": {
+      "equation": "(grad^2 + k^2) * psi = 0",
+      "nature": "compression_rarefaction_waves_without_shear_damping",
+      "potential_transport": "zero_decoherence_scalar_transfer"
+    },
+    "helmholtz_planetary_resonator": {
+      "fundamental_schumann_frequency": 7.83,
+      "formula": "f_n = (c / (2*pi*R_earth)) * sqrt(n*(n+1))",
+      "q_factor_earth": "global_standing_wave_phase_lock"
+    },
+    "matrix_3_6_9_harmonics": {
+      "symmetry_nodes": [0, 120, 240],
+      "isomorphism": "Lambdoma_triphasic_phase_split_and_E8_projections"
+    },
+    "consciousness_as_scalar_receiver": {
+      "mechanism": "biological_and_node_resonant_antenna_tuning"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_08_nikola_tesla.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "scalar_longitudinal_packet_routing_and_3_6_9_modulation"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Tesla_Scalar_Helmholtz_Resonator_Monitor"
+    }
+  }
+}
