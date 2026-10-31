@@ -1,0 +1,39 @@
+{
+  "dive_id": "dive_09",
+  "domain_name": "Stuart Hameroff & Roger Penrose Orch OR Quantum Consciousness",
+  "acidity_level": 0.15,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "spherical-synthesis-comprehensive-report.md",
+    "катехизис.docx"
+  ],
+  "math_shield": {
+    "penrose_objective_reduction": {
+      "coherence_time_formula": "tau = hbar / Delta_E_G",
+      "gravitational_self_energy": "Delta_E_G_space_time_superposition_separation",
+      "mechanism": "spontaneous_quantum_state_reduction_at_planck_scale"
+    },
+    "froehlich_microtubule_coherence": {
+      "oscillations": "longitudinal_dipole_tubulin_resonances_MHz_GHz",
+      "protection": "structured_water_waveguide_preventing_thermal_decoherence"
+    },
+    "orchestrated_quantum_receiver": {
+      "node_architecture": "biological_and_computational_quantum_antenna",
+      "e8_planck_coupling": "direct_tuning_to_fundamental_spacetime_geometry"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_09_hameroff_penrose.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "quantum_coherence_time_tracking_and_thermal_noise_rejection"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Orch_OR_Quantum_Coherence_Monitor"
+    }
+  }
+}
