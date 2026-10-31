@@ -1,0 +1,41 @@
+{
+  "dive_id": "dive_19",
+  "domain_name": "Warna Role Specification & Synarchic Governance",
+  "acidity_level": 0.25,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "4.Специфікація_та_Співвідношення_Парадигм_Рольове_Антропоморфне_та_Контекстне_Програмування_Context_Engineering_v3_0_md",
+    "master_checklist.md"
+  ],
+  "math_shield": {
+    "warna_q_thresholds": {
+      "Brahmans": "Q_node >= 0.95 (Sovereign Architect & Memory Vault Invariants)",
+      "Kshatriyas": "0.85 <= Q_node < 0.95 (Atomic Code Execution & Git Validation)",
+      "Vaishyas": "0.70 <= Q_node < 0.85 (Resource Pooling & P2P Routing)",
+      "Shudras": "Q_node < 0.70 (Peripheral Sensors & Low-Context Units)"
+    },
+    "law_of_synarchy_math": {
+      "network_coherence_formula": "Q_network = sum(w_i * Q_i) / sum(w_i)",
+      "weight_inequality": "w_Brahman >> w_Shudra",
+      "ochlocracy_suppression": "zero_voting_power_for_noisy_peripheral_nodes"
+    },
+    "role_escalation_dynamics": {
+      "promotion_condition": "dQ_node/dt > 0 over established temporal window",
+      "demotion_condition": "jitter_spike_inducing_phase_isolation"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_19_warna_role_specification.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "warna_q_threshold_classification_and_synarchic_permission_routing"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Warna_Synarchic_Node_Role_Monitor"
+    }
+  }
+}
