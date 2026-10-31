@@ -32,7 +32,7 @@
             align-items: center;
             justify-content: space-between;
             padding: 0 24px;
-            z-index: 10;
+            z-index: 100;
             flex-shrink: 0;
         }
         .brand {
@@ -73,6 +73,10 @@
             border: none;
             background-color: #090d16 !important;
             display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            z-index: 1;
         }
         .floating-panel {
             position: absolute;
@@ -81,10 +85,10 @@
             width: 320px;
             background: rgba(15, 23, 42, 0.9);
             backdrop-filter: blur(12px);
-            border: 1px solid rgba(51, 65, 85, 0.6);
+            border: 1px solid rgba(51, 65, 85, 0.8);
             border-radius: 12px;
-            padding: 16px;
-            z-index: 20;
+            padding: 14px;
+            z-index: 1000 !important;
             box-shadow: 0 10px 25px rgba(0,0,0,0.7);
         }
         .panel-title {
