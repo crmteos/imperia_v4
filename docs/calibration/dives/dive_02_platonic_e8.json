@@ -1,0 +1,50 @@
+{
+  "dive_id": "dive_02",
+  "domain_name": "Wave Geometry of Platonic Solids & E8 Lie Group",
+  "acidity_level": 0.0,
+  "sources": [
+    "hvylyova-heometriya-platonavikh-til.md",
+    "spherical-synthesis-comprehensive-report.md",
+    "E8_Theory_Garrett_Lisi"
+  ],
+  "math_shield": {
+    "platonic_concentric_spheres_ratio": {
+      "tetrahedron": {"r_ratio": 1.0, "rho_ratio": 1.73205, "R_ratio": 3.0, "scaling_factor_S": 1.73205},
+      "cube": {"r_ratio": 1.0, "rho_ratio": 1.41421, "R_ratio": 1.73205, "scaling_factor_S": 1.41421},
+      "octahedron": {"r_ratio": 1.41421, "rho_ratio": 1.73205, "R_ratio": 2.44949, "scaling_factor_S": 1.22474},
+      "icosahedron": {"phi": 1.6180339887, "r_R_ratio": 0.79465, "rho_R_ratio": 0.85065},
+      "dodecahedron": {"phi": 1.6180339887, "r_R_ratio": 0.79465, "rho_R_ratio": 0.93417}
+    },
+    "stella_octangula_invariants": {
+      "volume_proportions": {"V_core_octahedron": 1.0, "V_stella": 3.0, "V_enclosing_cube": 6.0},
+      "surface_area_proportions": {"S_core_octahedron": 1.0, "S_stella_exterior": 3.0, "S_cube": 3.4641}
+    },
+    "spherical_harmonics_helmholtz": {
+      "equation": "grad^2 psi + k^2 psi = 0",
+      "solution": "psi(r, theta, phi) = A * j_l(kr) * Y_lm(theta, phi)",
+      "bessel_zeros": "radial_nodal_spheres",
+      "harmonic_zeros": "angular_nodal_cones"
+    },
+    "e8_lie_group_projection": {
+      "dimension": 248,
+      "root_vectors": 240,
+      "gosset_polytope": "4_21",
+      "projection_8D_to_3D": "icosahedral_golden_ratio_symmetry"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_02_platonic_e8.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "3D_spatial_jitter_filtering",
+      "scaling_operator": "S_radial"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Platonic_E8_Spatial_Grid_Monitor"
+    }
+  }
+}
