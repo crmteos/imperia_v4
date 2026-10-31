@@ -95,7 +95,7 @@
                 }
             });
 
-            if (bounds.length > 0) map.fitBounds(bounds, { padding: });
+            if (bounds.length > 0) { map.fitBounds(bounds, { padding: [30, 30] }); }
             setTimeout(() => map.invalidateSize(), 200);
             window.addEventListener('resize', () => map.invalidateSize());
         }
