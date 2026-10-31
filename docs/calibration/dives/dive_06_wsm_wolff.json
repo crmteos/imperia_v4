@@ -1,0 +1,40 @@
+{
+  "dive_id": "dive_06",
+  "domain_name": "Wave Structure of Matter (WSM - Wolff & Haselhurst)",
+  "acidity_level": 0.15,
+  "sources": [
+    "spherical-synthesis-comprehensive-report.md",
+    "hvylyova-heometriya-platonavikh-til.md",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md"
+  ],
+  "math_shield": {
+    "spherical_standing_wave_equation": {
+      "amplitude_formula": "psi(r, t) = (A/r) * exp(i*(omega*t + k*r)) - (A/r) * exp(i*(omega*t - k*r))",
+      "in_wave": "converging_spherical_wave_from_universe_to_center",
+      "out_wave": "diverging_spherical_wave_from_center_to_universe",
+      "nodal_spheres": "sin(k*r) = 0"
+    },
+    "mass_and_inertia_origin": {
+      "mass_definition": "high_wave_energy_density_at_center_matching_[L^3_T^-2]",
+      "mach_principle_inertia": "phase_shift_asymmetry_between_in_and_out_waves_during_acceleration"
+    },
+    "spin_half_geometry": {
+      "mechanism": "spherical_rotation_center_reversal",
+      "phase_rotation_angle": "720_degrees (4*pi radians) spinor_space_restoration"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_06_wsm_wolff.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "in_out_wave_packet_telemetry_filtering"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "WSM_Spherical_Standing_Wave_Monitor"
+    }
+  }
+}
