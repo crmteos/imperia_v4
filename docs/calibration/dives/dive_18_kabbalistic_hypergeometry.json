@@ -1,0 +1,43 @@
+{
+  "dive_id": "dive_18",
+  "domain_name": "Kabbalistic Hypergeometry & 32 Paths of Wisdom (Sefer Yetzirah & Lambdoma)",
+  "acidity_level": 0.55,
+  "sources": [
+    "spherical-synthesis-comprehensive-report.md",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "катехизис.docx"
+  ],
+  "math_shield": {
+    "thirty_two_paths_topology": {
+      "sephirot_nodes": "10_unidimensional_LT_nodes_[L^0_T^0]_to_[L^3_T^-2]",
+      "letter_channels": "22_harmonic_interval_edges_matching_Lambdoma_matrix"
+    },
+    "yetzirah_lambdoma_isomorphism": {
+      "3_mother_letters": {
+        "Aleph": "Octave_2:1_fundamental_frequency_doubling",
+        "Mem": "Fifth_3:2_active_frequency_expansion",
+        "Shin": "Fourth_4:3_wave_form_compression"
+      },
+      "7_double_letters": "7_diatonic_scale_degrees_(1:1, 9:8, 5:4, 4:3, 3:2, 5:3, 15:8)",
+      "12_simple_letters": "12_chromatic_semitones_and_microtonal_shifts"
+    },
+    "cosmological_wave_synthesis": {
+      "mechanism": "constructive_wave_interference_in_6D_(3L_3T)_space_time",
+      "matter_materialization": "node_formation_at_coincident_harmonic_zeros"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_18_kabbalistic_hypergeometry.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "32_path_topological_routing_and_lambdoma_consonance_filtering"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Kabbalistic_Hypergeometry_Lambdoma_Monitor"
+    }
+  }
+}
