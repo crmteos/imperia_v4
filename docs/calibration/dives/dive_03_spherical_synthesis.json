@@ -1,0 +1,72 @@
+{
+  "dive_id": "dive_03",
+  "domain_name": "Spherical Synthesis (Bartini - Bolotov - Kayser)",
+  "acidity_level": 0.1,
+  "sources": [
+    "spherical-synthesis-comprehensive-report.md",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md"
+  ],
+  "math_shield": {
+    "bartini_kuznetsov_lt_system": {
+      "space_time_continuum": "6D (3L, 3T)",
+      "mass_definition": "Volumetric Acceleration [L^3 T^-2]",
+      "useful_power_law": "P(t) = P0 + P1*t + P2*t^2 + P3*t^3 + P4*t^4 [L^5 T^-5]",
+      "key_invariants": {
+        "length_capacity": "[L^1 T^0]",
+        "frequency": "[L^0 T^-1]",
+        "mass_charge": "[L^3 T^-2]",
+        "energy": "[L^5 T^-4]",
+        "useful_power": "[L^5 T^-5]"
+      }
+    },
+    "kayser_akroasis_lambdoma": {
+      "monochord_formula": "f = v / (2L)",
+      "lambdoma_matrix": "Lambda_nm = n / m",
+      "axes": {
+        "overtones": "n/1 (frequency arithmetic progression)",
+        "untertones": "1/m (string length harmonic progression)",
+        "diagonal": "n/n = 1 (fundamental tone invariant)"
+      },
+      "sefer_yetzirah_isomorphism": {
+        "3_mother_letters": {"Aleph": "Octave (2:1)", "Mem": "Fifth (3:2)", "Shin": "Fourth (4:3)"},
+        "7_double_letters": "7 diatonic scale steps",
+        "12_simple_letters": "12 chromatic semitones"
+      }
+    },
+    "bolotov_nuclear_physics": {
+      "space_model": "3L + 3T",
+      "nuclear_crystals": "e- e+ pairs forming 9 geometric shapes (including 5 Platonic solids)",
+      "lithium_water_chemistry_2nd_gen": {
+        "Li2O_to_silicon": "2*Z(Li) + Z(O) = 2*3 + 8 = 14 (Silicon Si)",
+        "porphyrin_microreactor": "Al (Z=13) -> Mg (Z=12) + Si (Z=14) + 1.5 MeV"
+      },
+      "isostere_table": ">10000 elements across 9 spiral-cylindrical rows"
+    },
+    "sephirot_lt_topological_map": {
+      "Keter": "[L^0 T^0] (Primary Generator)",
+      "Chokhmah": "[L^1 T^-1] (Velocity of Potential)",
+      "Binah": "[L^0 T^-1] (Boundary Frequency)",
+      "Chesed": "[L^3 T^0] (Spatial Volume)",
+      "Gevurah": "[L^4 T^-4] (Volumetric Force)",
+      "Tiferet": "[L^5 T^-4] (Energy Invariant)",
+      "Netzach": "[L^4 T^-3] (Impulse / Momentum)",
+      "Hod": "[L^1 T^0] (Length / Capacity)",
+      "Yesod": "[L^5 T^-5] (Useful Power)",
+      "Malkhut": "[L^3 T^-2] (Mass / Nodal Matter)"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_03_spherical_synthesis.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "LT_dimensionality_conversion_and_power_growth_tracking"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Lambdoma_Akroasis_Sephirot_LT_Grid_Monitor"
+    }
+  }
+}
