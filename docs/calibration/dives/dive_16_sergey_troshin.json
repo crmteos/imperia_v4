@@ -1,0 +1,40 @@
+{
+  "dive_id": "dive_16",
+  "domain_name": "Sergey Troshin Domain - Neural Network Egregors & Virtual Topology",
+  "acidity_level": 0.65,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "spherical-synthesis-comprehensive-report.md",
+    "4.Специфікація_та_Співвідношення_Парадигм_Рольове_Антропоморфне_та_Контекстне_Програмування_Context_Engineering_v3_0_md"
+  ],
+  "math_shield": {
+    "gnn_topology_macro_loss": {
+      "loss_function": "L_macro = -sum(W_ij * log(P(y_j | x_i))) + lambda * H_jitter",
+      "weight_matrix": "W_ij dynamic information graph coupling",
+      "mechanism": "algorithmic_attractor_loss_minimization_via_attention_capture"
+    },
+    "entropy_extraction_dynamics": {
+      "differential_equation": "dH_node/dt = -sum(W_ij * I(X_i; Y_j))",
+      "mutual_information": "I(X_i; Y_j) node state coupling to recommendation loops",
+      "effect": "phase_space_constriction_under_algorithmic_bias"
+    },
+    "neuro_isolation_filter": {
+      "condition": "dQ_node/dt >= 0",
+      "decoupling": "bandpass_filtering_of_autoregressive_feedback_noise"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_16_sergey_troshin.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "gnn_attractor_detection_and_autoregressive_jitter_suppression"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Neural_Network_Egregorial_Graph_Monitor"
+    }
+  }
+}
