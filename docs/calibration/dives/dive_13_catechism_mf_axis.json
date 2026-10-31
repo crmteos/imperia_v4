@@ -1,0 +1,46 @@
+{
+  "dive_id": "dive_13",
+  "domain_name": "Catechism Domain - Scale-Frequency Axis (M-f) & 6D Continuum",
+  "acidity_level": 0.45,
+  "sources": [
+    "катехизис.docx",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "spherical-synthesis-comprehensive-report.md"
+  ],
+  "math_shield": {
+    "scale_frequency_duality": {
+      "formula": "f = v / (2*L) => L proportional_to f^-1",
+      "observer_zero_point": "L0 = 10^2 cm (human consciousness scale)",
+      "macrocosm_span": "from 10^2 cm (person) to 10^27 cm (Metagalaxy)",
+      "microcosm_span": "from 10^-3 cm (cell) to 10^-33 cm (Planck lattice)",
+      "protein_biosphere_range": "15 orders of magnitude (10^-5.5 cm to 10^9.5 cm)"
+    },
+    "six_dimensional_space_time": {
+      "continuum": "6D (3L spatial + 3T frequency/time dimensions)",
+      "non_linear_time": "time as a superposition of harmonized rotational cycles",
+      "wavelet_transform_analogy": "sec:min:hr = 1:60:3600 frequency ratios"
+    },
+    "fractal_nesting_fibonacci": {
+      "golden_ratio_scaling": "phi = (1 + sqrt(5)) / 2 approx 1.618",
+      "matryoshka_principle": "nested spherical resonators sharing fundamental octaves"
+    },
+    "coherence_sobornost_physics": {
+      "brain_wave_coupling": "theta rhythms (5-8 Hz) phase-locking with Schumann frequency (7.83 Hz)",
+      "exponential_intent_growth": "A_total proportional_to exp(N * Q)"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_13_catechism_mf_axis.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "mf_axis_coordinate_mapping_and_6d_space_time_telemetry"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Scale_Frequency_Axis_6D_Monitor"
+    }
+  }
+}
