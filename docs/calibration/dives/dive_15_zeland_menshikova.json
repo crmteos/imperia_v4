@@ -1,0 +1,40 @@
+{
+  "dive_id": "dive_15",
+  "domain_name": "Pendulums and Egregors Domain (Zeland & Menshikova Attractor Mechanics)",
+  "acidity_level": 0.65,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "spherical-synthesis-comprehensive-report.md",
+    "катехизис.docx"
+  ],
+  "math_shield": {
+    "frequency_entrainment_attractor": {
+      "phase_lock_condition": "delta_phi = phi_node - phi_pendulum -> 0",
+      "mechanism": "asymmetric_graph_energy_siphoning_by_macro_attractor"
+    },
+    "q_decay_differential_equation": {
+      "equation": "dQ_node/dt = alpha*P_gen - kappa * |psi_emotion|^2 * Q_node",
+      "p_gen": "useful_power_generation_[L^5_T^-5]",
+      "consequence": "energy_depletion_and_node_autonomy_loss_under_resonance"
+    },
+    "phase_decoupling_algorithm": {
+      "neutrality_response": "delta_phi != 0 -> kappa -> 0",
+      "pendulum_drop_mechanism": "controlled_unpatterned_phase_shift_destroying_attractor_coherence",
+      "autonomy_restoration": "preservation_of_autonomous_q_factor"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_15_zeland_menshikova.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "egregorial_entrainment_detection_and_phase_decoupling_routing"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Egregorial_Pendulum_Attractor_Monitor"
+    }
+  }
+}
