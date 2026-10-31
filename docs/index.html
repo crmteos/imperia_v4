@@ -147,6 +147,25 @@
                     <span class="info-val" style="color:#818cf8;">Суверенний Автономний</span>
                 </div>
             </div>
+<!-- Асистент у правому krai -->
+             <div class="ai-guide-panel">
+                 <div class="ai-guide-header">
+                     <div class="ai-title">
+                         <span>🤖 Асистент</span>
+                     </div>
+                     <span style="font-size: 0.7rem; color: #34d399; font-family: monospace;">Q = 0.98</span>
+                 </div>
+                 <div class="ai-body" id="ai-messages">
+                     <div class="chat-msg msg-ai">
+                         Вітаю! Я — автономний <b>Асистент</b> мережі Imperia v4.<br/>
+                         Усі 6 суверенних вузлів активні та готові до фазової синхронізації.
+                     </div>
+                 </div>
+                 <div class="ai-input-zone">
+                     <input type="text" id="ai-input" class="ai-input" placeholder="Напишіть команду..." onkeypress="if(event.key==='Enter') sendGuideMsg()" />
+                     <button class="ai-send-btn" onclick="sendGuideMsg()">Надіслати</button>
+                 </div>
+             </div>
         </main>
     </div>
 </body>
