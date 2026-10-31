@@ -1,0 +1,40 @@
+{
+  "dive_id": "dive_07",
+  "domain_name": "Edward Tufte Data Visualization & Information Design",
+  "acidity_level": 0.1,
+  "sources": [
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md",
+    "2.Зведений_Реєстр_Документації,_Дорожня_Карта_та_Специфікація_Стан-Пам'яті_Проєкту_Imperia_v4_v3.0_Master_Release.md"
+  ],
+  "math_shield": {
+    "data_ink_ratio_optimization": {
+      "formula": "Data_Ink_Ratio = Data_Ink / Total_Ink -> 1.0",
+      "rule": "maximize_non_redundant_data_ink_eliminate_chartjunk"
+    },
+    "lie_factor_invariant": {
+      "formula": "Lie_Factor = Size_of_effect_in_graphic / Size_of_effect_in_data = 1.0",
+      "rule": "zero_visual_scale_distortion"
+    },
+    "micro_macro_design_principle": {
+      "layering": "simultaneous_high_density_micro_detail_and_macro_panorama"
+    },
+    "action_ui_jitter_reduction": {
+      "target": "docs/index.html",
+      "mechanism": "minimal_dom_clutter_high_signal_to_noise_ratio"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_07_edward_tufte.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "ui_telemetry_data_ink_normalization"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Data_Ink_Tufte_UI_Optimization_Engine"
+    }
+  }
+}
