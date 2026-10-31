@@ -1,0 +1,43 @@
+{
+  "dive_id": "dive_04",
+  "domain_name": "Chladni-Jenny Cymatics & Acoustic Topology",
+  "acidity_level": 0.1,
+  "sources": [
+    "spherical-synthesis-comprehensive-report.md",
+    "HarmoniaVsesvity.pdf"
+  ],
+  "math_shield": {
+    "helmholtz_2d_standing_waves": {
+      "equation": "grad^2 psi(x, y) + k^2 psi(x, y) = 0",
+      "wave_number": "k = omega / c",
+      "nodal_lines": "psi(x, y) = 0",
+      "shear_force_particle_drift": "particles_pushed_from_antinodes_to_nodes"
+    },
+    "faraday_3d_liquid_waves": {
+      "mechanism": "surface_and_volumetric_standing_waves_in_fluids",
+      "particle_alignment": "3D_spatial_lattice_formation"
+    },
+    "quantum_chaos_uhlenbeck_theorem": {
+      "integrable_systems": "orthogonal_nodal_line_intersections",
+      "chaotic_quantum_billiards": "nodal_repulsion_non_intersecting_networks"
+    },
+    "cymatic_node_positioning": {
+      "entropy_minima": "psi = 0",
+      "p2p_stability": "jitter_free_node_placement"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_04_chladni_jenny_cymatics.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "cymatic_nodal_filtering_and_uhlenbeck_chaos_rejection"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Cymatic_Nodal_Grid_Monitor"
+    }
+  }
+}
