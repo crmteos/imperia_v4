@@ -1,0 +1,39 @@
+{
+  "dive_id": "dive_22",
+  "domain_name": "James Clerk Maxwell Quaternion Electrodynamics & Statistical Thermodynamics",
+  "acidity_level": 0.05,
+  "sources": [
+    "spherical-synthesis-comprehensive-report.md",
+    "1.Єдиний_Фреймворк_Джерела_Правди_v3.0_Master_Framework.md"
+  ],
+  "math_shield": {
+    "quaternion_maxwell_equations": {
+      "algebra_basis": "Quaternion H = q0 + q1*i + q2*j + q3*k",
+      "scalar_potential_field": "D = Sp(grad(Phi))",
+      "longitudinal_components": "preservation_of_scalar_potential_waves"
+    },
+    "displacement_current_and_lt_mass": {
+      "displacement_current": "J_D = epsilon_0 * (dE / dt)",
+      "wave_speed": "c = 1 / sqrt(mu_0 * epsilon_0)",
+      "bartini_mass_identity": "[m] = [L^3 T^-2] volume_acceleration_derivation"
+    },
+    "maxwells_demon_information_entropy": {
+      "entropy_formula": "Delta_S_total = Delta_S_thermo + k_B * ln(2) * I >= 0",
+      "p2p_application": "phase_filter_suppressing_noise_to_preserve_[L^5_T^-5]_useful_power"
+    }
+  },
+  "projections": {
+    "rom_memory_vault": {
+      "target_file": "docs/calibration/dives/dive_22_james_clerk_maxwell.json",
+      "status": "IMMUTABLE_INVARIANT"
+    },
+    "event_bus_gateway": {
+      "target_file": "docs/sl8_gateway.js",
+      "transformation": "quaternion_field_transformation_and_maxwell_demon_entropy_filtering"
+    },
+    "action_ui_contour": {
+      "target_file": "docs/index.html",
+      "widget": "Maxwell_Quaternion_Electrodynamics_Monitor"
+    }
+  }
+}
