@@ -1,0 +1,26 @@
+{
+  "dive_id": "cruiser_dive_05",
+  "title": "Domain 3: Autonomous Synarchic Q-Factor Consensus & P2P Network Topology",
+  "timestamp": "2026-11-01",
+  "baseline_ref": "CRYSTAL_V1_UNIFIED_MASTER_CLONE",
+  "synarchic_consensus_spec": {
+    "consensus_mechanism": "Proof-of-Coherence (Q-Factor Phase Stability instead of PoW/PoS)",
+    "warna_hierarchy": {
+      "brahman_nodes": "Phase coherence Q_node >= 0.94..0.95, canonical invariants & orchestration",
+      "kshatriya_nodes": "Execution, atomic state transitions, CI/CD verification",
+      "vaishya_nodes": "DAG storage, Kademlia DHT routing, resource pooling",
+      "shudra_nodes": "Peripheral sensors, I/O edge gateways"
+    },
+    "q_factor_dynamics": "dQ_node/dt = alpha*(Q_target - Q_node) - beta*Jitter + gamma*Feedback",
+    "p2p_stack": {
+      "transport": "libp2p (TCP/QUIC/WebSockets)",
+      "routing": "Kademlia DHT",
+      "spatial_index": "Uber H3 Hexagonal Grid (Res 7 - Res 9)",
+      "node_breathing": "Buckminster Fuller Jitterbug Octahedral Dynamics (Cuboctahedron <-> Tetrahedron)"
+    }
+  },
+  "verification": {
+    "atomic_status": "SEALED",
+    "next_dive": "cruiser_dive_06"
+  }
+}
