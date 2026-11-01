@@ -1,0 +1,39 @@
+{
+  "dive_id": "cruiser_dive_04",
+  "title": "Domain 4: Sphero-Dynamic Energy & Helmholtz-Schumann Triplet Physical Models",
+  "timestamp": "2026-11-01",
+  "baseline_ref": "CRYSTAL_V1_UNIFIED_MASTER_CLONE",
+  "schumann_triplet_parameters": {
+    "fundamental_freq_f0": 7.830,
+    "subharmonic_freq_f1": 3.915,
+    "higher_octave_freq_f2": 15.660,
+    "acoustic_chambers": {
+      "f1_subharmonic": {
+        "volume_m3": 2.000,
+        "volume_liters": 2000,
+        "neck_diameter_cm": 12.0,
+        "neck_length_cm": 100.35
+      },
+      "f0_fundamental": {
+        "volume_m3": 0.500,
+        "volume_liters": 500,
+        "neck_diameter_cm": 10.0,
+        "neck_length_cm": 68.35
+      },
+      "f2_higher_octave": {
+        "volume_m3": 0.125,
+        "volume_liters": 125,
+        "neck_diameter_cm": 8.0,
+        "neck_length_cm": 42.47
+      }
+    }
+  },
+  "physics_invariants": {
+    "power_invariant_noether": "[L^5 T^-5] = Const",
+    "energy_takeoff_mode": "Parametric phase-locked extraction at 15.660 Hz"
+  },
+  "verification": {
+    "atomic_status": "SEALED",
+    "next_dive": "cruiser_dive_05"
+  }
+}
