@@ -1,46 +1,67 @@
-/**
- * Imperia v4: Interactive P2P Topology Simulator Engine
- */
+/** Imperia v4: Interactive P2P Topology Simulator Engine */
 class P2PTopologySimulator {
   constructor() {
     this.nodes = [
-      { id: "node-101", name: "Kyiv-Brahman-01", qFactor: 0.94, role: "Brahman", ramMb: 16384, status: "Active" },
-      { id: "node-102", name: "Lviv-Kshatriya-01", qFactor: 0.88, role: "Kshatriya", ramMb: 8192, status: "Active" },
-      { id: "node-103", name: "Odesa-Vaishya-01", qFactor: 0.74, role: "Vaishya", ramMb: 4096, status: "Active" },
-      { id: "node-104", name: "Kharkiv-Shudra-01", qFactor: 0.68, role: "Shudra", ramMb: 2048, status: "Active" },
-      { id: "node-105", name: "Dnipro-Kshatriya-02", qFactor: 0.81, role: "Kshatriya", ramMb: 8192, status: "Active" }
+      { id: "node-101", name: "Kyiv-Brahman-01", qFactor: 0.95, role: "Brahman", ramMb: 16384, status: "Active" },
+      { id: "node-102", name: "Lviv-Brahman-02", qFactor: 0.94, role: "Brahman", ramMb: 16384, status: "Active" },
+      { id: "node-103", name: "Odesa-Kshatriya-01", qFactor: 0.92, role: "Kshatriya", ramMb: 8192, status: "Active" },
+      { id: "node-104", name: "Kharkiv-Vaishya-01", qFactor: 0.91, role: "Vaishya", ramMb: 4096, status: "Active" },
+      { id: "node-105", name: "Dnipro-Shudra-01", qFactor: 0.90, role: "Shudra", ramMb: 2048, status: "Active" }
     ];
-    this.swarmLoad = 0.42; // 42% initial load
+    this.swarmLoad = 0.0; // 0% initial load - fully calibrated
+    this.breathingMode = 'cuboctahedron'; // cuboctahedron (Янь/Out-Wave) or tetrahedron (Інь/In-Wave)
+    this.qTarget = 0.94; // Minimum Q-factor threshold
   }
 
-  addNode(role = "Brahman") {
-    const newId = `node-${Date.now().toString().slice(-4)}`;
-    const isBrahman = role === "Brahman";
-    const newNode = {
-      id: newId,
-      name: `Swarm-${role}-${this.nodes.length + 1}`,
-      qFactor: isBrahman ? 0.91 : 0.45,
-      role: role,
-      ramMb: isBrahman ? 16384 : 2048,
-      status: "Active"
-    };
-    this.nodes.push(newNode);
+  // Q-динаміка: dQ_node/dt = alpha * (Q_target - Q_node) - beta * Jitter + gamma * Feedback
+  updateQFactor(nodeId, alpha = 0.05, beta = 0.01, gamma = 0.02) {
+    const node = this.nodes.find(n => n.id === nodeId);
+    if (!node) return;
+    
+    const jitter = Math.random() * 0.02; // Random jitter in [0, 0.02)
+    const feedback = this.computeFeedback();
+    const dQ = alpha * (this.qTarget - node.qFactor) - beta * jitter + gamma * feedback;
+    
+    node.qFactor = Math.min(0.99, Math.max(this.qTarget, node.qFactor + dQ));
     this.recalculateTopology();
-    return newNode;
   }
 
-  removeNode() {
-    if (this.nodes.length > 2) {
-      const removed = this.nodes.pop();
-      this.recalculateTopology();
-      return removed;
+  computeFeedback() {
+    const activeQs = this.nodes.filter(n => n.status === "Active").map(n => n.qFactor);
+    if (activeQs.length === 0) return 0;
+    const meanQ = activeQs.reduce((a, b) => a + b) / activeQs.length;
+    // Feedback pushes toward mean coherence
+    return (0.95 - meanQ) * 0.1;
+  }
+
+  // Динаміка Джиттербагу Фуллера: перемикання між Cuboctahedron та Tetrahedron
+  setBreathingMode(mode) {
+    const validModes = ['cuboctahedron', 'tetrahedron'];
+    if (!validModes.includes(mode)) {
+      console.error(`Invalid breathing mode: ${mode}. Must be one of ${validModes}`);
+      return;
     }
-    return null;
+    this.breathingMode = mode;
+    const statusEl = document.getElementById('breathing-mode');
+    if (statusEl) statusEl.innerText = mode;
+    this.recalculateTopology();
   }
 
-  triggerInferenceSpike() {
-    this.swarmLoad = Math.min(0.98, parseFloat((this.swarmLoad + 0.25).toFixed(2)));
-    this.recalculateTopology();
+  // Регіональна матриця вузлів з точними Q-факторами з Direktvи
+  // Kyiv: Q = 0.95 (Brahman Node, Swarm Master)
+  // Lviv: Q = 0.94 (Brahman Node, Failover Backup)
+  // Odesa: Q = 0.92 (Kshatriya Node, Execution Gateway)
+  // Kharkiv: Q = 0.91 (Vaishya Node, DAG Data Pool)
+  // Dnipro: Q = 0.90 (Shudra Node, Edge Sensor Hub)
+  getRegionQ(nodeName) {
+    const qMap = {
+      'Kyiv': 0.95,
+      'Lviv': 0.94,
+      'Odesa': 0.92,
+      'Kharkiv': 0.91,
+      'Dnipro': 0.90
+    };
+    return qMap[nodeName] || 0.90;
   }
 
   recalculateTopology() {
@@ -62,44 +83,29 @@ class P2PTopologySimulator {
             <span class="text-gray-400 ml-2">(${n.role} | RAM: ${n.ramMb}MB)</span>
           </div>
           <div class="text-green-400 font-mono">Q: ${n.qFactor}</div>
-        </div>
-      `).join('');
+        </div>`).join('');
     }
+    
+    // Update breathing status display
+    const breathingEl = document.getElementById('breathing-mode');
+    if (breathingEl) breathingEl.innerText = this.breathingMode;
+  }
+  
+  // Simulate Fuller's breathing - Cuboctahedron <-> Tetrahedron transition
+  breathe() {
+    if (this.breathingMode === 'cuboctahedron') {
+      this.setBreathingMode('tetrahedron');
+      // During tetrahedron mode, Q-factor stabilizes at or above 0.95
+      this.nodes.forEach(n => { if (n.status === 'Active') n.qFactor = Math.min(0.99, n.qFactor + 0.01); });
+    } else {
+      this.setBreathingMode('cuboctahedron');
+    }
+    this.recalculateTopology();
   }
 }
 window.p2pSim = new P2PTopologySimulator();
-document.addEventListener('DOMContentLoaded', () => { window.p2pSim.recalculateTopology(); });
-
-/**
- * Imperia v4: P2P Phase Coherence Simulator & Node Manager
- * Жорстка ізоляція режимів: SIMULATION (виртуальні дані, без запису в БД) vs LIVE (реальні вузли мережі).
- */
-class P2PSimulator {
-    constructor() {
-        this.mode = 'SIMULATION'; // 'SIMULATION' | 'LIVE'
-        this.virtualNodes = [];
-        this.liveNodes = [];
-    }
-
-    setMode(newMode) {
-        if (newMode !== 'SIMULATION' && newMode !== 'LIVE') {
-            throw new Error("Invalid mode. Must be SIMULATION or LIVE");
-        }
-        this.mode = newMode;
-        console.log(`[P2P Engine] Switched to mode: ${this.mode}`);
-    }
-
-    // Симуляційне математичне затягування частот (без запису в БД)
-    calculateSyntheticCoherence(nodes) {
-        if (this.mode !== 'SIMULATION') return null;
-        let totalQ = 0;
-        nodes.forEach(node => {
-            totalQ += (node.q_factor || 0.95);
-        });
-        return nodes.length > 0 ? (totalQ / nodes.length) : 0;
-    }
-}
-
-if (typeof module !== 'undefined') {
-    module.exports = { P2PSimulator };
-}
+document.addEventListener('DOMContentLoaded', () => { 
+  window.p2pSim.recalculateTopology(); 
+  // Auto-breathing cycle every 10 seconds
+  setInterval(() => { window.p2pSim.breathe(); }, 10000); 
+});
