@@ -5,9 +5,15 @@
   "baseline_ref": "CRYSTAL_V1_UNIFIED_MASTER_CLONE",
   "quasicrystal_invariants": {
     "golden_ratio_phi": 1.6180339887,
-    "icosahedral_symmetry": "6 axes of 5th order symmetry (C5)",
-    "dodecahedral_symmetry": "10 axes of 3rd order symmetry (C3)",
-    "concentric_spheres_ratio": "r_inscribed / R_circumscribed = 0.794654",
+    "icosahedral_symmetry": "6 axes of 5th order (C5), 10 axes of 3rd order (C3), 15 axes of 2nd order (C2)",
+    "dodecahedral_symmetry": "10 axes of 3rd order (C3), 6 axes of 5th order (C5), 15 axes of 2nd order (C2)",
+    "concentric_spheres_exact_ratios": {
+      "icosahedron_r_to_R": 0.794654,
+      "icosahedron_rho_to_R": 0.850651,
+      "dodecahedron_r_to_R": 0.794654,
+      "dodecahedron_rho_to_R": 0.934172
+    },
+    "stella_octangula_volume_ratio": "Core : Stella Octangula : Circumscribed Cube = 1 : 3 : 6",
     "metamaterial_application": "Volume standing wave resonator nodes with non-contact energy concentration"
   },
   "verification": {

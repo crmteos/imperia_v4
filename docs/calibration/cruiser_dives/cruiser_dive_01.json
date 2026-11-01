@@ -3,19 +3,20 @@
   "title": "Context Field Mapping & Domain Expansion Strategy",
   "timestamp": "2026-11-01",
   "baseline_ref": "CRYSTAL_V1_UNIFIED_MASTER_CLONE",
+  "perspective_contexts": [
+    "P2P Transport Modernization (libp2p, Kademlia DHT, Uber H3)",
+    "Vector Database Synthesis (Supabase pgvector)",
+    "Applied Engineering Modules (Helmholtz Triplets)",
+    "H3 Geo-Matrix Integration (Res 7 & Res 9)",
+    "Penrose Invariant Tiling (6D Hexagram Matrices)",
+    "Neural Resonance Calibration"
+  ],
   "domains": {
-    "domain_1_p2p_transport": {
-      "focus": "libp2p + Kademlia DHT + Uber H3 Spatial Indexing",
-      "status": "planned_cruiser_dive_02"
-    },
-    "domain_2_vector_db": {
-      "focus": "Supabase Vector Store & Automated Checkpoint Ingestion",
-      "status": "planned_cruiser_dive_03"
-    },
-    "domain_3_applied_engineering": {
-      "focus": "Helmholtz Acoustic & Electromagnetic Triplet Physical Models",
-      "status": "isolated_module"
-    }
+    "domain_1_p2p_transport": "COMPLETE",
+    "domain_2_vector_db": "IN_PROGRESS",
+    "domain_3_applied_engineering": "PLANNED",
+    "domain_4_h3_geo_matrix": "PLANNED",
+    "domain_5_penrose_invariants": "PLANNED"
   },
   "context_isolation_policy": {
     "core_crystal_status": "SEALED",
