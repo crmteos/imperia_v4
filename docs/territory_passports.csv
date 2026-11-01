@@ -1,0 +1,12 @@
+h3_index,name,country,macro_region,q_factor,E_lang,E_geo,E_hist,E_soc,jitter,warna_class,jitterbug_state
+872b101ffffff,Kyiv Central Hub,UA,Eastern Europe,0.9,0.831,0.812,0.837,0.854,0.022,Shudra,Cuboctahedron
+872b101ffff,Lviv Western Hub,UA,Western Europe,0.9,0.831,0.812,0.837,0.854,0.033,Shudra,Cuboctahedron
+872b102ffffff,Odesa Port Cluster,UA,Maritime East,0.9,0.831,0.812,0.837,0.854,0.026,Shudra,Cuboctahedron
+872b103ffffff,Kharkiv Eastern Hub,UA,Eastern Europe,0.9,0.831,0.812,0.837,0.854,0.035,Shudra,Cuboctahedron
+872b104ffffff,Dnipro Central Cluster,UA,Industrial East,0.9,0.831,0.812,0.837,0.854,0.004,Shudra,Cuboctahedron
+8829b52001fffff,Tokyo Eastern Gateway,JP,East Asia,0.9,0.831,0.812,0.837,0.854,0.01,Shudra,Cuboctahedron
+850b5a0ffffffff,London Financial Hub,GB,Western Europe,0.9,0.831,0.812,0.837,0.854,0.02,Shudra,Cuboctahedron
+850b6e0ffffffff,New York Global Node,US,North America,0.9,0.831,0.812,0.837,0.854,0.032,Shudra,Cuboctahedron
+872b,Roll-Up Group 872b,Aggregated,North America,0.9,0.923,0.902,0.93,0.949,0.024,Shudra,Cuboctahedron
+8829,Roll-Up Group 8829,Aggregated,North America,0.9,0.923,0.902,0.93,0.949,0.01,Shudra,Cuboctahedron
+850b,Roll-Up Group 850b,Aggregated,North America,0.9,0.923,0.902,0.93,0.949,0.026,Shudra,Cuboctahedron

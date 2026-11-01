@@ -21,9 +21,10 @@
 - [x] Фаза 0: Базовий дашборд та Телеметрія Q = 0.94
 - [x] Фаза 0.5: H3 Spatial Grid та Leaflet Map Engine (CartoDB/OSM)
 - [x] Фаза 1: Декомпозиція UI v3.0 (Master UI index.html / Kassator UI kassator.html)
-- [ ] Фаза 2: Тотальне наповнення H3-паспортів (territory_passports.json та japan_analysis.json)
+- [x] Фаза 2: Тотальне наповнення H3-паспортів (territory_passports.json та japan_analysis.json)
 - [x] Фаза 3: P2P Topology Simulator (p2p_simulator.js)
-- [ ] Фаза 4: Telegram Channel Gateway (@imperial_chancery)
+- [x] Фаза 4: ETL pipeline та Choropleth інтеграція (generate_global_passports.py, docs/index.html)
+- [ ] Фаза 5: Telegram Channel Gateway (@imperial_chancery)
 
 ## 4. Магістральні Етапи Розширення (А та Б)
 
@@ -31,6 +32,7 @@
 - [x] **Примітка:** Занесено 4 канонічні інваріанти квантової свідомості Рогера Пенроуза (Orch OR) — `docs/seed_penrose_invariants.sql` / `docs/seed_penrose_invariants.py`.
 - [x] **Етап Б.1:** Інтеграція `BrahmanVaultClient` у Master UI (`index.html`) для відображення віджета "Brahman Vault Inspector".
 - [x] **Етап Б.2:** Підключення P2P-симулятора когерентності вузлів у `docs/p2p_simulator.js`.
+- [x] **Етап Б.3:** Інтеграція ETL pipeline та Choropleth візуалізації у `docs/index.html`.
 
 ## 5. Концепція UI Індексу (Візія Власника)
 - [x] **- [x] **Візія UI Індексу (Еволюціонуюча концепція Власника):** Full-Screen Map UI (H3-карта 100vw×100vh, колапсибле drawers, плаваючий чат AI-Гід, фолбек ШІ-Гіда у режимі автономного режиму).:** 3-панельна топологія реалізована у `docs/index.html` (Джерела ліворуч | H3-Карта + Чат AI-Гіда по центру | Vault Inspector + P2P Simulator праворуч).

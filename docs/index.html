@@ -60,6 +60,42 @@
         }
         .highlight-emerald { color: #34d399; font-weight: 600; }
         .highlight-sky { color: #38bdf8; font-weight: 600; }
+        /* Slider/Control Panel */
+        .slice-control-panel {
+            position: absolute;
+            top: 80px;
+            right: 16px;
+            z-index: 100;
+        }
+        .slice-btn {
+            display: block;
+            width: 40px;
+            height: 40px;
+            margin-bottom: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(51, 65, 85, 0.5);
+            border-radius: 8px;
+            color: #e2e8f0;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-align: center;
+            line-height: 40px;
+            cursor: pointer;
+            transition: background 0.2s, border-color 0.2s;
+        }
+        .slice-btn:hover {
+            background: rgba(51, 65, 85, 0.3);
+            border-color: #38bdf8;
+        }
+        .slice-btn.active {
+            background: #38bdf8;
+            color: #090d16;
+            border-color: #38bdf8;
+        }
+        .slice-btn:focus {
+            outline: 2px solid #38bdf8;
+            outline-offset: 2px;
+        }
         main {
             flex: 1;
             position: relative;
@@ -128,6 +164,14 @@
                 <div>Статус: <span class="highlight-sky">P2P Coherence</span></div>
             </div>
         </header>
+        <!-- Slider/Control Panel for Choropleth Slices -->
+        <div class="slice-control-panel">
+            <button class="slice-btn active" data-slice="q_factor">Q</button>
+            <button class="slice-btn" data-slice="E_tensor">E</button>
+            <button class="slice-btn" data-slice="warna_class">W</button>
+            <button class="slice-btn" data-slice="jitterbug_state">J</button>
+        </div>
+
         <main>
             <!-- Карта Leaflet без iframe -->
             <div id="map"></div>
@@ -184,55 +228,212 @@ if (typeof L !== 'undefined') {
             const bounds = [];
             const h3Lib = window.h3 || (window.exports && window.exports.h3);
 
-            const PASSPORTS_DATA = {
-                "passports": [
-                    { "id": "hub-kyiv", "name": "Hub Kyiv", "center_lat": 50.4501, "center_lng": 30.5234, "m_octave": "M5", "q_coherence": 0.98, "role": "Primary Sovereign Node", "h3_index": "88112c2c01fffff" },
-                    { "id": "hub-lviv", "name": "Hub Lviv", "center_lat": 49.8397, "center_lng": 24.0297, "m_octave": "M4", "q_coherence": 0.92, "role": "Western Gateway Hub", "h3_index": "8811283733fffff" },
-                    { "id": "hub-odesa", "name": "Hub Odesa", "center_lat": 46.4825, "center_lng": 30.7233, "m_octave": "M4", "q_coherence": 0.91, "role": "Maritime Logistics Hub", "h3_index": "881135b0b1fffff" },
-                    { "id": "hub-kharkiv", "name": "Hub Kharkiv", "center_lat": 49.9935, "center_lng": 36.2304, "m_octave": "M4", "q_coherence": 0.90, "role": "Eastern Compute Cluster", "h3_index": "881122a201fffff" },
-                    { "id": "hub-dnipro", "name": "Hub Dnipro", "center_lat": 48.4647, "center_lng": 35.0462, "m_octave": "M4", "q_coherence": 0.93, "role": "Industrial Compute Node", "h3_index": "881120b085fffff" },
-                    { "id": "hub-tokyo", "name": "Hub Tokyo", "center_lat": 35.6762, "center_lng": 139.6503, "m_octave": "M5", "q_coherence": 0.96, "role": "Pacific Synarchic Gateway", "h3_index": "882f5b3001fffff" }
-                ]
-            };
+            // Load territory passports from ETL output
+            let passportsData = {};
+            let hexagonLayers = {};
 
-            PASSPORTS_DATA.passports.forEach(passport => {
-                const lat = passport.center_lat;
-                const lng = passport.center_lng;
-                bounds.push([lat, lng]);
-
-                const marker = L.circleMarker([lat, lng], {
-                    radius: 10,
-                    fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#6366f1',
-                    color: '#ffffff',
-                    weight: 2,
-                    opacity: 1,
-                    fillOpacity: 0.9
-                }).addTo(map);
-
-                marker.bindPopup(`
-                    <div style="font-family: sans-serif; padding: 6px; color: #0f172a;">
-                        <strong style="font-size: 14px;">${passport.name}</strong><br/>
-                        <small>Октава: <b>${passport.m_octave}</b> | Q: <b>${passport.q_coherence}</b></small><br/>
-                        <span style="font-size: 11px; color: #475569;">${passport.role}</span>
-                    </div>
-                `);
-
-                if (passport.h3_index && h3Lib && typeof h3Lib.h3ToGeoBoundary === 'function') {
-                    try {
-                        const boundary = h3Lib.h3ToGeoBoundary(passport.h3_index);
-                        L.polygon(boundary, {
-                            color: passport.m_octave === 'M5' ? '#0284c7' : '#4f46e5',
-                            weight: 2,
-                            fillColor: passport.m_octave === 'M5' ? '#38bdf8' : '#818cf8',
-                            fillOpacity: 0.35
-                        }).addTo(map);
-                    } catch (e) {}
-                }
-            });
-
-            if (bounds.length > 0) {
-                map.fitBounds(bounds, { padding: [30, 30] });
+            async function loadPassports() {
+                try {
+                    const res = await fetch('./territory_passports.json');
+                    const data = await res.json();
+                    passportsData = data.h3_layer_passports || {};
+                    renderHexagons();
+                    setupSliceControls();
+                } catch (e) {
+                    console.warn("Could not load territory_passports.json", e);
             }
-            setTimeout(() => map.invalidateSize(), 200);
             window.addEventListener('resize', () => map.invalidateSize());
-        }
+            }
+
+            // Render H3 hexagons as Choropleth
+            function renderHexagons() {
+                // Remove existing hexagon layers
+                Object.values(hexagonLayers).forEach(layer => map.removeLayer(layer));
+                hexagonLayers = {};
+
+                if (!h3Lib || !h3Lib.h3ToGeoBoundary) {
+                    renderCircleMarkers();
+                    return;
+                }
+
+                let hasPolygons = false;
+                for (const h3_index in passportsData) {
+                    try {
+                        const boundary = h3Lib.h3ToGeoBoundary(h3_index);
+                        if (!boundary || boundary.length < 3) continue;
+
+                        const passport = passportsData[h3_index];
+                        if (!passport) continue;
+
+                        hasPolygons = true;
+
+                        const sliceType = document.querySelector('.slice-control-panel .active')?.dataset.slice || "q_factor";
+                        const color = getColor(h3_index, sliceType);
+
+                        const polygon = L.polygon(boundary, {
+                            color: color,
+                            weight: 2,
+                            fillColor: color,
+                            fillOpacity: 0.25,
+                            hoverColor: "#38bdf8"
+                        }).addTo(map);
+
+                        // Add hover tooltip
+                        polygon.on({
+                            mouseover: function() {
+                                this.openTooltip();
+                            },
+                            mouseout: function() {
+                                this.closeTooltip();
+                            }
+                        });
+
+                        // Bind detailed tooltip with all passport columns
+                        const tooltipContent = `
+                            <div style="
+                                font-family: sans-serif;
+                                padding: 8px;
+                                color: #0f172a;
+                                min-width: 180px;
+                                line-height: 1.4;
+                            ">
+                                <strong style='font-size: 13px; margin-bottom: 6px; display: block;'>
+                                    ${passport.name}
+                                </strong>
+                                <div style="font-size: 0.75rem;">
+                                    <span style="color: #38bdf8; margin-right: 4px;">Q: </span>
+                                    <span style="font-weight: bold;">${passport.q_factor}</span><br/>
+                                    <span style="color: #38bdf8; margin-right: 4px;">E_lang: </span>
+                                    <span style="font-weight: bold;">${passport.E_tensor?.[0] || "N/A"}</span><br/>
+                                    <span style="color: #38bdf8; margin-right: 4px;">E_geo: </span>
+                                    <span style="font-weight: bold;">${passport.E_tensor?.[1] || "N/A"}</span><br/>
+                                    <span style="color: #38bdf8; margin-right: 4px;">E_hist: </span>
+                                    <span style="font-weight: bold;">${passport.E_tensor?.[2] || "N/A"}</span><br/>
+                                    <span style="color: #38bdf8; margin-right: 4px;">E_soc: </span>
+                                    <span style="font-weight: bold;">${passport.E_tensor?.[3] || "N/A"}</span><br/>
+                                    <span style="color: #38bdf8; margin-right: 4px;">Jitter: </span>
+                                    <span style="font-weight: bold;">${passport.jitter}</span><br/>
+                                    <span style="color: #38bdf8; margin-right: 4px;">Warna: </span>
+                                    <span style="font-weight: bold;">${passport.warna_class}</span><br/>
+                                    <span style="color: #38bdf8; margin-right: 4px;">Jitterbug: </span>
+                                    <span style="font-weight: bold;">${passport.jitterbug_state}</span><br/>
+                                </div>
+                            </div>
+                        `;
+                        polygon.bindTooltip(tooltipContent, {
+                            permanent: false,
+                            direction: "top",
+                            sticky: true,
+                            offset: [0, -10],
+                            className: "h3-tooltip"
+                        });
+
+                        hexagonLayers[h3_index] = polygon;
+                    } catch (e) {
+                        console.warn(`Could not render hexagon for ${h3_index}`, e);
+                    }
+                }
+
+                if (hasPolygons) {
+                    const allBounds = Object.values(hexagonLayers).map(l => l.getBounds());
+                    if (allBounds.length > 0) {
+                        map.fitBounds(L.latLngBounds(allBounds), { padding: [50, 50] });
+                    }
+                } else {
+                    renderCircleMarkers();
+                }
+            }
+
+            // Fallback: render circle markers for known passports
+            function renderCircleMarkers() {
+                const circleData = {
+                    passports: [
+                        { id: "hub-kyiv", name: "Hub Kyiv", center_lat: 50.4501, center_lng: 30.5234, m_octave: "M5", q_coherence: 0.98, role: "Primary Sovereign Node", h3_index: "88112c2c01fffff" },
+                        { id: "hub-lviv", name: "Hub Lviv", center_lat: 49.8397, center_lng: 24.0297, m_octave: "M4", q_coherence: 0.92, role: "Western Gateway Hub", h3_index: "8811283733fffff" },
+                        { id: "hub-odesa", name: "Hub Odesa", center_lat: 46.4825, center_lng: 30.7233, m_octave: "M4", q_coherence: 0.91, role: "Maritime Logistics Hub", h3_index: "881135b0b1fffff" },
+                        { id: "hub-kharkiv", name: "Hub Kharkiv", center_lat: 49.9935, center_lng: 36.2304, m_octave: "M4", q_coherence: 0.90, role: "Eastern Compute Cluster", h3_index: "881122a201fffff" },
+                        { id: "hub-dnipro", name: "Hub Dnipro", center_lat: 48.4647, center_lng: 35.0462, m_octave: "M4", q_coherence: 0.93, role: "Industrial Compute Node", h3_index: "881120b085fffff" },
+                        { id: "hub-tokyo", name: "Hub Tokyo", center_lat: 35.6762, center_lng: 139.6503, m_octave: "M5", q_coherence: 0.96, role: "Pacific Synarchic Gateway", h3_index: "882f5b3001fffff" }
+                    ]
+                };
+
+                circleData.passports.forEach(passport => {
+                    const lat = passport.center_lat;
+                    const lng = passport.center_lng;
+                    bounds.push([lat, lng]);
+
+                    const marker = L.circleMarker([lat, lng], {
+                        radius: 8,
+                        fillColor: passport.m_octave === "M5" ? "#38bdf8" : "#6366f1",
+                        color: "#ffffff",
+                        weight: 2,
+                        opacity: 1,
+                        fillOpacity: 0.9
+                    }).addTo(map);
+
+                    marker.bindPopup(
+                        "<div style=\"font-family: sans-serif; padding: 6px; color: #0f172a;\"><strong style=\"font-size: 14px;\">" + passport.name + "</strong><br/><small>Октава: <b>" + passport.m_octave + "</b> | Q: <b>" + passport.q_coherence + "</b></small><br/><span style=\"font-size: 11px; color: #475569;\">" + passport.role + "</span></div>"
+                    );
+
+                    if (passport.h3_index && h3Lib && typeof h3Lib.h3ToGeoBoundary === "function") {
+                        try {
+                            const boundary = h3Lib.h3ToGeoBoundary(passport.h3_index);
+                            L.polygon(boundary, {
+                                color: passport.m_octave === "M5" ? "#0284c7" : "#4f46e5",
+                                weight: 2,
+                                fillColor: passport.m_octave === "M5" ? "#38bdf8" : "#818cf8",
+                                fillOpacity: 0.35
+                            }).addTo(map);
+                        } catch (e) {}
+                    }
+                });
+            }
+
+            // Color mapping based on selected slice
+            function getColor(h3_index, sliceType) {
+                const passport = passportsData[h3_index];
+                if (!passport) return "#6b7280";
+
+                switch (sliceType) {
+                    case "q_factor":
+                        const q = passport.q_factor;
+                        const green = Math.round(239 + 17 * q);
+                        const red = Math.round(48 - 48 * q);
+                        return `rgb(${red}, ${green}, 0)`;
+                    case "E_lang":
+                        const e_lang = passport.E_tensor?.[0] || 0;
+                        return e_lang > 0.8 ? "#fdae61" : e_lang > 0.6 ? "#bbb" : "#6b7280";
+                    case "E_geo":
+                        const e_geo = passport.E_tensor?.[1] || 0;
+                        return e_geo > 0.8 ? "#c5b0d5" : e_geo > 0.6 ? "#9b59b6" : "#6b7280";
+                    case "E_hist":
+                        const e_hist = passport.E_tensor?.[2] || 0;
+                        return e_hist > 0.8 ? "#e0f7fa" : e_hist > 0.6 ? "#b2f5ca" : "#6b7280";
+                    case "E_soc":
+                        const e_soc = passport.E_tensor?.[3] || 0;
+                        return e_soc > 0.8 ? "#ffecd2" : e_soc > 0.6 ? "#fb923c" : "#6b7280";
+                    case "warna_class":
+                        const warnaClasses = {
+                            Brahman: "#f5b7b1",
+                            Kshatriya: "#a3e4d7",
+                            Vaishya: "#d5a6bd",
+                            Shudra: "#84a98c"
+                        };
+                        return warnaClasses[passport.warna_class] || "#6b7280";
+                    case "jitterbug_state":
+                        return passport.jitterbug_state === "Cuboctahedron" ? "#e8daef" : "#fbd78e";
+                    default:
+                        return "#6b7280";
+                }
+            }
+
+            function setupSliceControls() {
+                const sliceBtns = document.querySelectorAll(".slice-btn");
+                sliceBtns.forEach(btn => {
+                    btn.addEventListener("click", () => {
+                        sliceBtns.forEach(b => b.classList.remove("active"));
+                        btn.classList.add("active");
+                        renderHexagons();
+                    });
+                });
+            }

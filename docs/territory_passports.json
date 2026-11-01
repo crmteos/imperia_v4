@@ -1,55 +1,267 @@
 {
-  "system_version": "3.0.0-map-bound",
-  "data_source": "OpenStreetMap / Uber H3 Spatial Layer Engine",
+  "system_version": "3.0.0-global-h3-etl",
+  "data_source": "OpenStreetMap / Uber H3 Spatial Layer Engine - Global",
   "binding_logic": "Mapping core Q-telemetry and 4D E-tensors to native map feature IDs",
   "h3_layer_passports": {
-    "872830828ffffff": {
-      "map_layer": "Uber H3 Res 7",
-      "osm_relation_ref": "Kyiv_Central_District",
-      "q_factor": 0.99,
-      "E_tensor": [0.95, 0.91, 0.98, 0.89],
-      "warna_class": "Brahman",
-      "jitterbug_state": "Tetrahedron"
-    },
-    "872834700ffffff": {
-      "map_layer": "Uber H3 Res 7",
-      "osm_relation_ref": "Lviv_Western_Hub",
-      "q_factor": 0.97,
-      "E_tensor": [0.98, 0.89, 0.95, 0.92],
-      "warna_class": "Brahman",
-      "jitterbug_state": "Tetrahedron"
-    },
-    "872836263ffffff": {
-      "map_layer": "Uber H3 Res 7",
-      "osm_relation_ref": "Odesa_Port_Cluster",
-      "q_factor": 0.96,
-      "E_tensor": [0.82, 0.95, 0.88, 0.78],
-      "warna_class": "Kshatriya",
-      "jitterbug_state": "Cuboctahedron"
-    },
-    "872832a88ffffff": {
-      "map_layer": "Uber H3 Res 7",
-      "osm_relation_ref": "Kharkiv_Eastern_Forumpost",
-      "q_factor": 0.95,
-      "E_tensor": [0.85, 0.92, 0.90, 0.88],
-      "warna_class": "Vaishya",
-      "jitterbug_state": "Cuboctahedron"
-    },
-    "87283282bffffff": {
-      "map_layer": "Uber H3 Res 7",
-      "osm_relation_ref": "Dnipro_Central_Cluster",
-      "q_factor": 0.96,
-      "E_tensor": [0.88, 0.85, 0.92, 0.90],
+    "872b101ffffff": {
+      "h3_index": "872b101ffffff",
+      "name": "Kyiv Central Hub",
+      "country": "UA",
+      "macro_region": "Eastern Europe",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.022,
       "warna_class": "Shudra",
-      "jitterbug_state": "Tetrahedron"
+      "jitterbug_state": "Cuboctahedron"
+    },
+    "872b101ffff": {
+      "h3_index": "872b101ffff",
+      "name": "Lviv Western Hub",
+      "country": "UA",
+      "macro_region": "Western Europe",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.033,
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron"
+    },
+    "872b102ffffff": {
+      "h3_index": "872b102ffffff",
+      "name": "Odesa Port Cluster",
+      "country": "UA",
+      "macro_region": "Maritime East",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.026,
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron"
+    },
+    "872b103ffffff": {
+      "h3_index": "872b103ffffff",
+      "name": "Kharkiv Eastern Hub",
+      "country": "UA",
+      "macro_region": "Eastern Europe",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.035,
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron"
+    },
+    "872b104ffffff": {
+      "h3_index": "872b104ffffff",
+      "name": "Dnipro Central Cluster",
+      "country": "UA",
+      "macro_region": "Industrial East",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.004,
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron"
     },
     "8829b52001fffff": {
-      "map_layer": "Uber H3 Res 8",
-      "osm_relation_ref": "Tokyo_Eastern_Gateway",
-      "q_factor": 0.96,
-      "E_tensor": [0.94, 0.96, 0.91, 0.89],
-      "warna_class": "Brahman",
-      "jitterbug_state": "Tetrahedron"
+      "h3_index": "8829b52001fffff",
+      "name": "Tokyo Eastern Gateway",
+      "country": "JP",
+      "macro_region": "East Asia",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.01,
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron"
+    },
+    "850b5a0ffffffff": {
+      "h3_index": "850b5a0ffffffff",
+      "name": "London Financial Hub",
+      "country": "GB",
+      "macro_region": "Western Europe",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.02,
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron"
+    },
+    "850b6e0ffffffff": {
+      "h3_index": "850b6e0ffffffff",
+      "name": "New York Global Node",
+      "country": "US",
+      "macro_region": "North America",
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.831,
+        0.812,
+        0.837,
+        0.854
+      ],
+      "jitter": 0.032,
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron"
+    },
+    "872b": {
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.923,
+        0.902,
+        0.93,
+        0.949
+      ],
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron",
+      "avg_jitter": 0.024,
+      "h3_indices": [
+        "872b101ffffff",
+        "872b101ffff",
+        "872b102ffffff",
+        "872b103ffffff",
+        "872b104ffffff"
+      ],
+      "count": 5,
+      "resolution": 7,
+      "roll_up_from": "resolutions 8-8 (fine-grain aggregated)"
+    },
+    "8829": {
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.923,
+        0.902,
+        0.93,
+        0.949
+      ],
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron",
+      "avg_jitter": 0.01,
+      "h3_indices": [
+        "8829b52001fffff"
+      ],
+      "count": 1,
+      "resolution": 7,
+      "roll_up_from": "resolutions 8-8 (fine-grain aggregated)"
+    },
+    "850b": {
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.923,
+        0.902,
+        0.93,
+        0.949
+      ],
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron",
+      "avg_jitter": 0.026,
+      "h3_indices": [
+        "850b5a0ffffffff",
+        "850b6e0ffffffff"
+      ],
+      "count": 2,
+      "resolution": 7,
+      "roll_up_from": "resolutions 8-8 (fine-grain aggregated)"
     }
+  },
+  "roll_up_aggregations": {
+    "872b": {
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.923,
+        0.902,
+        0.93,
+        0.949
+      ],
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron",
+      "avg_jitter": 0.024,
+      "h3_indices": [
+        "872b101ffffff",
+        "872b101ffff",
+        "872b102ffffff",
+        "872b103ffffff",
+        "872b104ffffff"
+      ],
+      "count": 5,
+      "resolution": 7,
+      "roll_up_from": "resolutions 8-8 (fine-grain aggregated)"
+    },
+    "8829": {
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.923,
+        0.902,
+        0.93,
+        0.949
+      ],
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron",
+      "avg_jitter": 0.01,
+      "h3_indices": [
+        "8829b52001fffff"
+      ],
+      "count": 1,
+      "resolution": 7,
+      "roll_up_from": "resolutions 8-8 (fine-grain aggregated)"
+    },
+    "850b": {
+      "q_factor": 0.9,
+      "E_tensor": [
+        0.923,
+        0.902,
+        0.93,
+        0.949
+      ],
+      "warna_class": "Shudra",
+      "jitterbug_state": "Cuboctahedron",
+      "avg_jitter": 0.026,
+      "h3_indices": [
+        "850b5a0ffffffff",
+        "850b6e0ffffffff"
+      ],
+      "count": 2,
+      "resolution": 7,
+      "roll_up_from": "resolutions 8-8 (fine-grain aggregated)"
+    }
+  },
+  "generation_info": {
+    "total_passports": 11,
+    "global_hubs": 8,
+    "roll_up_groups": 3,
+    "metrics": [
+      "Q_factor",
+      "E_tensor_4D",
+      "jitter",
+      "warna_class",
+      "jitterbug_state"
+    ]
   }
 }
