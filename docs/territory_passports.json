@@ -1,72 +1,55 @@
 {
-  "version": "v4.0_master",
-  "updated_at": "2026-10-30",
-  "passports": [
-    {
-      "id": "hub-101-kyiv-m4",
-      "name": "101 — Київський Соборний Хаб",
-      "m_octave": "M4",
-      "h3_index": "872830828ffffff",
-      "center_lat": 50.4501,
-      "center_lng": 30.5234,
-      "q_coherence": 0.99,
-      "status": "ACTIVE_PRIMARY",
-      "role": "Центральний вузол фазової синхронізації та суверенного управління"
+  "system_version": "3.0.0-map-bound",
+  "data_source": "OpenStreetMap / Uber H3 Spatial Layer Engine",
+  "binding_logic": "Mapping core Q-telemetry and 4D E-tensors to native map feature IDs",
+  "h3_layer_passports": {
+    "872830828ffffff": {
+      "map_layer": "Uber H3 Res 7",
+      "osm_relation_ref": "Kyiv_Central_District",
+      "q_factor": 0.99,
+      "E_tensor": [0.95, 0.91, 0.98, 0.89],
+      "warna_class": "Brahman",
+      "jitterbug_state": "Tetrahedron"
     },
-    {
-      "id": "hub-102-lviv-m4",
-      "name": "102 — Львівський Західний Вузол",
-      "m_octave": "M4",
-      "h3_index": "872834700ffffff",
-      "center_lat": 49.8397,
-      "center_lng": 24.0297,
-      "q_coherence": 0.97,
-      "status": "ACTIVE_SECONDARY",
-      "role": "Західний інфраструктурний форпост та P2P-міст"
+    "872834700ffffff": {
+      "map_layer": "Uber H3 Res 7",
+      "osm_relation_ref": "Lviv_Western_Hub",
+      "q_factor": 0.97,
+      "E_tensor": [0.98, 0.89, 0.95, 0.92],
+      "warna_class": "Brahman",
+      "jitterbug_state": "Tetrahedron"
     },
-    {
-      "id": "hub-103-odesa-m4",
-      "name": "103 — Одеський Південний Кластер",
-      "m_octave": "M4",
-      "h3_index": "872836263ffffff",
-      "center_lat": 46.4825,
-      "center_lng": 30.7233,
-      "q_coherence": 0.96,
-      "status": "ACTIVE_SECONDARY",
-      "role": "Південний логістичний та морський контур"
+    "872836263ffffff": {
+      "map_layer": "Uber H3 Res 7",
+      "osm_relation_ref": "Odesa_Port_Cluster",
+      "q_factor": 0.96,
+      "E_tensor": [0.82, 0.95, 0.88, 0.78],
+      "warna_class": "Kshatriya",
+      "jitterbug_state": "Cuboctahedron"
     },
-    {
-      "id": "hub-104-kharkiv-m4",
-      "name": "104 — Харківський Східний Форпост",
-      "m_octave": "M4",
-      "h3_index": "872832a88ffffff",
-      "center_lat": 50.0015,
-      "center_lng": 36.2315,
-      "q_coherence": 0.95,
-      "status": "ACTIVE_SECONDARY",
-      "role": "Східний контур безпеки та периферифійного моніторингу"
+    "872832a88ffffff": {
+      "map_layer": "Uber H3 Res 7",
+      "osm_relation_ref": "Kharkiv_Eastern_Forumpost",
+      "q_factor": 0.95,
+      "E_tensor": [0.85, 0.92, 0.90, 0.88],
+      "warna_class": "Vaishya",
+      "jitterbug_state": "Cuboctahedron"
     },
-    {
-      "id": "hub-105-dnipro-m4",
-      "name": "105 — Дніпровський Центрально-Східний Хаб",
-      "m_octave": "M4",
-      "h3_index": "87283282bffffff",
-      "center_lat": 48.4647,
-      "center_lng": 35.0462,
-      "q_coherence": 0.96,
-      "status": "ACTIVE_SECONDARY",
-      "role": "Промислово-технологічний контур підтримки"
+    "87283282bffffff": {
+      "map_layer": "Uber H3 Res 7",
+      "osm_relation_ref": "Dnipro_Central_Cluster",
+      "q_factor": 0.96,
+      "E_tensor": [0.88, 0.85, 0.92, 0.90],
+      "warna_class": "Shudra",
+      "jitterbug_state": "Tetrahedron"
     },
-    {
-      "id": "cluster-japan-m4",
-      "name": "Японський Геостратегічний Кластер (Токіо)",
-      "m_octave": "M4",
-      "h3_index": "8829b52001fffff",
-      "center_lat": 35.6762,
-      "center_lng": 139.6503,
-      "q_coherence": 0.96,
-      "status": "EXTERNAL_BRIDGE",
-      "role": "Східноазійський вектор інтеграції та дослідження технологічних осей"
+    "8829b52001fffff": {
+      "map_layer": "Uber H3 Res 8",
+      "osm_relation_ref": "Tokyo_Eastern_Gateway",
+      "q_factor": 0.96,
+      "E_tensor": [0.94, 0.96, 0.91, 0.89],
+      "warna_class": "Brahman",
+      "jitterbug_state": "Tetrahedron"
     }
-  ]
+  }
 }
