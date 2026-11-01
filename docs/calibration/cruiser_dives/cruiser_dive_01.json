@@ -1,0 +1,24 @@
+{
+  "dive_id": "cruiser_dive_01",
+  "title": "Context Field Mapping & Domain Expansion Strategy",
+  "timestamp": "2026-11-01",
+  "baseline_ref": "CRYSTAL_V1_UNIFIED_MASTER_CLONE",
+  "domains": {
+    "domain_1_p2p_transport": {
+      "focus": "libp2p + Kademlia DHT + Uber H3 Spatial Indexing",
+      "status": "planned_cruiser_dive_02"
+    },
+    "domain_2_vector_db": {
+      "focus": "Supabase Vector Store & Automated Checkpoint Ingestion",
+      "status": "planned_cruiser_dive_03"
+    },
+    "domain_3_applied_engineering": {
+      "focus": "Helmholtz Acoustic & Electromagnetic Triplet Physical Models",
+      "status": "isolated_module"
+    }
+  },
+  "context_isolation_policy": {
+    "core_crystal_status": "SEALED",
+    "noise_reduction_rule": "All heavy applied calculations reside in cruiser_dives and isolated chats."
+  }
+}
