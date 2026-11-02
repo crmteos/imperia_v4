@@ -1,4 +1,5 @@
 /* docs/style.css - Imperia v4 GitHub Pages Dashboard Styles */
+.leaflet-container img { max-width: none !important; }
 :root {
   --bg-color: #0a0a0f;
   --card-bg: #12121f;

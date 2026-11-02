@@ -1,0 +1,8 @@
+{
+  "dive_id": "CRUISER_DIVE_008",
+  "title": "Декомпозиція UI та Просторові Дашборди",
+  "target_module": "ui_layer",
+  "status": "SEALED",
+  "metrics_affected": ["Q_node", "E_tensor", "jitter"],
+  "created_at": "2026-11-02"
+}

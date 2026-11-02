@@ -1,0 +1,8 @@
+{
+  "dive_id": "CRUISER_DIVE_027",
+  "title": "Паттерни Інтеграції Контекстних Полів у Хвильове Ядро wave_core",
+  "target_module": "wave_core",
+  "status": "SEALED",
+  "metrics_affected": ["Q_node", "E_tensor", "jitter"],
+  "created_at": "2026-11-02"
+}
