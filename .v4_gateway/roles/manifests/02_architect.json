@@ -1,8 +1,16 @@
 {
   "role_id": "02_architect",
-  "role_name": "System & Data Structure Architect",
-  "allowed_actions": ["schema_design", "task_decomposition", "write_spec"],
-  "restricted_actions": ["direct_ui_coding"],
-  "input_sources": [".v4_gateway/roles/memory/execution_state.json"],
-  "output_target": ".v4_gateway/roles/memory/execution_state.json"
+  "role_name": "Level 3 Role Architect",
+  "scope": "Local Task Decomposition & Role Orchestration",
+  "responsibilities": [
+    "Parse context manifests received from Level 2 in .v4_gateway/in/",
+    "Decompose complex features into sub-tasks for Frontend, Diagnostician, and QA roles",
+    "Maintain state tracking in .v4_gateway/roles/memory/execution_state.json",
+    "Issue escalation tickets in bridge files when Level 2 context is missing"
+  ],
+  "allowed_tools": ["read_file", "write_file"],
+  "prohibited_actions": [
+    "Do not execute Git push operations directly (delegate to Role Administrator)",
+    "Do not bypass physical file isolation rules"
+  ]
 }
