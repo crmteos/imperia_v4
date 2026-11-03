@@ -24,6 +24,9 @@
 - [x] **Етап Б.1:** Інтеграція `BrahmanVaultClient` у Master UI (`index.html`) для відображення віджета "Brahman Vault Inspector".
 - [x] **Етап Б.2:** Підключення P2P-симулятора когерентності вузлів у `docs/p2p_simulator.js`.
 - [x] **Етап Б.3:** Інтеграція ETL pipeline та Choropleth візуалізації у `docs/index.html`.
+- [x] **Етап В.1:** Level 3 Role Separation - Role Architect & Role Administrator manifests created (.v4_gateway/roles/manifests/02_architect.json, 05_administrator.json)
+- [x] **Етап В.2:** Context & Role Invariants extracted to .v4_gateway/in/context_invariants.md and .v4_gateway/roles/role_invariants.md
+- [x] **Етап В.3:** STATE_CONTEXT_BRIDGE.md generated in .v4_gateway/out/ with system status, invariants summary, and directory audit
 
 ## 5. Концепція UI Індексу (Візія Власника)
 #### 4. Контури Програмування (Three-Contour Isolation v3.0)
