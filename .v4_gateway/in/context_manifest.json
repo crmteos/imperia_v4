@@ -1,0 +1,30 @@
+{
+  "protocol_version": "3.0.0-master",
+  "issuer": "Level 2: Context Administrator (Gemini Notebook)",
+  "target_recipient": "Level 3: Role Architect (Cline in IDE)",
+  "session_control": {
+    "fresh_session_required": true,
+    "current_phase": "Phase 7.9: 3-Level Architecture Protocol & Memory Bridge Deployment"
+  },
+  "context_intent": {
+    "primary_goal": "Deploy 3-Level Architecture Protocol, Role Routing Structure and State Context Bridge",
+    "scope_boundaries": [
+      "Confirm physical directory /.v4_gateway/roles/ (manifests & memory)",
+      "Verify 4 role manifests: 01_diagnostician, 02_architect, 03_frontend_dev, 04_qa_engineer",
+      "Initialize /.v4_gateway/out/STATE_CONTEXT_BRIDGE.json with active system state",
+      "Update master_checklist.md to confirm 3-Level Protocol readiness"
+    ],
+    "non_goals": [
+      "Do NOT implement Phase 8 code features until protocol bridge is fully synced"
+    ]
+  },
+  "context_constraints": {
+    "zero_budget_rule": true,
+    "physical_ui_isolation": true,
+    "hard_overwrite_rule": true,
+    "pre_commit_syntax_check": true
+  },
+  "escalation_rules": {
+    "on_ambiguity": "Write ticket to /.v4_gateway/out/STATE_CONTEXT_BRIDGE.json under 'context_escalation' and set status to PAUSED_NEEDS_CONTEXT"
+  }
+}
