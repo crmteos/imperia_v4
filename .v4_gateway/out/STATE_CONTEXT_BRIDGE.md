@@ -16,3 +16,5 @@
 
 ## 4. Pending Escalations / Questions for Level 2
 - Escalations: None. Ready for Step 2 Refactoring.
+- Role Architect manifest updated: 02_architect.json reflects Level 3 orchestration scope
+- Role Administrator manifest created: 05_administrator.json for gateway file control
