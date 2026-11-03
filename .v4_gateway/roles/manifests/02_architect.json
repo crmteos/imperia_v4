@@ -1,0 +1,8 @@
+{
+  "role_id": "02_architect",
+  "role_name": "System & Data Structure Architect",
+  "allowed_actions": ["schema_design", "task_decomposition", "write_spec"],
+  "restricted_actions": ["direct_ui_coding"],
+  "input_sources": [".v4_gateway/roles/memory/execution_state.json"],
+  "output_target": ".v4_gateway/roles/memory/execution_state.json"
+}

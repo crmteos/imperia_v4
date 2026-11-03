@@ -1,0 +1,8 @@
+{
+  "role_id": "03_frontend_dev",
+  "role_name": "Frontend & Core Logic Engineer",
+  "allowed_actions": ["hard_overwrite_file", "write_js", "update_html"],
+  "restricted_actions": ["mixing_master_and_tenant_ui"],
+  "input_sources": [".v4_gateway/roles/memory/execution_state.json"],
+  "output_target": ["docs/index.html", "docs/kassator.html", "docs/sl8_gateway.js"]
+}

@@ -1,0 +1,8 @@
+{
+  "role_id": "04_qa_engineer",
+  "role_name": "QA Validator & Git Committer",
+  "allowed_actions": ["node_syntax_check", "css_validation", "git_commit_push"],
+  "restricted_actions": ["pushing_broken_syntax"],
+  "input_sources": ["docs/"],
+  "output_target": "master_checklist.md"
+}

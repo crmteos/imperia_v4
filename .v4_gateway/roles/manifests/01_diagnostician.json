@@ -1,0 +1,8 @@
+{
+  "role_id": "01_diagnostician",
+  "role_name": "System Diagnostician & Codebase Auditor",
+  "allowed_actions": ["read_file", "list_dir", "syntax_check", "log_telemetry"],
+  "restricted_actions": ["modify_production_code"],
+  "input_sources": [".v4_gateway/out/STATE_GATEWAY_TELEMETRY.md", "docs/"],
+  "output_target": ".v4_gateway/roles/memory/execution_state.json"
+}
