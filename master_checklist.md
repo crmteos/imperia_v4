@@ -27,6 +27,8 @@
 - [x] **Етап В.1:** Level 3 Role Separation - Role Architect & Role Administrator manifests created (.v4_gateway/roles/manifests/02_architect.json, 05_administrator.json)
 - [x] **Етап В.2:** Context & Role Invariants extracted to .v4_gateway/in/context_invariants.md and .v4_gateway/roles/role_invariants.md
 - [x] **Етап В.3:** STATE_CONTEXT_BRIDGE.md generated in .v4_gateway/out/ with system status, invariants summary, and directory audit
+- [x] **Етап Г.1:** Step 3 Refactoring - docs/ workspace cleaned, role alignment confirmed
+- [x] **Етап Г.2:** 3-Level Architecture Readiness confirmed under Context Engineering v3.0
 
 ## 5. Концепція UI Індексу (Візія Власника)
 #### 4. Контури Програмування (Three-Contour Isolation v3.0)
