@@ -65,4 +65,4 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Fallback: if only telemetry feed is available
   fetch('./telemetry_feed.json') .then(r => r.json()) .then(data => renderDashboard(data)) .catch(e => console.log('Using default telemetry:', e));
-}
+});

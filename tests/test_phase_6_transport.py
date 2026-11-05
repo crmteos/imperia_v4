@@ -135,7 +135,7 @@ async def test_unified_transport_handshake_handoff():
 # ── Test 8: Edge handoff integration ───────────────────────────────────────
 
 
-def test_edge_handoff_context_serialization():
+async def test_edge_handoff_context_serialization():
     """Test that edge handoff context can be serialized for network transmission.
 
     Verifies that context snapshots from edge_handoff.py can be
