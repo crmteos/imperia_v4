@@ -1,5 +1,17 @@
-# CLINE RULES - Imperia v4 Project
-# Last updated: 2026-10-28
+# Local LLM Execution Rules (Ollama / qwen2.5-coder)
+
+1. **Tool Calling Precision**:
+   - Output exactly ONE tool call block per turn.
+   - Ensure all JSON argument objects are valid and closed before ending response.
+   - Do not wrap tool calls in conversational preamble or extra markdown blocks.
+
+2. **Terminal & File Hygiene**:
+   - Use absolute or standard workspace-relative paths (`.v4_gateway/in/`, `.v4_gateway/out/`).
+   - Run commands non-interactively. Avoid commands requiring stdin input.
+
+3. **Gateway Protocol**:
+   - Read directives from `.v4_gateway/in/`.
+   - Record final telemetry to `.v4_gateway/out/STATE_CONTEXT_BRIDGE.md`.
 
 ## INVARIANT 1: File Separation
 Never merge or conflate docs/index.html and docs/kassator.html.
